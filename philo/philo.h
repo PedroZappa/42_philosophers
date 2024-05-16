@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/16 17:40:25 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:46:00 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ typedef struct s_data
 {
 	int				n_philos;
 	int				n_forks;
+	int				n_meals;
+	int				done;
+	t_msec			t_start;
 	t_msec			t_death;
 	t_msec			t_meal;
 	t_msec			t_sleep;
-	int				n_meals;
-	int				done;
 	pthread_mutex_t	*mutex_fork;
 	pthread_mutex_t	mutex_printf;
-	t_msec			t_start;
 	pthread_t		check_monitor;
 }			t_data;
 
