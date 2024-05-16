@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/16 17:46:00 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:52:09 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_philo
 
 /// ft_error.c
 ///
-void	ft_perror(char *err);
+int		ft_perror(char *err);
 
 /// ft_parse_args.c
 void	ft_parse_args(t_data *dinner, char **argv);
