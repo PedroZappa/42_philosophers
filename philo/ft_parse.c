@@ -13,8 +13,8 @@
 #include "philo.h"
 
 static long	ft_atol(char *str);
-static int		ft_isspace(char c);
-static int		ft_isdigit(char c);
+static int	ft_isspace(char c);
+static int	ft_isdigit(char c);
 
 void	ft_parse_args(t_data *dinner, char **argv)
 {
