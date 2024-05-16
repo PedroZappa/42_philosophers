@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:17:35 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/16 15:41:27 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:35:45 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,22 @@
 // 4. Cleanup => When all philos have eaten || a philo has died
 int	main(int argc, char **argv)
 {
-	(void)argc;
+	t_data	dinner;
+
 	(void)argv;
+	if ((argc != 5) && (argc != 6))
+	{
+		ft_perror(RED"Wrong number of arguments\n"NC);
+		return (1);
+	}
+	else
+	{
+		ft_parse_args(&dinner, argv);
+		printf("Input n_philos: %d\n", dinner.n_philos);
+		printf("Input t_death: %ld\n", (long)dinner.t_death);
+		printf("Input t_meal: %ld\n", (long)dinner.t_meal);
+		printf("Input t_sleep: %ld\n", (long)dinner.t_sleep);
+		printf("Input n_meals: %d\n", dinner.n_meals);
+	}
 	return (0);
 }
