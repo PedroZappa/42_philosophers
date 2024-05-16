@@ -12,9 +12,9 @@
 
 #include "philo.h"
 
-long	ft_atol(char *str);
-int		ft_isspace(char c);
-int		ft_isdigit(char c);
+static long	ft_atol(char *str);
+static int		ft_isspace(char c);
+static int		ft_isdigit(char c);
 
 void	ft_parse_args(t_data *dinner, char **argv)
 {
@@ -28,7 +28,7 @@ void	ft_parse_args(t_data *dinner, char **argv)
 		dinner->n_meals = -1;
 }
 
-long	ft_atol(char *str)
+static long	ft_atol(char *str)
 {
 	long	num;
 	int		i;
@@ -50,7 +50,7 @@ long	ft_atol(char *str)
 	return (num * sign);
 }
 
-int	ft_isspace(char c)
+static int	ft_isspace(char c)
 {
 	if ((c == ' ') || (c == '\t') || (c == '\n')
 		|| (c == '\v') || (c == '\f') || (c == '\r'))
@@ -59,7 +59,7 @@ int	ft_isspace(char c)
 		return (0);
 }
 
-int	ft_isdigit(char c)
+static int	ft_isdigit(char c)
 {
 	if ((c >= '0') && (c <= '9'))
 		return (1);
