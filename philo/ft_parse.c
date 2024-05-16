@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/16 17:34:59 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:00:55 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ long	ft_atol(char *str)
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-		{
-			ft_perror("Negative number\n");
-			return (0);
-		}
+			return (ft_perror(RED"Negative number\n"NC));
 		++i;
 	}
 	while (ft_isdigit(str[i]))
