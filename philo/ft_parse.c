@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 19:29:14 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 20:55:31 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ long	ft_parse_arg(char *str)
 	{
 		num = (num * 10) + (str[i++] - '0');
 		if (num > INT_MAX)
-			return (ft_perror(RED"Error: Arg exceeds INT_MAX\n"NC));
+			return (ft_perror(RED"Error: arg exceeds INT_MAX\n"NC));
 	}
 	return (num * sign);
 }
