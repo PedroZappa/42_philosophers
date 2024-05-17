@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 19:22:38 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 21:13:20 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 	int		i;
 
 	if (ft_init_data(&data, argc, argv) == -1)
-		return (ft_perror(RED"Error: Data init\n"NC));
+		return (1);
 	if (pthread_mutex_init(&data->mutex_printf, NULL))
 		return (ft_perror(RED"Error: Printf Mutex init\n"NC));
 	if (ft_init_forks(data) == -1)
