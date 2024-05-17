@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 18:51:04 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:07:11 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,29 @@ static int	ft_init_forks(t_data *data)
 	return (0);
 }
 
+/// @brief			Initialize a philo
+/// @details		- Assigns id, meal_count, t_meal & data
+/// 				- Assigns l_fork & r_fork
+/// 				(If first philo, l_fork is last fork in forks array)
+/// 				(If not first philo, l_fork is previous philo's r_fork)
+/// @param philo	Pointer to a t_philo struct to init
+/// @param i		Index of the current philo
+/// @param data		Pointer to a t_data struct holding the simulation data
+/// @param forks	Pointer to an array of mutexes/forks (part of t_data)
 static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks)
 {
-	(void)philo;
-	(void)i;
-	(void)data;
-	(void)forks;
+	philo->id = (i + 1);
+	philo->meal_count = 0;
+	philo->t_meal = 0;
+	philo->data = data;
+	if (i == 0)
+	{
+		philo->l_fork = (forks + data->n_philos - 1);
+		philo->r_fork = (forks + i);
+	}
+	else
+	{
+		philo->l_fork = (forks + i - 1);
+		philo->r_fork = (forks + i);
+	}
 }
