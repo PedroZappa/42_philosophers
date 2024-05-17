@@ -69,7 +69,7 @@ typedef struct s_philo
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	int				id;
-	int				dinner_count;
+	int				meal_count;
 	t_msec			t_meal;
 	t_data			*data;
 }			t_philo;
