@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 19:07:11 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:20:33 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 	int		i;
 
 	if (ft_init_data(&data, argc, argv) == -1)
-		return (-1);
+		return (ft_perror(RED"Error: Data init\n"NC));
 	if (pthread_mutex_init(&data->mutex_printf, NULL))
 		return (ft_perror(RED"Error: Printf Mutex init\n"NC));
 	if (ft_init_forks(data) == -1)
-		return (-1);
+		return (ft_perror(RED"Error: Forks init\n"NC));
 	new_philo = malloc(sizeof(t_philo) * data->n_philos);
 	if (!new_philo)
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
