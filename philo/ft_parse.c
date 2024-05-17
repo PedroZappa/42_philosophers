@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 19:16:50 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:18:25 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_isspace(char c);
 static int	ft_isdigit(char c);
 
-/// @brief		Parse input argument
+/// @brief		Parse input argument and return it as long
 /// @param str	Argument to parse
 /// @return		Parsed argument as long on success, -1 on failure
 long	ft_parse_arg(char *str)
@@ -44,6 +44,9 @@ long	ft_parse_arg(char *str)
 	return (num * sign);
 }
 
+/// @brief		Check if a character is a space
+/// @param c	Character to check
+/// @return		1 if true, 0 if false
 static int	ft_isspace(char c)
 {
 	if ((c == ' ') || ((c >= 9) && (c <= 13)))
@@ -52,6 +55,9 @@ static int	ft_isspace(char c)
 		return (0);
 }
 
+/// @brief		Check if a character is a digit
+/// @param c	Character to check
+/// @return		1 if true, 0 if false
 static int	ft_isdigit(char c)
 {
 	if ((c >= '0') && (c <= '9'))
