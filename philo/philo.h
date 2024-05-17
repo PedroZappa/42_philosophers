@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 17:38:29 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:18:50 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@
 # define NC "\e[0m"
 
 /// Typedefs
-typedef long long	t_msec;
+typedef long long		t_msec;
+typedef pthread_mutex_t	t_mutex;
 
 //=============================================================================/
 //                               Structures                                    /
@@ -50,28 +51,28 @@ typedef long long	t_msec;
 
 typedef struct s_data
 {
-	int				n_philos;
-	int				n_forks;
-	int				n_meals;
-	int				done;
-	t_msec			t_start;
-	t_msec			t_death;
-	t_msec			t_meal;
-	t_msec			t_sleep;
-	pthread_mutex_t	*mutex_fork;
-	pthread_mutex_t	mutex_printf;
-	pthread_t		check_monitor;
+	int			n_philos;
+	int			n_forks;
+	int			n_meals;
+	int			done;
+	t_msec		t_start;
+	t_msec		t_death;
+	t_msec		t_meal;
+	t_msec		t_sleep;
+	t_mutex		*mutex_fork;
+	t_mutex		mutex_printf;
+	pthread_t	check_monitor;
 }			t_data;
 
 typedef struct s_philo
 {
-	pthread_t		thread;
-	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*r_fork;
-	int				id;
-	int				meal_count;
-	t_msec			t_meal;
-	t_data			*data;
+	pthread_t	thread;
+	t_mutex		*l_fork;
+	t_mutex		*r_fork;
+	int			id;
+	int			meal_count;
+	t_msec		t_meal;
+	t_data		*data;
 }			t_philo;
 
 //=============================================================================/
