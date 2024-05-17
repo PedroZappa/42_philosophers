@@ -52,8 +52,7 @@ static long	ft_atol(char *str)
 
 static int	ft_isspace(char c)
 {
-	if ((c == ' ') || (c == '\t') || (c == '\n')
-		|| (c == '\v') || (c == '\f') || (c == '\r'))
+	if ((c == ' ') || ((c >= 9) && (c <= 13)))
 		return (1);
 	else
 		return (0);
