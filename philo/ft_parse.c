@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 19:12:15 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:16:50 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 static int	ft_isspace(char c);
 static int	ft_isdigit(char c);
 
+/// @brief		Parse input argument
+/// @param str	Argument to parse
+/// @return		Parsed argument as long on success, -1 on failure
 long	ft_parse_arg(char *str)
 {
 	long	num;
@@ -36,10 +39,7 @@ long	ft_parse_arg(char *str)
 	{
 		num = (num * 10) + (str[i++] - '0');
 		if (num > INT_MAX)
-		{
-			ft_perror(RED"Error : Arg exceeds INT_MAX\n"NC);
-			return (-1);
-		}
+			return (ft_perror(RED"Error : Arg exceeds INT_MAX\n"NC));
 	}
 	return (num * sign);
 }
