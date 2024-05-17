@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/17 21:24:42 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/17 22:45:13 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -186,7 +186,7 @@ remove_ansi_noise:
 
 ##@ Debug Rules 
 
-gdb: deps $(NAME) $(TEMP_PATH)			## Debug w/ gdb
+gdb: all $(NAME) $(TEMP_PATH)			## Debug w/ gdb
 	tmux split-window -h "gdb --tui --args ./$(NAME)"
 	tmux resize-pane -L 5
 	@if command -v lnav; then \
@@ -195,7 +195,7 @@ gdb: deps $(NAME) $(TEMP_PATH)			## Debug w/ gdb
 		tail -f gdb.txt; \
 	fi
 
-vgdb: deps $(NAME) $(TEMP_PATH)			## Debug w/ valgrind & gdb
+vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt ./$(NAME) $(ARG)"
 	make vgdb_pid
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
@@ -207,11 +207,14 @@ vgdb: deps $(NAME) $(TEMP_PATH)			## Debug w/ valgrind & gdb
 		tail -f gdb.txt; \
 	fi
 
-vgdb_bonus: deps $(NAME) $(TEMP_PATH)			## Debug bonus w/ valgrind & gdb
-	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt ./$(NAME)"
+vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ helgrind & gdb
+	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt --tool=helgrind ./$(NAME) $(ARG)"
 	make vgdb_pid
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
 	tmux resize-pane -U 18
+	make get_log
+
+get_log:
 	touch gdb.txt
 	@if command -v lnav; then \
 		lnav gdb.txt; \
