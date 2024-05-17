@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 18:18:50 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:20:24 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_data
 	t_msec		t_sleep;
 	t_mutex		*mutex_fork;
 	t_mutex		mutex_printf;
-	pthread_t	check_monitor;
+	pthread_t	monitor;
 }			t_data;
 
 typedef struct s_philo
