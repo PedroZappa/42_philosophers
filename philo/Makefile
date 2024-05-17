@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/17 21:06:47 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/17 21:12:09 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -154,7 +154,7 @@ check_ext_func: all		## Check for external functions
 
 ##@ Test Rules 🧪
 
-test_input:
+test_input: all
 	@echo "[$(YEL)Testing invalid input$(D)]"
 	@echo "$(YEL)$(_SEP)$(D)"
 	-@for i in $$(seq 1 7); do \

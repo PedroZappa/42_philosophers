@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:17:35 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 17:37:54 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 21:11:42 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	t_philo	*philos;
 
 	if ((argc != 5) && (argc != 6))
-		return (ft_perror(RED"Wrong number of arguments\n"NC));
+		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	if (ft_init(&philos, argc, argv) == -1)
 		return (0);
 	ft_philosophize(philos);
