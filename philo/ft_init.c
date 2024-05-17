@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 18:42:45 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:51:04 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <pthread.h>
 
 static int	ft_init_data(t_data **data, int argc, char **argv);
-static int	ft_init_fork(t_data *data);
+static int	ft_init_forks(t_data *data);
 static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks);
 
 /// @brief			Initialize all simulation data
@@ -35,7 +35,7 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 		return (-1);
 	if (pthread_mutex_init(&data->mutex_printf, NULL))
 		return (ft_perror(RED"Error: Printf Mutex init\n"NC));
-	if (ft_init_fork(data) == -1)
+	if (ft_init_forks(data) == -1)
 		return (-1);
 	new_philo = malloc(sizeof(t_philo) * data->n_philos);
 	if (!new_philo)
@@ -84,9 +84,22 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	return (0);
 }
 
-static int	ft_init_fork(t_data *data)
+/// @brief			Initialize forks
+/// @details		- Alloc memory for all mutexes/forks
+///					- Initialize mutexes/forks
+///	@param data		Pointer to a t_data struct holding the simulation data
+///	@return			0 on success, -1 on failure
+static int	ft_init_forks(t_data *data)
 {
-	(void)data;
+	int	i;
+
+	data->mutex_fork = malloc(sizeof(t_mutex) * data->n_forks);
+	if (!data->mutex_fork)
+		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
+	i = -1;
+	while (++i < data->n_forks)
+		if (pthread_mutex_init((data->mutex_fork + 1), NULL))
+			return (ft_perror(RED"Error: Fork Mutex init\n"NC));
 	return (0);
 }
 
