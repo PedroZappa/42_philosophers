@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 18:13:02 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:17:53 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 
 static int	ft_init_data(t_data **data, int argc, char **argv);
 static int	ft_init_fork(t_data *data);
-static void	ft_init_philo(t_philo *philo, int i,
-				t_data *data, pthread_mutex_t *forks);
+static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks);
 
 int	ft_init(t_philo **philo, int argc, char **argv)
 {
@@ -54,8 +53,7 @@ static int	ft_init_fork(t_data *data)
 	return (0);
 }
 
-static void	ft_init_philo(t_philo *philo, int i,
-				t_data *data, pthread_mutex_t *forks)
+static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks)
 {
 	(void)philo;
 	(void)i;
