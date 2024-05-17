@@ -12,6 +12,8 @@
 
 #include "philo.h"
 
+/// @brief		Get current time and convert it to milliseconds
+/// @return		Current time in milliseconds
 t_msec	ft_gettime(void)
 {
 	struct timeval	t;
