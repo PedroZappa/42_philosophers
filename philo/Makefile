@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/17 21:12:09 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/17 21:24:42 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -155,19 +155,30 @@ check_ext_func: all		## Check for external functions
 ##@ Test Rules 🧪
 
 test_input: all
-	@echo "[$(YEL)Testing invalid input$(D)]"
+	@echo "$(CYA)Testing $(RED)invalid $(CYA)input$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
-	-@for i in $$(seq 1 7); do \
-		echo "$(CYA)Test $$i$(D)"; \
-		case $$i in \
-			1) cmd="./philo"; echo "$$cmd"; $$cmd | xargs -I {} printf "%s\n" "{}";; \
-			2) cmd="./philo 2 200 200"; echo "$$cmd"; $$cmd | xargs -I {} printf "%s\n" "{}";; \
-			3) cmd="./philo 200 200 200 42 3"; echo "$$cmd"; $$cmd | xargs -I {} printf "%s\n" "{}";; \
-			4) cmd="./philo 2 200 200 200 -42"; echo "$$cmd"; $$cmd | xargs -I {} printf "%s\n" "{}";; \
-			5) cmd="./philo 2 2147483648 200 200"; echo "$$cmd"; $$cmd | xargs -I {} printf "%s\n" "{}";; \
-			6) cmd="./philo \"   a2\" 200 200 200"; echo "$$cmd"; $$cmd | xargs -I {} printf "%s\n" "{}";; \
-		esac; \
-	done
+	@echo "$(CYA)Test 1$(D)"
+	-./philo
+	@echo "$(CYA)Test 2$(D)"
+	-./philo 2 200 200
+	@echo "$(CYA)Test 3$(D)"
+	-./philo "200" 200 200 42 3
+	@echo "$(CYA)Test 4$(D)"
+	-./philo 2 200 200 200 -42
+	@echo "$(CYA)Test 5$(D)"
+	-./philo 2 2147483648 200 200
+	@echo "$(CYA)Test 6$(D)"
+	-./philo "  a2" 200 200 200
+	@echo "$(YEL)$(_SEP)$(D)"
+	@echo "$(CYA)Testing $(GRN)valid $(CYA)input$(D)"
+	@echo "$(YEL)$(_SEP)$(D)"
+	@echo "$(CYA)Test 1$(D)"
+	-./philo "200" 200 200 42 3
+	@echo "$(CYA)Test 2$(D)"
+	-./philo "   2" 200 200 200
+	@echo "$(CYA)Test 3$(D)"
+	-./philo "   2a33" 200 200 200
+	@echo "$(CYA)Test 4$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 remove_ansi_noise:
