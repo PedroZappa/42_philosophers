@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 18:27:09 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:39:28 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 		return (-1);
 	new_philo = malloc(sizeof(t_philo) * data->n_philos);
 	if (!new_philo)
-		return (ft_perror(RED"Error: failed to alloc philos\n"NC));
+		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	i = -1;
 	while (++i < data->n_philos)
 		ft_init_philo((new_philo + i), i, data, data->mutex_fork);
@@ -49,9 +49,28 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 
 static int	ft_init_data(t_data **data, int argc, char **argv)
 {
-	(void)data;
-	(void)argc;
-	(void)argv;
+	t_data	*new;
+
+	new = malloc(sizeof(t_data));
+	if (!new)
+		return (ft_perror(RED"Error: failure to alloc data\n"NC));
+	new->n_philos = ft_parse_arg(argv[1]);
+	new->n_forks = new->n_philos;
+	new->t_death = ft_parse_arg(argv[2]);
+	new->t_meal = ft_parse_arg(argv[3]);
+	new->t_sleep = ft_parse_arg(argv[4]);
+	if ((new->n_philos < 1) || (new->n_philos > 250) || (new->t_death == -1) \
+		|| (new->t_meal == -1) || (new->t_sleep == -1))
+		return (ft_perror(RED"Error: invalid arguments\n"NC));
+	new->n_meals = -1;
+	if (argc == 6)
+	{
+		new->n_meals = ft_parse_arg(argv[5]);
+		if (new->n_meals == -1)
+			return (ft_perror(RED"Error: invalid arguments\n"NC));
+	}
+	new->done = 0;
+	*data = new;
 	return (0);
 }
 
