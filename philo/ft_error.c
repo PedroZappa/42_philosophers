@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 15:49:16 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/16 17:58:54 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 19:15:57 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	ft_strlen(char *str);
 int	ft_perror(char *err)
 {
 	ft_putstr_fd(err, 2);
-	return (1);
+	return (-1);
 }
 
 /// @brief		Print a string to a given fd
