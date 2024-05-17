@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 18:39:28 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/17 18:42:45 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 	return (0);
 }
 
+/// @brief			Parse input arguments and initialize data
+/// @details		- Init n_philos
+/// 				- Init time to die
+/// 				- Init time to eat
+/// 				- Init time to sleep
+/// 				- Init n_meals
+/// @param data		Pointer to a t_data struct
+/// @param argc		Number of arguments
+/// @param argv		Argument vector
+/// @return			0 on success, -1 on failure
 static int	ft_init_data(t_data **data, int argc, char **argv)
 {
 	t_data	*new;
