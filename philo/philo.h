@@ -92,5 +92,6 @@ long	ft_parse_arg(char *str);
 
 /// ft_time.c
 t_msec	ft_gettime(void);
+void	ft_philo_do(t_msec time, t_data *data);
 
 #endif

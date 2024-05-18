@@ -27,7 +27,7 @@ t_msec	ft_gettime(void)
 /// @param data		Pointer to t_data struct
 /// @details		- Get current time in milliseconds
 /// 				- Wait until time is reached or data->done is set
-void	ft_update_time(t_msec time, t_data *data)
+void	ft_philo_do(t_msec time, t_data *data)
 {
 	t_msec	t;
 

@@ -15,6 +15,7 @@
 static void	ft_philosophize(t_philo *philos);
 static void	*ft_start_philo(void *args);
 static void	*ft_monitor(void *args);
+static void	ft_philo_log(t_philo *philo, char *str);
 
 /// @brief		Main function
 /// @param argc	Number of arguments
@@ -66,7 +67,20 @@ static void	ft_philosophize(t_philo *philos)
 
 static void	*ft_start_philo(void *args)
 {
-	(void)args;
+	t_philo	*philo;
+
+	philo = (t_philo *)args;
+	while (!philo->data->done)
+	{
+		ft_philo_log(philo, "is thinking");
+		pthread_mutex_lock(philo->l_fork);
+		ft_philo_log(philo, "has taken a fork");
+		pthread_mutex_lock(philo->r_fork);
+		ft_philo_log(philo, "has taken a fork");
+		ft_philo_log(philo, "is eating");
+		ft_philo_do(philo->data->t_meal, philo->data);
+
+	}
 	return (NULL);
 }
 
@@ -74,4 +88,16 @@ static void	*ft_monitor(void *args)
 {
 	(void)args;
 	return (NULL);
+}
+
+/// @brief			Lock and unlock mutex and print message to stdout
+/// @param philo	Pointer to a t_philo struct
+/// @param str		Message to print
+static void	ft_philo_log(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->data->mutex_printf);
+	if (!philo->data->done)
+		printf("%lld %d %s\n", \
+				(ft_gettime() - philo->data->t_start), philo->id, str);
+	pthread_mutex_unlock(&philo->data->mutex_printf);
 }
