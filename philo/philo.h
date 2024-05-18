@@ -66,11 +66,11 @@ typedef struct s_data
 
 typedef struct s_philo
 {
+	int			id;
+	int			meal_count;
 	pthread_t	thread;
 	t_mutex		*l_fork;
 	t_mutex		*r_fork;
-	int			id;
-	int			meal_count;
 	t_msec		t_meal;
 	t_data		*data;
 }			t_philo;
