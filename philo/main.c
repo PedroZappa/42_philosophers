@@ -32,13 +32,13 @@ int	main(int argc, char **argv)
 }
 
 /// @brief			Launch all philos
+/// @param philos	Pointer to array of philos
 /// @details		- Sets the start time of the simulation
 /// 				- Create all philo threads
 /// 				- Detach all philo threads (so they run independently)
 /// 				- Create monitor thread
 /// 				- Join monitor thread
 /// 				- Destroy philos mutexes and printf mutex
-/// @param philos	Pointer to array of philos
 static void	ft_philosophize(t_philo *philos)
 {
 	int	i;
