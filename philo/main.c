@@ -65,6 +65,18 @@ static void	ft_philosophize(t_philo *philos)
 	pthread_mutex_destroy(&philos->data->mutex_printf);
 }
 
+/// @brief			Launch a philo thread
+/// @param args		Pointer to a t_philo struct
+/// @details		While the simulation is running a philo:
+/// 				- Thinks (print)
+/// 				- Attempts to grab forks by locking mutexes
+///					- After getting forks, eats (print and waits)
+///					- Updates last meal time
+///					- Releases forks
+///					- Increments meal count if the simulation is not done
+///					- Sleeps (print and waits)
+/// @note			Used in ft_philosophize
+/// @return			NULL
 static void	*ft_start_philo(void *args)
 {
 	t_philo	*philo;
@@ -79,7 +91,13 @@ static void	*ft_start_philo(void *args)
 		ft_philo_log(philo, "has taken a fork");
 		ft_philo_log(philo, "is eating");
 		ft_philo_do(philo->data->t_meal, philo->data);
-
+		philo->t_meal = ft_gettime();
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
+		if (!philo->data->done)
+			philo->meal_count++;
+		ft_philo_log(philo, "is sleeping");
+		ft_philo_do(philo->data->t_sleep, philo->data);
 	}
 	return (NULL);
 }
