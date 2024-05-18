@@ -32,6 +32,12 @@ int	main(int argc, char **argv)
 }
 
 /// @brief			Launch all philos
+/// @details		- Sets the start time of the simulation
+/// 				- Create all philo threads
+/// 				- Detach all philo threads (so they run independently)
+/// 				- Create monitor thread
+/// 				- Join monitor thread
+/// 				- Destroy philos mutexes and printf mutex
 /// @param philos	Pointer to array of philos
 static void	ft_philosophize(t_philo *philos)
 {
@@ -42,9 +48,11 @@ static void	ft_philosophize(t_philo *philos)
 	while (++i < philos->data->n_philos)
 	{
 		(philos + i)->t_meal = ft_gettime();
-		if (pthread_create(&philos[i].thread, NULL, \
-			&ft_start_philo, &philos[i]) != 0)
+		if (pthread_create(&philos[i].thread, NULL, &ft_start_philo, \
+							&philos[i]) != 0)
 			ft_perror(RED"Error: Failed to create philo thread\n"NC);
+		pthread_detach((philos + i)->thread);
+		usleep(50);
 	}
 	if (pthread_create(&philos->data->monitor, NULL, &ft_monitor, philos) != 0)
 		ft_perror(RED"Error: Failed to create monitor thread\n"NC);
