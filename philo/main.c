@@ -102,9 +102,41 @@ static void	*ft_start_philo(void *args)
 	return (NULL);
 }
 
+/// @brief			Monitors if any philo has died or if the simulation is done
+/// @param args		Pointer to a t_philo struct
+/// @details		While the simulation is running:
+///					- Loops through all philos:
+///						- Checks if the philo has died of starvation
+///							- If so, sets the done flag
+///							- Prints that the philo has died
+///						- Increments the number of times the philo has eaten
+///					- Check if numnber of meals has been reached
 static void	*ft_monitor(void *args)
 {
-	(void)args;
+	t_philo	*philos;
+	int		meals_done;
+	int		i;
+
+	philos = (t_philo *)args;
+	while (!philos->data->done)
+	{
+		i = -1;
+		meals_done = 0;
+		while (++i < philos->data->n_philos)
+		{
+			if ((ft_gettime() - (philos + i)->t_meal) > philos->data->t_death)
+			{
+				ft_philo_log((philos + i), "died");
+				philos->data->done = 1;
+				break ;
+			}
+			if ((philos->data->n_meals != -1) \
+				&& ((philos + i)->meal_count >= philos->data->n_meals))
+				++meals_done;
+		}
+		if (meals_done == philos->data->n_philos)
+			philos->data->done = 1;
+	}
 	return (NULL);
 }
 
