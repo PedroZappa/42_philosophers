@@ -186,23 +186,14 @@ remove_ansi_noise:
 gdb: all $(NAME) $(TEMP_PATH)			## Debug w/ gdb
 	tmux split-window -h "gdb --tui --args ./$(NAME)"
 	tmux resize-pane -L 5
-	@if command -v lnav; then \
-		lnav gdb.txt; \
-	else \
-		tail -f gdb.txt; \
-	fi
+	make get_log
 
 vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt ./$(NAME) $(ARG)"
 	make vgdb_pid
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
 	tmux resize-pane -U 18
-	touch gdb.txt
-	@if command -v lnav; then \
-		lnav gdb.txt; \
-	else \
-		tail -f gdb.txt; \
-	fi
+	make get_log
 
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux set-option remain-on-exit on
