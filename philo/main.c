@@ -111,6 +111,7 @@ static void	*ft_start_philo(void *args)
 ///							- If so, sets the done flag
 ///						- Increments the number of times the philo has eaten
 ///					- Check if numnber of meals has been reached
+///	@return			NULL
 static void	*ft_monitor(void *args)
 {
 	t_philo	*philos;
