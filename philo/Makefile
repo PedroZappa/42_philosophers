@@ -52,7 +52,7 @@ TEMP_PATH	= .temp
 TESTS_PATH	= files
 
 SRC		= $(addprefix $(SRC_PATH)/, main.c ft_error.c ft_init.c ft_parse.c \
-		  ft_security.c ft_time.c)
+		  ft_time.c)
 
 OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 
