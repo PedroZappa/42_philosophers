@@ -138,7 +138,7 @@ static void	*ft_monitor(void *args)
 		if (meals_done == philos->data->n_philos)
 			philos->data->done = 1;
 	}
-	return (NULL);
+	return (0);
 }
 
 /// @brief			Lock and unlock mutex and print message to stdout
