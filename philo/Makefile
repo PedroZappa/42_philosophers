@@ -18,13 +18,12 @@ MAKE	= make -C
 SHELL	:= bash
 
 # Default test values
-BUFFER_SIZE ?= 11
-SIZES		:= 1 42 666
-SIZES		+= 1600 3200 6400
-SIZES		+= 12800 25600 51200
-SIZES		+= 102400 204800 409600
-SIZES		+= 10000000
-# SIZES		+= -1
+ARG				= 5 800 200 200
+N_PHILOS		= 5
+TIME_TO_DIE		= 200
+TIME_TO_EAT		= 200
+TIME_TO_SLEEP	= 200
+N_MEALS			= 200
 
 #==============================================================================#
 #                                     NAMES                                    #
@@ -154,7 +153,7 @@ check_ext_func: all		## Check for external functions
 
 ##@ Test Rules 🧪
 
-test_input: all
+test_input: all			## Run tests on input args 
 	@echo "$(CYA)Testing $(RED)invalid $(CYA)input$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
 	@echo "$(CYA)Test 1$(D)"
@@ -162,24 +161,22 @@ test_input: all
 	@echo "$(CYA)Test 2$(D)"
 	-./philo 2 200 200
 	@echo "$(CYA)Test 3$(D)"
-	-./philo "200" 200 200 42 3
-	@echo "$(CYA)Test 4$(D)"
 	-./philo 2 200 200 200 -42
-	@echo "$(CYA)Test 5$(D)"
+	@echo "$(CYA)Test 4$(D)"
 	-./philo 2 2147483648 200 200
-	@echo "$(CYA)Test 6$(D)"
+	@echo "$(CYA)Test 5$(D)"
 	-./philo "  a2" 200 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
-	@echo "$(CYA)Testing $(GRN)valid $(CYA)input$(D)"
-	@echo "$(YEL)$(_SEP)$(D)"
-	@echo "$(CYA)Test 1$(D)"
-	-./philo "200" 200 200 42 3
-	@echo "$(CYA)Test 2$(D)"
-	-./philo "   2" 200 200 200
-	@echo "$(CYA)Test 3$(D)"
-	-./philo "   2a33" 200 200 200
-	@echo "$(CYA)Test 4$(D)"
-	@echo "$(YEL)$(_SEP)$(D)"
+	# @echo "$(CYA)Testing $(GRN)valid $(CYA)input$(D)"
+	# @echo "$(YEL)$(_SEP)$(D)"
+	# @echo "$(CYA)Test 1$(D)"
+	# -./philo "200" 200 200 42 3
+	# @echo "$(CYA)Test 2$(D)"
+	# -./philo "   2" 200 200 200
+	# @echo "$(CYA)Test 3$(D)"
+	# -./philo "   2a33" 200 200 200
+	# @echo "$(CYA)Test 4$(D)"
+	# @echo "$(YEL)$(_SEP)$(D)"
 
 remove_ansi_noise:
 	@sed -i 's/\//g' $(TEMP_PATH)/out.txt
@@ -207,7 +204,11 @@ vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 		tail -f gdb.txt; \
 	fi
 
-vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ helgrind & gdb
+helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
+	tmux set-option remain-on-exit on
+	tmux split-window -h "valgrind --log-file=gdb.txt --tool=helgrind ./$(NAME) $(ARG)"
+
+vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind & gdb
 	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt --tool=helgrind ./$(NAME) $(ARG)"
 	make vgdb_pid
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
