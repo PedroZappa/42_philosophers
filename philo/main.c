@@ -108,7 +108,7 @@ static void	*ft_start_philo(void *args)
 ///					- Loops through all philos:
 ///						- Checks if a philo has died
 ///							- Prints that the philo has died
-///							- If so, sets the done flag
+///							- Sets the done flag
 ///						- Increments the number of times the philo has eaten
 ///					- Check if numnber of meals has been reached
 ///	@return			NULL
