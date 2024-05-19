@@ -178,6 +178,18 @@ test_input: all			## Run tests on input args
 	# @echo "$(CYA)Test 4$(D)"
 	# @echo "$(YEL)$(_SEP)$(D)"
 
+test_kill: all			## Run a kill test
+	@echo "$(CYA)Testing $(GRN)kill $(CYA): The philo should not eat and should die$(D)"
+	@echo "$(YEL)$(_SEP)$(D)"
+	./philo 1 800 200 200
+	@echo "$(YEL)$(_SEP)$(D)"
+
+test_life: all			## Run a infinite meal test
+	@echo "$(CYA)Testing $(GRN)life $(CYA): The 5 philos should eat and live forever$(D)"
+	@echo "$(YEL)$(_SEP)$(D)"
+	./philo 5 200 200 200
+	@echo "$(YEL)$(_SEP)$(D)"
+
 remove_ansi_noise:
 	@sed -i 's/\//g' $(TEMP_PATH)/out.txt
 
