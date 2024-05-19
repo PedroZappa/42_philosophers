@@ -167,27 +167,43 @@ test_input: all			## Run tests on input args
 	@echo "$(CYA)Test 5$(D)"
 	-./philo "  a2" 200 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
-	# @echo "$(CYA)Testing $(GRN)valid $(CYA)input$(D)"
-	# @echo "$(YEL)$(_SEP)$(D)"
-	# @echo "$(CYA)Test 1$(D)"
-	# -./philo "200" 200 200 42 3
-	# @echo "$(CYA)Test 2$(D)"
-	# -./philo "   2" 200 200 200
-	# @echo "$(CYA)Test 3$(D)"
-	# -./philo "   2a33" 200 200 200
-	# @echo "$(CYA)Test 4$(D)"
-	# @echo "$(YEL)$(_SEP)$(D)"
 
 test_kill: all			## Run a kill test
-	@echo "$(CYA)Testing $(GRN)kill $(CYA): The philo should not eat and should die$(D)"
+	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
-	./philo 1 800 200 200
+	tmux split-window -h "./philo 1 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_life: all			## Run a infinite meal test
-	@echo "$(CYA)Testing $(GRN)life $(CYA): The 5 philos should eat and live forever$(D)"
+	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
-	./philo 5 200 200 200
+	tmux split-window -h "./philo 5 800 200 200"
+	@echo "$(YEL)$(_SEP)$(D)"
+
+test_seven: all			## Run a seven meals test
+	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
+	@echo "$(YEL)$(_SEP)$(D)"
+	# ./philo 5 800 200 200 7 | tee $(TEMP_PATH)/out.txt
+	./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
+	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
+	@echo "$(YEL)$(_SEP)$(D)"
+	@awk '/is eating/ {; \
+	    philo_id=$$2;; \
+	    meals[philo_id]++;; \
+	} END {; \
+	    for(id in meals) {; \
+	        printf("Philosopher %s has eaten %d meals\n", id, meals[id]);; \
+	    }; \
+	}' $(TEMP_PATH)/out.txt 
+	@if command -v lnav; then \
+		tmux split-window -h "lnav $(TEMP_PATH)/out.txt"; \
+	else \
+		tail -f $(TEMP_PATH)/out.txt; \
+	fi
+
+test: all				## Run test with input args
+	@echo "$(YEL)$(_SEP)$(D)"
+	tmux split-window -h "./philo $(ARG) | tee $(TEMP_PATH)/out.txt"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 remove_ansi_noise:
