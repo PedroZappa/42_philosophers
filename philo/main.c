@@ -106,7 +106,7 @@ static void	*ft_start_philo(void *args)
 /// @param args		Pointer to a t_philo struct
 /// @details		While the simulation is running:
 ///					- Loops through all philos:
-///						- Checks if the philo has died of starvation
+///						- Checks if a philo has died
 ///							- Prints that the philo has died
 ///							- If so, sets the done flag
 ///						- Increments the number of times the philo has eaten
