@@ -195,6 +195,9 @@ vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 	tmux resize-pane -U 18
 	make get_log
 
+valgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
+	tmux split-window -h "valgrind ./$(NAME) $(ARG)"
+
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux set-option remain-on-exit on
 	tmux split-window -h "valgrind --log-file=gdb.txt --tool=helgrind ./$(NAME) $(ARG)"
