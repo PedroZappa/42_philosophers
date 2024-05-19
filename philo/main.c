@@ -107,8 +107,8 @@ static void	*ft_start_philo(void *args)
 /// @details		While the simulation is running:
 ///					- Loops through all philos:
 ///						- Checks if the philo has died of starvation
-///							- If so, sets the done flag
 ///							- Prints that the philo has died
+///							- If so, sets the done flag
 ///						- Increments the number of times the philo has eaten
 ///					- Check if numnber of meals has been reached
 static void	*ft_monitor(void *args)
