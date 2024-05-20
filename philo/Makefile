@@ -201,7 +201,7 @@ test_kill_four: all			## Run a kill test
 
 test: all				## Run test with input args
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo $(ARG) | tee $(TEMP_PATH)/out.txt"
+	tmux split-window -h "./philo $(ARG)"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 remove_ansi_noise:
