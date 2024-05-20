@@ -92,7 +92,7 @@ static int	ft_init_forks(t_data *data)
 {
 	int	i;
 
-	data->mutex_fork = (t_mutex *)malloc(sizeof(t_mutex) * data->n_forks);
+	data->mutex_fork = malloc(sizeof(t_mutex) * data->n_forks);
 	if (!data->mutex_fork)
 		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
 	i = -1;
