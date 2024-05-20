@@ -169,21 +169,21 @@ test_input: all			## Run tests on input args
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_kill: all			## Run a kill test
+	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo 1 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_life: all			## Run a infinite meal test
+	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo 5 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_seven: all			## Run a seven meals test
-	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
-	@echo "$(YEL)$(_SEP)$(D)"
-	# ./philo 5 800 200 200 7 | tee $(TEMP_PATH)/out.txt
+	tmux set-option remain-on-exit on
 	./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
