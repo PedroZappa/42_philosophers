@@ -286,14 +286,10 @@ clean: 				## Remove object files
 	fi
 
 fclean: clean			## Remove executable and .gdbinit
-	@if [ -f ".gdbinit" ] || [ -f "$(NAME)" ]; then \
+	@if [ -f "$(NAME)" ]; then \
 		if [ -f "$(NAME)" ]; then \
 			$(RM) $(NAME); \
 			echo "* $(YEL)Removing $(CYA)$(NAME)$(D) file: $(_SUCCESS)"; \
-		fi; \
-		if [ -f ".gdbinit" ]; then \
-			$(RM) .gdbinit; \
-			echo "* $(YEL)Removing $(CYA).gdbinit$(D) file: $(_SUCCESS)"; \
 		fi; \
 	else \
 		echo " $(RED)$(D) [$(GRN)Nothing to be fcleaned!$(D)]"; \
