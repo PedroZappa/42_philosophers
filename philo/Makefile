@@ -172,7 +172,7 @@ test_kill_one: all			## Run a kill test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo 1 800 200 200"
+	./philo 1 800 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_life_5: all			## Run a infinite meal test
