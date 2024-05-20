@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 static int	ft_init_data(t_data **data, int argc, char **argv);
 static int	ft_init_forks(t_data *data);
@@ -32,11 +31,11 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 	int		i;
 
 	if (ft_init_data(&data, argc, argv) == -1)
-		return (1);
+		return (-1);
 	if (pthread_mutex_init(&data->mutex_printf, NULL))
 		return (ft_perror(RED"Error: Printf Mutex init\n"NC));
 	if (ft_init_forks(data) == -1)
-		return (ft_perror(RED"Error: Forks init\n"NC));
+		return (-1);
 	new_philo = malloc(sizeof(t_philo) * data->n_philos);
 	if (!new_philo)
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
@@ -77,7 +76,7 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	{
 		new->n_meals = ft_parse_arg(argv[5]);
 		if (new->n_meals == -1)
-			return (ft_perror(RED"Error: invalid arguments\n"NC));
+			return (ft_perror(RED"Error: invalid number of meals\n"NC));
 	}
 	new->done = 0;
 	*data = new;
@@ -93,7 +92,7 @@ static int	ft_init_forks(t_data *data)
 {
 	int	i;
 
-	data->mutex_fork = malloc(sizeof(t_mutex) * data->n_forks);
+	data->mutex_fork = (t_mutex *)malloc(sizeof(t_mutex) * data->n_forks);
 	if (!data->mutex_fork)
 		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
 	i = -1;
