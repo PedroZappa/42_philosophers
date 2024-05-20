@@ -168,25 +168,51 @@ test_input: all			## Run tests on input args
 	-./philo "  a2" 200 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test_kill: all			## Run a kill test
+test_kill_one: all			## Run a kill test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo 1 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test_life: all			## Run a infinite meal test
+test_life_5: all			## Run a infinite meal test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo 5 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test_seven: all			## Run a seven meals test
+test_seven_meals: all			## Run a seven meals test
 	tmux set-option remain-on-exit on
 	./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
+	make count_meals
+
+test_life_4: all			## Run a infinite meal test
+	tmux set-option remain-on-exit on
+	@echo "$(CYA)Testing $(GRN)life $(D): 4 philos should eat and live forever"
+	@echo "$(YEL)$(_SEP)$(D)"
+	tmux split-window -h "./philo 4 410 200 200"
+	@echo "$(YEL)$(_SEP)$(D)"
+
+test_kill_four: all			## Run a kill test
+	tmux set-option remain-on-exit on
+	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
+	@echo "$(YEL)$(_SEP)$(D)"
+	tmux split-window -h "./philo 4 310 200 100"
+	@echo "$(YEL)$(_SEP)$(D)"
+
+
+test: all				## Run test with input args
+	@echo "$(YEL)$(_SEP)$(D)"
+	tmux split-window -h "./philo $(ARG) | tee $(TEMP_PATH)/out.txt"
+	@echo "$(YEL)$(_SEP)$(D)"
+
+remove_ansi_noise:
+	@sed -i 's/\//g' $(TEMP_PATH)/out.txt
+
+count_meals:
 	@awk '/is eating/ {; \
 	    philo_id=$$2;; \
 	    meals[philo_id]++;; \
@@ -201,13 +227,6 @@ test_seven: all			## Run a seven meals test
 		tail -f $(TEMP_PATH)/out.txt; \
 	fi
 
-test: all				## Run test with input args
-	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo $(ARG) | tee $(TEMP_PATH)/out.txt"
-	@echo "$(YEL)$(_SEP)$(D)"
-
-remove_ansi_noise:
-	@sed -i 's/\//g' $(TEMP_PATH)/out.txt
 
 ##@ Debug Rules 
 
