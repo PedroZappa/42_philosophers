@@ -97,7 +97,7 @@ static int	ft_init_forks(t_data *data)
 		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
 	i = -1;
 	while (++i < data->n_forks)
-		if (pthread_mutex_init((data->mutex_fork + 1), NULL))
+		if (pthread_mutex_init((data->mutex_fork + i), NULL))
 			return (ft_perror(RED"Error: Fork Mutex init\n"NC));
 	return (0);
 }
