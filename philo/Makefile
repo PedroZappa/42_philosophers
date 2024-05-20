@@ -19,11 +19,6 @@ SHELL	:= bash
 
 # Default test values
 ARG				= 5 800 200 200
-N_PHILOS		= 5
-TIME_TO_DIE		= 200
-TIME_TO_EAT		= 200
-TIME_TO_SLEEP	= 200
-N_MEALS			= 200
 
 #==============================================================================#
 #                                     NAMES                                    #
