@@ -190,6 +190,7 @@ test_life_4: all			## Run a infinite meal test
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo 4 410 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
+	make count_meals
 
 test_kill_four: all			## Run a kill test
 	tmux set-option remain-on-exit on
@@ -198,16 +199,20 @@ test_kill_four: all			## Run a kill test
 	tmux split-window -h "./philo 4 310 200 100"
 	@echo "$(YEL)$(_SEP)$(D)"
 
-
 test: all				## Run test with input args
+	tmux set-option remain-on-exit on
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo $(ARG)"
 	@echo "$(YEL)$(_SEP)$(D)"
+	make count_meals
 
 remove_ansi_noise:
 	@sed -i 's/\//g' $(TEMP_PATH)/out.txt
 
 count_meals:
+	@echo "$(YEL)$(_SEP)$(D)"
+	@echo "$(CYA)Simulation $(GRN)Stats$(D):"
+	@echo "$(YEL)$(_SEP)$(D)"
 	@awk '/is eating/ {; \
 	    philo_id=$$2;; \
 	    meals[philo_id]++;; \
@@ -221,6 +226,7 @@ count_meals:
 	else \
 		tail -f $(TEMP_PATH)/out.txt; \
 	fi
+	@echo "$(YEL)$(_SEP)$(D)"
 
 
 ##@ Debug Rules 
