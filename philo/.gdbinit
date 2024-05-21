@@ -11,6 +11,12 @@ define main
 	display *philos
 end
 
+# ft_free.c
+define free
+	display *philo@*philo->data->n_philos
+	display *philo->data
+end
+
 # ft_init.c
 define init
 	display philo
@@ -68,10 +74,10 @@ end
 # fs cmd
 
 # # Start at init_data
-break ft_init_data
-run "   2a33" 200 200 200
-init_data
-fs cmd
+# break ft_init_data
+# run "   2a33" 200 200 200
+# init_data
+# fs cmd
 
 # break ft_init_forks
 # break ft_init_philo
@@ -87,5 +93,11 @@ fs cmd
 
 # Start at init_philo
 # break ft_init_philo
+
+# Start at ft_free
+break ft_free
+run "   5" 800 200 200
+free
+fs cmd
 
 info break
