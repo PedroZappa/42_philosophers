@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 19:08:58 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/21 14:46:56 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,14 @@ typedef struct s_philo
 /// ft_error.c
 int		ft_perror(char *err);
 
+/// ft_free.c
+void	ft_free(t_philo **philo);
+
 /// ft_init.c
 int		ft_init(t_philo **philo, int argc, char **argv);
 
 /// ft_parse_args.c
 long	ft_parse_arg(char *str);
-
-/// ft_security.c
 
 /// ft_time.c
 t_msec	ft_gettime(void);
