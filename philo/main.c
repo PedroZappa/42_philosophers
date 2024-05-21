@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:17:35 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/21 15:28:02 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:50:39 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,6 @@ static void	ft_philosophize(t_philo *philos)
 		ft_perror(RED"Error: Failed to create monitor thread\n"NC);
 	if (pthread_join(philos->data->monitor, NULL) != 0)
 		ft_perror(RED"Error: Failed to join monitor thread\n"NC);
-	i = -1;
-	while (++i < philos->data->n_forks)
-		pthread_mutex_destroy(&philos->data->mutex_fork[i]);
-	pthread_mutex_destroy(&philos->data->mutex_printf);
 }
 
 /// @brief			Launch a philo thread
