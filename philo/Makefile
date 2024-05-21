@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/17 22:45:13 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/21 15:35:51 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,8 @@ BUILD_PATH	= .build
 TEMP_PATH	= .temp
 TESTS_PATH	= files
 
-SRC		= $(addprefix $(SRC_PATH)/, main.c ft_error.c ft_init.c ft_parse.c \
-		  ft_time.c)
+SRC		= $(addprefix $(SRC_PATH)/, main.c ft_error.c ft_free.c ft_init.c \
+		  ft_parse.c ft_time.c)
 
 OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 
@@ -244,7 +244,7 @@ vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 	make get_log
 
 valgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
-	tmux split-window -h "valgrind ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind --leak-check=full -s ./$(NAME) $(ARG)"
 
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux set-option remain-on-exit on
