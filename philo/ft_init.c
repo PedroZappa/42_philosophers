@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 21:13:20 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:35:07 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 		if (new->n_meals == -1)
 			return (ft_perror(RED"Error: invalid number of meals\n"NC));
 	}
-	new->done = 0;
+	new->done = NO;
 	*data = new;
 	return (0);
 }

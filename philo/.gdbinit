@@ -9,11 +9,18 @@ define main
 	display argc
 	display argv
 	display *philos
+	display philos@(*philos)->data->n_philos
+end
+
+
+define philosophize
+	display *philos
+	display i 
 end
 
 # ft_free.c
 define free
-	display *philo@*philo->data->n_philos
+	display *philo->data->mutex_fork@(*philo)->data->n_philos
 	display *philo->data
 end
 
@@ -24,6 +31,7 @@ define init
 	display argv
 	display *data
 	display *new_philo
+	display *new_philo@philo->data->n_philos
 	display i
 end 
 
@@ -63,13 +71,13 @@ end
 # GO GDB GO!
 # Start at main
 # break main
-# run "   2a33" 200 200 200
+# run 4 410 200 200
 # main
 # fs cmd
 
 # Start at init
-# break ft_init
-# run "   2a33" 200 200 200
+break ft_init
+run 4 410 200 200
 # init
 # fs cmd
 
@@ -96,8 +104,8 @@ end
 
 # Start at ft_free
 break ft_free
-run "   5" 800 200 200
-free
-fs cmd
+# run "   5" 800 200 200
+# free
+# fs cmd
 
 info break

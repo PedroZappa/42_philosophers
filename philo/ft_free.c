@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:36:54 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/21 16:15:16 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:10:11 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ void	ft_free(t_philo **philo)
 	data = (*philo)->data;
 	while (++i < data->n_philos)
 	{
-		printf("i = %d\n", i);
-		printf("Philosopher %d freed\n", i + 1);
-		printf("%p\n", (philo + i));
-		pthread_mutex_destroy(&data->mutex_fork[i]);
+		printf("freeing philo fork %d\n", i + 1);
+		printf("%p\n", (data->mutex_fork + i));
+		pthread_mutex_destroy(data->mutex_fork + i);
 	}
-	// free(philo);
 	pthread_mutex_destroy(&data->mutex_printf);
 	free(*philo);
+	free(data->mutex_fork);
 	free(data);
 }

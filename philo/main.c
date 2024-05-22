@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:17:35 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/21 15:50:39 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:33:46 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static void	*ft_monitor(void *args)
 			if ((ft_gettime() - (philos + i)->t_meal) > philos->data->t_death)
 			{
 				ft_philo_log((philos + i), "died");
-				philos->data->done = 1;
+				philos->data->done = YES;
 				break ;
 			}
 			if ((philos->data->n_meals != -1) \
@@ -133,7 +133,7 @@ static void	*ft_monitor(void *args)
 				++meals_done;
 		}
 		if (meals_done == philos->data->n_philos)
-			philos->data->done = 1;
+			philos->data->done = YES;
 	}
 	return (0);
 }

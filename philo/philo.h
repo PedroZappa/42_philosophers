@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/21 14:46:56 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:32:31 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@
 # define WHT "\e[0;37m"	// RGB(255, 255, 255)
 //Reset
 # define NC "\e[0m"
+
+/// Macros
+# define YES 1
+# define NO 0
+# define FORK 1
+# define EATING 2
+# define SLEEPING 3
+# define THINKING 4
+# define DIED 5
+# define DONE 6
 
 /// Typedefs
 typedef long long		t_msec;

@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/21 15:35:51 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/22 10:46:43 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 
 CC			= cc
 
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -lpthread
 DFLAGS		= -g
 INC			= -I.
 
@@ -148,7 +148,7 @@ check_ext_func: all		## Check for external functions
 
 ##@ Test Rules 🧪
 
-test_input: all			## Run tests on input args 
+test_input: all			## Run tests on input args
 	@echo "$(CYA)Testing $(RED)invalid $(CYA)input$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
 	@echo "$(CYA)Test 1$(D)"
@@ -220,7 +220,7 @@ count_meals:
 	    for(id in meals) {; \
 	        printf("Philosopher %s has eaten %d meals\n", id, meals[id]);; \
 	    }; \
-	}' $(TEMP_PATH)/out.txt 
+	}' $(TEMP_PATH)/out.txt
 	@if command -v lnav; then \
 		tmux split-window -h "lnav $(TEMP_PATH)/out.txt"; \
 	else \
@@ -244,7 +244,7 @@ vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 	make get_log
 
 valgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
-	tmux split-window -h "valgrind --leak-check=full -s ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) $(ARG)"
 
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux set-option remain-on-exit on
@@ -258,6 +258,17 @@ vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind & gdb
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
 	tmux resize-pane -U 18
 	make get_log
+
+massif: all $(TEMP_PATH)		## Run Valgrind w/ Massif (gather profiling information)
+	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
+	if [ -f massif.out.* ]; then \
+		mv -f massif.out.* $(TEMP_PATH)/massif.out.$$TIMESTAMP; \
+	fi
+	@echo " 🔎 [$(YEL)Massif Profiling$(D)]"
+	valgrind --tool=massif --time-unit=B ./$(NAME) $(ARG)
+	ms_print massif.out.*
+# Learn more about massif and ms_print:
+### https://valgrind.org/docs/manual/ms-manual.html
 
 get_log:
 	touch gdb.txt
