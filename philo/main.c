@@ -54,7 +54,7 @@ static void	ft_philosophize(t_philo *philos)
 							&philos[i]) != 0)
 			ft_perror(RED"Error: Failed to create philo thread\n"NC);
 		pthread_detach((philos + i)->thread);
-		usleep(50);
+		// usleep(50);
 	}
 	if (pthread_create(&philos->data->monitor, NULL, &ft_monitor, philos) != 0)
 		ft_perror(RED"Error: Failed to create monitor thread\n"NC);
