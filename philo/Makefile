@@ -19,6 +19,8 @@ SHELL	:= bash
 
 # Default test values
 ARG				= 5 800 200 200
+TIMESTEP		= 100
+TIMEOUT		= 10
 
 #==============================================================================#
 #                                     NAMES                                    #
@@ -40,11 +42,12 @@ _SEP 			= =====================
 #                                    PATHS                                     #
 #==============================================================================#
 
-SRC_PATH	= .
-LIBS_PATH	= lib
-BUILD_PATH	= .build
-TEMP_PATH	= .temp
-TESTS_PATH	= files
+SRC_PATH		= .
+LIBS_PATH		= lib
+BUILD_PATH		= .build
+TEMP_PATH		= .temp
+TESTS_PATH		= files
+VISUALIZER_PATH	= $(LIBS_PATH)/visualizer
 
 SRC		= $(addprefix $(SRC_PATH)/, main.c ft_error.c ft_free.c ft_init.c \
 		  ft_parse.c ft_time.c)
@@ -228,6 +231,20 @@ count_meals:
 	fi
 	@echo "$(YEL)$(_SEP)$(D)"
 
+visual: all 	## Run philosopher's Visualizer 
+	@if test ! -d "$(VISUALIZER_PATH)"; then make get_visual; \
+	else echo "$(YEL)[$(NAME) Visualizer]$(D) folder found 🖔"; \
+	echo " $(RED)$(D) [$(GRN)Getting $(NAME) output$(D)]"; \
+	timeout $(TIMEOUT)s ./$(NAME) $(ARG) > $(TEMP_PATH)/out.txt;\
+	./$(VISUALIZER_PATH)/visualizer $(TIMESTEP) < $(TEMP_PATH)/out.txt; fi
+
+get_visual:
+	@echo "* [$(CYA)Getting $(NAME) Visualizer$(D)]"
+	git clone git@github.com:SimonCROS/philosophers-visualizer.git $(VISUALIZER_PATH)
+	@echo "* $(GRN)Visualizer download$(D): $(_SUCCESS)"
+	@echo "[$(YEL)Building $(NAME) Visualizer$(D)]"
+	$(MAKE) $(VISUALIZER_PATH)
+	@echo "[$(_SUCCESS) building $(MAG)$(NAME) Visualizer!$(D) $(YEL)🖔$(D)]"
 
 ##@ Debug Rules 
 
