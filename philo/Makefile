@@ -21,6 +21,7 @@ SHELL	:= bash
 ARG				= 5 800 200 200
 TIMESTEP		= 100
 TIMEOUT		= 10
+ITER		= 10
 
 #==============================================================================#
 #                                     NAMES                                    #
@@ -62,6 +63,7 @@ CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror -lpthread
 DFLAGS		= -g
+# DFLAGS		+= -fsanitize=thread
 INC			= -I.
 
 #==============================================================================#
@@ -166,6 +168,13 @@ test_input: all			## Run tests on input args
 	-./philo "  a2" 200 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
+test: all				## Run test with input args
+	tmux set-option remain-on-exit on
+	@echo "$(YEL)$(_SEP)$(D)"
+	tmux split-window -h "./philo $(ARG)"
+	@echo "$(YEL)$(_SEP)$(D)"
+	make count_meals
+
 test_kill_one: all			## Run a kill test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
@@ -182,10 +191,11 @@ test_life_5: all			## Run a infinite meal test
 
 test_seven_meals: all			## Run a seven meals test
 	tmux set-option remain-on-exit on
-	./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
+	-./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
+	tmux resize-pane -R 54
 
 test_life_4: all			## Run a infinite meal test
 	tmux set-option remain-on-exit on
@@ -202,12 +212,60 @@ test_kill_four: all			## Run a kill test
 	tmux split-window -h "./philo 4 310 200 100"
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test: all				## Run test with input args
+test_count_panes:
+	PANES_COUNT=$(shell tmux display-message -p '#{pane_count}'); \
+	tmux list-panes -t $(shell tmux display -p '#W') | wc -l
+	# Print the number of panes
+	@echo "$(CYA)Number of panes: $(GRN)$$PANES_COUNT$(D)"
+	@echo "$(YEL)$(_SEP)$(D)"
+
+
+test_chaos: all			## Run a chaos test
 	tmux set-option remain-on-exit on
+	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
+	if [ -f $(TEMP_PATH)/out.txt ]; then \
+		mv -f $(TEMP_PATH)/out.txt $(TEMP_PATH)/out.$$TIMESTAMP.txt; \
+	fi
+	@echo "$(CYA)Testing $(RED)chaos$(D)"
+	@echo "Iterations : $(GRN)$(ITER)$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo $(ARG)"
+	@for i in $(shell seq 1 $(ITER)); do \
+		TEST_N=$$i; \
+		echo "Test $(CYA)$$TEST_N$(D) of $(GRN)$(ITER)$(D)"; \
+		echo "$(YEL)$(_SEP)$(D)"; \
+		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(ARG); \
+		sed -n '10p' $(TEMP_PATH)/temp.txt >> $(TEMP_PATH)/out.txt; \
+		COUNTER=$$((COUNTER + 1)); \
+		echo $$COUNTER > $(TEMP_PATH)/passed_count.txt; \
+		echo "$(YEL)$(_SEP)$(D)"; \
+	done
+	@make --no-print-directory test_results
+	@tmux select-pane -L
+
+test_results: $(TEMP_PATH)
+	@make --no-print-directory remove_ansi_noise
+	@if pgrep -x "lnav" > /dev/null; then \
+		echo "lnav is already running."; \
+	else \
+		if command -v lnav; then \
+		tmux split-window -h "lnav $(TEMP_PATH)/out.txt"; \
+		else \
+			cat $(TEMP_PATH)/out.txt; \
+		fi; \
+	fi
 	@echo "$(YEL)$(_SEP)$(D)"
-	make count_meals
+	@echo "$(BCYA)Tests Summary$(D)"
+	@TOTAL=$(shell cat $(TEMP_PATH)/passed_count.txt)
+	@echo -ne "$(MAG)Total\t:  $(YEL)"
+	@awk '{print $$1}' $(TEMP_PATH)/passed_count.txt
+	@echo -ne "$(D)"
+	@cat $(TEMP_PATH)/out.txt | grep heap | awk '{ print $$5, $$7 }' > $(TEMP_PATH)/count.txt
+	@awk -v count=0 '{if ($$1 == $$2) count++} END \
+		{ print "$(GRN)Passed$(D)\t: ", count}' $(TEMP_PATH)/count.txt
+	@awk -v count=0 '{if ($$1 != $$2) \
+		{ print $$1 > "$(TEMP_PATH)/failing_test_number.txt"; count++ }} END \
+		{ print "$(RED)Failed$(D)\t: ", count}' $(TEMP_PATH)/count.txt
+	@echo "$(YEL)$(_SEP)$(D)"
 
 remove_ansi_noise:
 	@sed -i 's/\//g' $(TEMP_PATH)/out.txt
@@ -231,7 +289,7 @@ count_meals:
 	fi
 	@echo "$(YEL)$(_SEP)$(D)"
 
-visual: all 	## Run philosopher's Visualizer 
+visual: all 	## Run philosopher's Visualizer
 	@if test ! -d "$(VISUALIZER_PATH)"; then make get_visual; \
 	else echo "$(YEL)[$(NAME) Visualizer]$(D) folder found 🖔"; \
 	echo " $(RED)$(D) [$(GRN)Getting $(NAME) output$(D)]"; \
