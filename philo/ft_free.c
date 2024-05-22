@@ -17,6 +17,7 @@ void	ft_free(t_philo **philo)
 	t_data	*data;
 	int i;
 
+	usleep(1000);
 	i = -1;
 	data = (*philo)->data;
 	while (++i < data->n_philos)
