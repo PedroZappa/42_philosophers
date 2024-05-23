@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:30:07 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:47:43 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,6 @@ typedef long long		t_msec;
 typedef struct s_data
 {
 	int				n_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
 	int				meal_counter;
 	int				max_meals;
 	int				curr_meal;
@@ -95,6 +92,10 @@ typedef struct s_philo
 //=============================================================================/
 //							Function Prototypes                                /
 //=============================================================================/
+
+/// ft_ctype.c
+int	ft_isspace(char c);
+int	ft_isdigit(char c);
 
 /// ft_error.c
 int		ft_perror(char *err);
