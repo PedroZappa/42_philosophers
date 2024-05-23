@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:39:21 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:12:34 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:14:41 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ int main(int argc, char **argv)
 		sem_wait(data.stop);
 		ft_free(&data, philo);
 	}
+	else
+		ft_perror(RED"Wrong number of arguments\n"NC);
 	return (0);
 }
