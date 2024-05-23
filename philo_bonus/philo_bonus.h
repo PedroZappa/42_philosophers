@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:00:05 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:08:41 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,15 @@ typedef struct s_philo
 // void	ft_free(t_philo **philo);
 
 /// ft_init.c
-t_philo	*ft_init(t_data *philo);
+t_philo	*ft_init_philo(t_data *data);
+void	ft_init_semaphores(t_data *data);
+void	ft_fork_process(t_data *data, t_philo *philo);
 
 /// ft_parse.c
 int		ft_parse(char **argv, t_data *data);
 
 /// ft_time.c
-// t_msec	ft_gettime(void);
+t_msec	ft_gettime(void);
 // void	ft_philo_do(t_msec time, t_data *data);
 
 #endif

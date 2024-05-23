@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                          :+:      :+:    :+:   */
+/*   ft_ops.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/23 16:00:25 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:09:39 by passunca         ###   ########.fr       */
+/*   Created: 2024/05/23 16:04:16 by passunca          #+#    #+#             */
+/*   Updated: 2024/05/23 16:05:08 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-t_philo	*ft_init_philo(t_data *data)
+/// @brief		Get current time and convert it to milliseconds
+/// @return		Current time in milliseconds
+t_msec	ft_gettime(void)
 {
-	(void)data;
-	return (NULL);
-}
+	struct timeval	t;
 
-void	ft_init_semaphores(t_data *data)
-{
-	(void)data;
-}
-
-void	ft_fork_process(t_data *data, t_philo *philo)
-{
-	(void)data;
-	(void)philo;
+	gettimeofday(&t, NULL);
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
