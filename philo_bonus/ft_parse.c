@@ -6,15 +6,15 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:52:25 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:53:31 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:55:18 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
 static int	ft_parse_arg(char *str);
-static int	ft_init_data(t_data *data, int n, int i);
-static int	ft_init_rest(t_data *data, int n, int i);
+static int	ft_init_data(t_data *data, int n, int arg);
+static int	ft_init_rest(t_data *data, int n, int arg);
 
 int	ft_parse(char **argv, t_data *data)
 {
@@ -97,7 +97,7 @@ static int	ft_init_data(t_data *data, int n, int arg)
 	return (0);
 }
 
-int	ft_init_rest(t_data *data, int n, int arg)
+static int	ft_init_rest(t_data *data, int n, int arg)
 {
 	if (arg == 4)
 	{
