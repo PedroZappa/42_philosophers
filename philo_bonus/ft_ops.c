@@ -6,23 +6,11 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:04:16 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:04:56 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:25:09 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
-void	ft_philo_log(int id, t_philo *philo);
-
-/// @brief		Get current time and convert it to milliseconds
-/// @return		Current time in milliseconds
-t_msec	ft_gettime(void)
-{
-	struct timeval	t;
-
-	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
-}
 
 void	*ft_monitor(void *arg)
 {
@@ -72,4 +60,29 @@ void	ft_philo_log(int id, t_philo *philo)
 		printf("Done Philosophizing.\n");
 	if (id != DIED)
 		sem_post(philo->data->msg);
+}
+
+void	ft_grab_fork(t_philo *philo)
+{
+	sem_wait(philo->data->forks);
+	ft_philo_log(FORK, philo);
+	sem_wait(philo->data->forks);
+	ft_philo_log(FORK, philo);
+}
+void	ft_have_meal(t_philo *philo)
+{
+	ft_philo_log(EATING, philo);
+	if (philo->data->meal_counter != -1)
+		philo->data->curr_meal++;
+	usleep(philo->data->t_meal * 1000);
+	philo->meal_start = ft_gettime();
+	philo->next_meal = philo->meal_start + philo->data->t_death;
+	sem_post(philo->data->forks);
+	sem_post(philo->data->forks);
+}
+
+void	ft_sleep(t_philo *philo)
+{
+	ft_philo_log(SLEEPING, philo);
+	usleep(philo->data->t_sleep * 1000);
 }
