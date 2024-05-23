@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:08:41 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:12:12 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ typedef struct s_philo
 // int		ft_perror(char *err);
 
 /// ft_free.c
-// void	ft_free(t_philo **philo);
+void	ft_free(t_data *data, t_philo *philo);
 
 /// ft_init.c
 t_philo	*ft_init_philo(t_data *data);
