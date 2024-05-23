@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:13:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:13:56 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:24:24 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 static int	ft_putstr_fd(char *str, int fd);
 static int	ft_strlen(char *str);
+
+int	ft_perror_free(t_data *data, char *err, int ret)
+{
+	if (data)
+		if (data->forks)
+			free(data->forks);
+	ft_perror(err);
+	return (ret);
+}
 
 /// @brief		Print error message
 /// @param err	Error message to print
