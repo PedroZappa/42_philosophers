@@ -6,11 +6,13 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:00:25 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 17:04:09 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:27:33 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+static void	ft_start_philo(t_philo *philo);
 
 t_philo	*ft_init_philo(t_data *data)
 {
@@ -51,6 +53,36 @@ void	ft_init_semaphores(t_data *data)
 
 void	ft_fork_process(t_data *data, t_philo *philo)
 {
-	(void)data;
-	(void)philo;
+	int i;
+
+	i = 0;
+	while (i < data->n_philos)
+	{
+		philo[i].pid = fork();
+		if (philo[i].pid == 0)
+		{
+			ft_start_philo(philo + i);
+			exit(0);
+		}
+		++i;
+		usleep(100);
+	}
+}
+
+static void	ft_start_philo(t_philo *philo)
+{
+	pthread_t	monitor;
+
+	philo->next_meal = ft_gettime() + philo->data->t_meal;
+	if (pthread_create(&monitor, NULL, ft_monitor, philo))
+		ft_perror(RED"Error: pthread_create\n"NC);
+	if (pthread_detach(monitor))
+		ft_perror(RED"Error: pthread_detach\n"NC);
+	while (1)
+	{
+		ft_grab_fork(philo);
+		ft_have_meal(philo);
+		ft_sleep(philo);
+		ft_philo_log(THINKING, philo);
+	}
 }
