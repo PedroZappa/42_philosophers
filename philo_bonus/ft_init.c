@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:00:25 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:27:33 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:36:00 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_init_semaphores(t_data *data)
 
 void	ft_fork_process(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->n_philos)

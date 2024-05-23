@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:04:16 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:25:09 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:37:49 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_grab_fork(t_philo *philo)
 	sem_wait(philo->data->forks);
 	ft_philo_log(FORK, philo);
 }
+
 void	ft_have_meal(t_philo *philo)
 {
 	ft_philo_log(EATING, philo);

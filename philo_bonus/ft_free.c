@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:11:19 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:10:53 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:38:19 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /// @param philo	Philosophers array to be freed
 void	ft_free(t_data *data, t_philo *philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->n_philos)

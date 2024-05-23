@@ -6,12 +6,11 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:47:07 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:48:15 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:36:53 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-
 
 /// @brief		Check if a character is a space
 /// @param c	Character to check
@@ -28,4 +27,3 @@ int	ft_isdigit(char c)
 {
 	return ((c >= '0') && (c <= '9'));
 }
-

@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:26:50 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:36:23 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,5 @@ t_msec	ft_gettime(void);
 
 /// ft_parse.c
 int		ft_parse(char **argv, t_data *data);
-
 
 #endif
