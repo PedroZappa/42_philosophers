@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:14:26 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:30:07 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_data
 	int				time_to_sleep;
 	int				meal_counter;
 	int				max_meals;
-	int				current_meal;
+	int				curr_meal;
 	sem_t			*forks;
 	sem_t			*msg;
 	sem_t			*death;
@@ -98,6 +98,7 @@ typedef struct s_philo
 
 /// ft_error.c
 int		ft_perror(char *err);
+int		ft_perror_free(t_data *data, char *err, int ret);
 
 /// ft_free.c
 void	ft_free(t_data *data, t_philo *philo);
