@@ -78,7 +78,7 @@ typedef struct s_philo
 	sem_t		*sem_printf;
 	t_msec		t_start;
 	int			idx;
-	t_msec		curr_meal;
+	int			curr_meal;
 	pthread_t	monitor;
 }				t_philo;
 
@@ -103,13 +103,14 @@ t_philo	*ft_init_data(int argc, char **argv);
 
 /// ft_ops.c
 void	*ft_monitor(void *arg);
-void	ft_philo_log(int id, t_philo *philo);
+void	ft_philo_log(t_philo *philo, char *str);
 void	ft_grab_fork(t_philo *philo);
 void	ft_have_meal(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 
 /// ft_time.c
 t_msec	ft_gettime(void);
+void	ft_philo_do(t_msec time, t_philo *philo);
 
 /// ft_parse.c
 int		ft_parse_arg(char *str);
