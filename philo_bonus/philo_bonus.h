@@ -64,10 +64,6 @@ typedef long long		t_msec;
 
 typedef struct s_data
 {
-	sem_t			*forks;
-	sem_t			*msg;
-	sem_t			*death;
-	sem_t			*stop;
 	int				n_philos;
 	int				time_to_die;
 	int				time_to_eat;
@@ -75,6 +71,10 @@ typedef struct s_data
 	int				meal_counter;
 	int				max_meals;
 	int				current_meal;
+	sem_t			*forks;
+	sem_t			*msg;
+	sem_t			*death;
+	sem_t			*stop;
 	t_msec			t_start;
 	t_msec			t_death;
 	t_msec			t_meal;
