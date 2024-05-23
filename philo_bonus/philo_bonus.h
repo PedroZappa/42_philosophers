@@ -62,32 +62,24 @@ typedef long long		t_msec;
 //                               Structures                                    /
 //=============================================================================/
 
-/// GONNA NUKE FROM THIS COMMIT ON
-typedef struct s_data
-{
-	int				n_philos;
-	int				meal_counter;
-	int				max_meals;
-	int				curr_meal;
-	sem_t			*sem_forks;
-	sem_t			*sem_msg;
-	sem_t			*sem_death;
-	sem_t			*sem_wait;
-	t_msec			t_start;
-	t_msec			t_death;
-	t_msec			t_meal;
-	t_msec			t_sleep;
-}				t_data;
-
 typedef struct s_philo
 {
-	pid_t	pid;
-	t_msec	meal_start;
-	t_msec	next_meal;
-	int		idx;
-	int		died;
-	int		meal_counter;
-	t_data	*data;
+	int			n_philos;
+	int			n_forks;
+	t_msec		t_death;
+	t_msec		t_meal;
+	t_msec		t_sleep;
+	int			meals_i;
+	int			meal_counter;
+	int			wait;
+	int			died;
+	pid_t		*pid;
+	sem_t		*sem_forks;
+	sem_t		*sem_printf;
+	t_msec		t_start;
+	int			idx;
+	t_msec		curr_meal;
+	pthread_t	monitor;
 }				t_philo;
 
 //=============================================================================/
@@ -100,15 +92,15 @@ int		ft_isdigit(char c);
 
 /// ft_error.c
 int		ft_perror(char *err);
-int		ft_perror_free(t_data *data, char *err, int ret);
+// int		ft_perror_free(t_data *data, char *err, int ret);
 
 /// ft_free.c
-void	ft_free(t_data *data, t_philo *philo);
+// void	ft_free(t_data *data, t_philo *philo);
 
 /// ft_init.c
-t_philo	*ft_init_philo(t_data *data);
-void	ft_init_semaphores(t_data *data);
-void	ft_fork_process(t_data *data, t_philo *philo);
+// t_philo	*ft_init_philo(t_data *data);
+// void	ft_init_semaphores(t_data *data);
+// void	ft_fork_process(t_data *data, t_philo *philo);
 
 /// ft_ops.c
 void	*ft_monitor(void *arg);
@@ -121,6 +113,6 @@ void	ft_sleep(t_philo *philo);
 t_msec	ft_gettime(void);
 
 /// ft_parse.c
-int		ft_parse(char **argv, t_data *data);
+// int		ft_parse(char **argv, t_data *data);
 
 #endif
