@@ -62,6 +62,7 @@ typedef long long		t_msec;
 //                               Structures                                    /
 //=============================================================================/
 
+/// GONNA NUKE FROM THIS COMMIT ON
 typedef struct s_data
 {
 	int				n_philos;
