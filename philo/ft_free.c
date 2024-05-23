@@ -12,6 +12,8 @@
 
 #include "philo.h"
 
+/// @brief			Free all simulation data
+/// @param philo	Pointer to array of philos
 void	ft_free(t_philo **philo)
 {
 	t_data	*data;
