@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/23 20:33:06 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/23 21:26:07 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,21 +158,21 @@ test_input: all			## Run tests on input args
 	@echo "$(CYA)Testing $(RED)invalid $(CYA)input$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
 	@echo "$(CYA)Test 1$(D)"
-	-./philo
+	-./$(NAME)
 	@echo "$(CYA)Test 2$(D)"
-	-./philo 2 200 200
+	-./$(NAME) 2 200 200
 	@echo "$(CYA)Test 3$(D)"
-	-./philo 2 200 200 200 -42
+	-./$(NAME) 2 200 200 200 -42
 	@echo "$(CYA)Test 4$(D)"
-	-./philo 2 2147483648 200 200
+	-./$(NAME) 2 2147483648 200 200
 	@echo "$(CYA)Test 5$(D)"
-	-./philo "  a2" 200 200 200
+	-./$(NAME) "  a2" 200 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test: all				## Run test with input args
 	tmux set-option remain-on-exit on
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo $(ARG)"
+	tmux split-window -h "./$(NAME) $(ARG)"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
 
@@ -180,19 +180,19 @@ test_kill_one: all			## Run a kill test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
-	./philo 1 800 200 200
+	./$(NAME) 1 800 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_life_5: all			## Run a infinite meal test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo 5 800 200 200"
+	tmux split-window -h "./$(NAME) 5 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_seven_meals: all			## Run a seven meals test
 	tmux set-option remain-on-exit on
-	-./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
+	-./$(NAME) 5 800 200 200 7 > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
@@ -202,7 +202,7 @@ test_life_4: all			## Run a infinite meal test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 4 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo 4 410 200 200"
+	tmux split-window -h "./$(NAME) 4 410 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
 
@@ -210,7 +210,7 @@ test_kill_four: all			## Run a kill test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo 4 310 200 100"
+	tmux split-window -h "./$(NAME) 4 310 200 100"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_count_panes:

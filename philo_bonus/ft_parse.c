@@ -75,7 +75,7 @@ static int	ft_init_data(t_data *data, int n, int arg)
 	{
 		if (n == 0)
 			return (ft_perror_free(NULL, \
-					RED"Error: No philos at the table\n"NC, 1));
+					RED"Error: Invalid number of philos\n"NC, 1));
 		data->n_philos = n;
 	}
 	else if (arg == 2)
