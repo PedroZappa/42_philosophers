@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 16:47:43 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 20:26:50 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	pid_t	pid;
-	t_msec	eating_time;
+	t_msec	meal_start;
 	t_msec	next_meal;
 	int		idx;
 	int		died;
@@ -94,8 +94,8 @@ typedef struct s_philo
 //=============================================================================/
 
 /// ft_ctype.c
-int	ft_isspace(char c);
-int	ft_isdigit(char c);
+int		ft_isspace(char c);
+int		ft_isdigit(char c);
 
 /// ft_error.c
 int		ft_perror(char *err);
@@ -109,10 +109,18 @@ t_philo	*ft_init_philo(t_data *data);
 void	ft_init_semaphores(t_data *data);
 void	ft_fork_process(t_data *data, t_philo *philo);
 
-/// ft_parse.c
-int		ft_parse(char **argv, t_data *data);
+/// ft_ops.c
+void	*ft_monitor(void *arg);
+void	ft_philo_log(int id, t_philo *philo);
+void	ft_grab_fork(t_philo *philo);
+void	ft_have_meal(t_philo *philo);
+void	ft_sleep(t_philo *philo);
 
 /// ft_time.c
 t_msec	ft_gettime(void);
+
+/// ft_parse.c
+int		ft_parse(char **argv, t_data *data);
+
 
 #endif
