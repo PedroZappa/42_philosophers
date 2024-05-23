@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:00:25 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:47:56 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:16:05 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ t_philo	*ft_init_philo(t_data *data)
 
 	i = -1;
 	philo = malloc(sizeof(t_philo) * data->n_philos);
-	data->death = NULL;
-	data->stop = NULL;
-	data->msg = NULL;
-	data->forks = NULL;
+	data->sem_death = NULL;
+	data->sem_wait = NULL;
+	data->sem_msg = NULL;
+	data->sem_forks = NULL;
 	while (++i < data->n_philos)
 	{
 		philo[i].idx = i;
@@ -41,14 +41,14 @@ t_philo	*ft_init_philo(t_data *data)
 
 void	ft_init_semaphores(t_data *data)
 {
-	sem_unlink("forks");
 	sem_unlink("death");
 	sem_unlink("msg");
 	sem_unlink("stop");
-	data->forks = sem_open("forks", O_CREAT, 0600, data->n_philos);
-	data->death = sem_open("death", O_CREAT, 0600, 1);
-	data->msg = sem_open("msg", O_CREAT, 0600, 1);
-	data->stop = sem_open("stop", O_CREAT, 0600, 1);
+	sem_unlink("forks");
+	data->sem_death = sem_open("death", O_CREAT, 0600, 1);
+	data->sem_msg = sem_open("msg", O_CREAT, 0600, 1);
+	data->sem_wait = sem_open("stop", O_CREAT, 0600, 1);
+	data->sem_forks = sem_open("forks", O_CREAT, 0600, data->n_philos);
 }
 
 void	ft_fork_process(t_data *data, t_philo *philo)
