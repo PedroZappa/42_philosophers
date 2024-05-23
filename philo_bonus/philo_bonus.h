@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:36:23 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:11:30 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,10 @@ typedef struct s_data
 	int				meal_counter;
 	int				max_meals;
 	int				curr_meal;
-	sem_t			*forks;
-	sem_t			*msg;
-	sem_t			*death;
-	sem_t			*stop;
+	sem_t			*sem_forks;
+	sem_t			*sem_msg;
+	sem_t			*sem_death;
+	sem_t			*sem_wait;
 	t_msec			t_start;
 	t_msec			t_death;
 	t_msec			t_meal;
