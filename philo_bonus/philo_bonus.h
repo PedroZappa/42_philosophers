@@ -69,11 +69,11 @@ typedef struct s_philo
 	t_msec		t_death;
 	t_msec		t_meal;
 	t_msec		t_sleep;
-	int			meals_i;
+	int			meal_max;
 	int			meal_counter;
 	int			wait;
 	int			died;
-	pid_t		*pid;
+	int			*pid;
 	sem_t		*sem_forks;
 	sem_t		*sem_printf;
 	t_msec		t_start;
@@ -98,7 +98,7 @@ int		ft_perror(char *err);
 // void	ft_free(t_data *data, t_philo *philo);
 
 /// ft_init.c
-// t_philo	*ft_init_philo(t_data *data);
+t_philo	*ft_parsinit(int argc, char **argv);
 // void	ft_init_semaphores(t_data *data);
 // void	ft_fork_process(t_data *data, t_philo *philo);
 
@@ -113,6 +113,6 @@ void	ft_sleep(t_philo *philo);
 t_msec	ft_gettime(void);
 
 /// ft_parse.c
-// int		ft_parse(char **argv, t_data *data);
+int		ft_parse_arg(char *str);
 
 #endif
