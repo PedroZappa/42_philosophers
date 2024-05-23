@@ -18,6 +18,25 @@ t_philo	*ft_parsinit(int argc, char **argv)
 {
 	t_philo	*new;
 
+	if (argc < 5 || argc > 6)
+		ft_perror(RED"Error: Wrong number of arguments"NC);
+	new = ft_init_data(argc, argv);
+	new->pid = malloc(sizeof(int) * new->n_forks);
+	if (!new->pid)
+		ft_perror("Error: malloc error (init pid)");
+	sem_unlink("/block_print");
+	sem_unlink("/block_forks");
+	new->sem_printf = sem_open("/block_print", O_CREAT, 0644, 1);
+	new->sem_forks = sem_open("/block_forks", O_CREAT, 0644, new->n_forks);
+	if (new->sem_printf == 0 || new->sem_forks == NULL)
+		ft_perror(RED"Error: semaphore open error"NC);
+	return (new);
+}
+
+t_philo	*ft_init_data(int argc, char **argv)
+{
+	t_philo	*new;
+
 	new = malloc(sizeof(t_philo));
 	if (!new)
 		ft_perror("Error: Failed to allocate memory (ft_init)\n");
@@ -41,51 +60,3 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	new->died = 0;
 	return (new);
 }
-
-// void	ft_init_semaphores(t_data *data)
-// {
-// 	sem_unlink("death");
-// 	sem_unlink("msg");
-// 	sem_unlink("stop");
-// 	sem_unlink("forks");
-// 	data->sem_death = sem_open("death", O_CREAT, 0600, 1);
-// 	data->sem_msg = sem_open("msg", O_CREAT, 0600, 1);
-// 	data->sem_wait = sem_open("stop", O_CREAT, 0600, 1);
-// 	data->sem_forks = sem_open("forks", O_CREAT, 0600, data->n_philos);
-// }
-//
-// void	ft_fork_process(t_data *data, t_philo *philo)
-// {
-// 	int	i;
-//
-// 	i = 0;
-// 	while (i < data->n_philos)
-// 	{
-// 		philo[i].pid = fork();
-// 		if (philo[i].pid == 0)
-// 		{
-// 			ft_start_philo(philo + i);
-// 			exit(0);
-// 		}
-// 		++i;
-// 		usleep(100);
-// 	}
-// }
-//
-// static void	ft_start_philo(t_philo *philo)
-// {
-// 	pthread_t	monitor;
-//
-// 	philo->next_meal = ft_gettime() + philo->data->t_meal;
-// 	if (pthread_create(&monitor, NULL, ft_monitor, philo))
-// 		ft_perror(RED"Error: pthread_create\n"NC);
-// 	if (pthread_detach(monitor))
-// 		ft_perror(RED"Error: pthread_detach\n"NC);
-// 	while (1)
-// 	{
-// 		ft_grab_fork(philo);
-// 		ft_have_meal(philo);
-// 		ft_sleep(philo);
-// 		ft_philo_log(THINKING, philo);
-// 	}
-// }

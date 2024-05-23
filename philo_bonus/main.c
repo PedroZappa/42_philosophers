@@ -12,32 +12,45 @@
 
 #include "philo_bonus.h"
 
+static void	ft_philosophize(t_philo *philo);
+static void	ft_free(t_philo **philo);
+
 /// @brief		Philosophers main function
 /// @param argc	Number of arguments
 /// @param argv	Argument vector
 /// @details	- Parse the arguments and 
 ///				- Initialize the data
-///				- Get the start time of the simulation
-///				- Initialize the semaphores
 ///				-
 int	main(int argc, char **argv)
 {
-	t_data	data;
 	t_philo	*philo;
+	int		i;
 
-	if ((argc == 5) || (argc == 6))
+	i = -1;
+	philo = ft_parsinit(argc, argv);
+	philo->t_start = ft_gettime();
+	while (++i < philo->n_philos)
 	{
-		if (ft_parse(argv, &data))
-			return (1);
-		philo = ft_init_philo(&data);
-		data.t_start = ft_gettime();
-		ft_init_semaphores(&data);
-		sem_wait(data.sem_wait);
-		ft_fork_process(&data, philo);
-		sem_wait(data.sem_wait);
-		ft_free(&data, philo);
+		philo->pid[i] = fork();
+		if (philo->pid[i] == -1)
+			ft_perror("Error: fork failed\n");
+		if (philo->pid[i] == 0)
+		{
+			philo->idx = (i + 1);
+			philo->t_meal = ft_gettime();
+			ft_philosophize(philo);
+		}
 	}
-	else
-		ft_perror(RED"Wrong number of arguments\n"NC);
+	ft_free(&philo);
 	return (0);
+}
+
+static void	ft_philosophize(t_philo *philo)
+{
+	(void)philo;
+}
+
+static void	ft_free(t_philo **philo)
+{
+	(void)philo;
 }

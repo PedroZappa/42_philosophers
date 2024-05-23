@@ -99,8 +99,7 @@ int		ft_perror(char *err);
 
 /// ft_init.c
 t_philo	*ft_parsinit(int argc, char **argv);
-// void	ft_init_semaphores(t_data *data);
-// void	ft_fork_process(t_data *data, t_philo *philo);
+t_philo	*ft_init_data(int argc, char **argv);
 
 /// ft_ops.c
 void	*ft_monitor(void *arg);
