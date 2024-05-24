@@ -234,7 +234,10 @@ test_chaos: all			## Run a chaos test
 		echo "Test $(CYA)$$TEST_N$(D) of $(GRN)$(ITER)$(D)"; \
 		echo "$(YEL)$(_SEP)$(D)"; \
 		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(ARG); \
-		sed -n '10p' $(TEMP_PATH)/temp.txt | tee -a $(TEMP_PATH)/out.txt; \
+		total_lines=$(shell wc -l < "$(TEMP_PATH)/temp.txt"); \
+		echo "$(YEL)$$total_lines$(D)"; \
+		let "target_line = total_lines - 4"; \
+		sed -n "$${target_line}p" "$(TEMP_PATH)/temp.txt" | tee -a "$(TEMP_PATH)/out.txt"; \
 		COUNTER=$$((COUNTER + 1)); \
 		echo $$COUNTER > $(TEMP_PATH)/passed_count.txt; \
 		echo "$(YEL)$(_SEP)$(D)"; \
