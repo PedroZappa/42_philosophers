@@ -12,8 +12,6 @@
 
 #include "philo_bonus.h"
 
-static void	ft_start_philo(t_philo *philo);
-
 t_philo	*ft_parsinit(int argc, char **argv)
 {
 	t_philo	*new;
