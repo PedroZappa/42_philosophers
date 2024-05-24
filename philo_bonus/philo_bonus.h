@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <pthread.h>
 # include <semaphore.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -51,7 +52,7 @@
 # define NO 0
 
 /// Typedefs
-typedef long long	t_msec;
+typedef long long int	t_msec;
 
 //=============================================================================/
 //                               Structures                                    /
@@ -73,7 +74,7 @@ typedef struct s_philo
 	sem_t		*sem_printf;
 	t_msec		t_start;
 	int			idx;
-	int			curr_meal;
+	t_msec			curr_meal;
 	pthread_t	monitor;
 }				t_philo;
 
