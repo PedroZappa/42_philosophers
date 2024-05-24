@@ -38,5 +38,7 @@ int	ft_parse_arg(char *str)
 		if (num > INT_MAX)
 			return (ft_perror(RED"Error: arg exceeds INT_MAX\n"NC));
 	}
+	if (*str != '\0' || num == 0)
+		return (-1);
 	return (num * sign);
 }
