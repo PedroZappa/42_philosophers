@@ -104,5 +104,28 @@ static void	*ft_monitor(void *arg)
 
 static void	ft_free(t_philo **philo)
 {
-	(void)philo;
+	t_philo	*to_del;
+	int		i;
+	int		pid_status;
+
+	to_del = *philo;
+	i = 0;
+	while (i < to_del->n_philos)
+	{
+		waitpid(-1, &pid_status, 0);
+		if (pid_status != 0)
+		{
+			i = -1;
+			while (++i < to_del->n_philos)
+				kill(to_del->pid[i], SIGKILL);
+			break ;
+		}
+		++i;
+	}
+	sem_close(to_del->sem_printf);
+	sem_close(to_del->sem_forks);
+	sem_unlink("/block_print");
+	sem_unlink("/block_forks");
+	free(to_del->pid);
+	free(to_del);
 }
