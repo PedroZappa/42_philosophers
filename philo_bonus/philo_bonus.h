@@ -26,6 +26,7 @@
 # include <sys/time.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <unistd.h>
 
 //=============================================================================/
@@ -50,7 +51,7 @@
 # define NO 0
 
 /// Typedefs
-typedef long long		t_msec;
+typedef long long	t_msec;
 
 //=============================================================================/
 //                               Structures                                    /

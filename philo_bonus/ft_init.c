@@ -22,11 +22,11 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	new->pid = malloc(sizeof(int) * new->n_forks);
 	if (!new->pid)
 		ft_perror(RED"Error: malloc error (init pid)"NC);
-	sem_unlink("/block_print");
-	sem_unlink("/block_forks");
-	new->sem_printf = sem_open("/block_print", O_CREAT, 0644, 1);
-	new->sem_forks = sem_open("/block_forks", O_CREAT, 0644, new->n_forks);
-	if ((new->sem_printf == 0) || (new->sem_forks == NULL))
+	sem_unlink("/sem_printf");
+	sem_unlink("/sem_forks");
+	new->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
+	new->sem_forks = sem_open("/sem_forks", O_CREAT, S_IRWXU, new->n_forks);
+	if ((new->sem_printf == NULL) || (new->sem_forks == NULL))
 		ft_perror(RED"Error: semaphore open error"NC);
 	return (new);
 }

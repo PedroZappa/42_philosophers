@@ -62,7 +62,7 @@ OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror
-# CFLAGS		+= -lpthread
+CFLAGS		+= -lpthread
 DFLAGS		= -g
 # DFLAGS		+= -fsanitize=thread
 INC			= -I.
@@ -204,7 +204,6 @@ test_life_4: all			## Run a infinite meal test
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./$(NAME) 4 410 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
-	make count_meals
 
 test_kill_four: all			## Run a kill test
 	tmux set-option remain-on-exit on

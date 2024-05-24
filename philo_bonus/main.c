@@ -25,25 +25,25 @@ static void	ft_free(t_philo **philo);
 ///				-
 int	main(int argc, char **argv)
 {
-	t_philo	*philo;
+	t_philo	*philos;
 	int		i;
 
+	philos = ft_parsinit(argc, argv);
 	i = -1;
-	philo = ft_parsinit(argc, argv);
-	philo->t_start = ft_gettime();
-	while (++i < philo->n_philos)
+	philos->t_start = ft_gettime();
+	while (++i < philos->n_philos)
 	{
-		philo->pid[i] = fork();
-		if (philo->pid[i] == -1)
+		philos->pid[i] = fork();
+		if (philos->pid[i] == -1)
 			ft_perror(RED"Error: fork failed\n"NC);
-		if (philo->pid[i] == 0)
+		if (philos->pid[i] == 0)
 		{
-			philo->idx = (i + 1);
-			philo->curr_meal = ft_gettime();
-			ft_philosophize(philo);
+			philos->idx = (i + 1);
+			philos->curr_meal = ft_gettime();
+			ft_philosophize(philos);
 		}
 	}
-	ft_free(&philo);
+	ft_free(&philos);
 	return (0);
 }
 
@@ -65,7 +65,7 @@ static void	ft_philosophize(t_philo *philo)
 		philo->curr_meal = ft_gettime();
 		sem_post(philo->sem_forks);
 		sem_post(philo->sem_forks);
-		philo->meal_counter++;
+		++philo->meal_counter;
 		ft_philo_log(philo, "is sleeping");
 		ft_philo_do(philo->t_sleep, philo);
 	}
@@ -124,8 +124,8 @@ static void	ft_free(t_philo **philo)
 	}
 	sem_close(to_del->sem_printf);
 	sem_close(to_del->sem_forks);
-	sem_unlink("/block_print");
-	sem_unlink("/block_forks");
+	sem_unlink("/sem_printf");
+	sem_unlink("/sem_forks");
 	free(to_del->pid);
 	free(to_del);
 }
