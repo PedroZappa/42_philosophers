@@ -70,7 +70,6 @@ static void	ft_philosophize(t_philo *philo)
 	}
 	if (pthread_join(philo->monitor, NULL))
 		ft_perror("Error: pthread_join failed\n");
-
 }
 
 static void	*ft_monitor(void *arg)
