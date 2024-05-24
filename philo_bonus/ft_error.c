@@ -15,15 +15,6 @@
 static int	ft_putstr_fd(char *str, int fd);
 static int	ft_strlen(char *str);
 
-int	ft_perror_free(t_data *data, char *err, int ret)
-{
-	if (data)
-		if (data->forks)
-			free(data->forks);
-	ft_perror(err);
-	return (ret);
-}
-
 /// @brief		Print error message
 /// @param err	Error message to print
 int	ft_perror(char *err)
