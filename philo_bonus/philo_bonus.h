@@ -92,10 +92,6 @@ int		ft_isdigit(char c);
 
 /// ft_error.c
 int		ft_perror(char *err);
-// int		ft_perror_free(t_data *data, char *err, int ret);
-
-/// ft_free.c
-// void	ft_free(t_data *data, t_philo *philo);
 
 /// ft_init.c
 t_philo	*ft_parsinit(int argc, char **argv);
