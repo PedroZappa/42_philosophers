@@ -11,13 +11,21 @@ define main
 	display *philos
 	display philos@(*philos)->n_philos
 	display *philos->pid@(*philos)->n_philos
-	display i;
+	display i
 end
 
 define philosophize
 	display *philos
 	display i 
 end
+
+define free
+	display *to_del
+	display philo
+	display *philo
+	display **philo
+	display i
+end	
 
 # ...
 
