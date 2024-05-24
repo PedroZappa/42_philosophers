@@ -12,30 +12,15 @@
 
 #include "philo_bonus.h"
 
-void	*ft_monitor(void *arg)
+///
+/// @brief			Lock and unlock mutex and print message to stdout
+/// @param philo	Pointer to a t_philo struct
+/// @param str		Message to print
+void	ft_philo_log(t_philo *philo, char *str)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	while (1)
-	{
-		sem_wait(philo->data->sem_death);
-		if (philo->next_meal < ft_gettime())
-		{
-			ft_philo_log(DIED, philo);
-			sem_post(philo->data->sem_wait);
-			break ;
-		}
-		sem_post(philo->data->sem_death);
-		sem_wait(philo->data->sem_death);
-		if ((philo->data->meal_counter != -1) \
-			&& (philo->data->curr_meal >= philo->data->max_meals))
-		{
-			ft_philo_log(DONE, philo);
-			sem_post(philo->data->sem_wait);
-			break ;
-		}
-		sem_post(philo->data->sem_death);
-	}
-	return (NULL);
+	sem_wait(philo->sem_printf);
+	if (!philo->wait)
+		printf("%lld %d %s\n", \
+				(ft_gettime() - philo->t_start), philo->idx, str);
+	sem_post(philo->sem_printf);
 }
