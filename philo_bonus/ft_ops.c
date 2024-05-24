@@ -19,7 +19,7 @@
 void	ft_philo_log(t_philo *philo, char *str)
 {
 	sem_wait(philo->sem_printf);
-	if (!philo->wait)
+	if (philo->wait == NO)
 		printf("%lld %d %s\n", \
 				(ft_gettime() - philo->t_start), philo->idx, str);
 	sem_post(philo->sem_printf);

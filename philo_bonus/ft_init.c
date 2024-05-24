@@ -16,17 +16,17 @@ t_philo	*ft_parsinit(int argc, char **argv)
 {
 	t_philo	*new;
 
-	if (argc < 5 || argc > 6)
+	if ((argc < 5) || (argc > 6))
 		ft_perror(RED"Error: Wrong number of arguments"NC);
 	new = ft_init_data(argc, argv);
 	new->pid = malloc(sizeof(int) * new->n_forks);
 	if (!new->pid)
-		ft_perror("Error: malloc error (init pid)");
+		ft_perror(RED"Error: malloc error (init pid)"NC);
 	sem_unlink("/block_print");
 	sem_unlink("/block_forks");
 	new->sem_printf = sem_open("/block_print", O_CREAT, 0644, 1);
 	new->sem_forks = sem_open("/block_forks", O_CREAT, 0644, new->n_forks);
-	if (new->sem_printf == 0 || new->sem_forks == NULL)
+	if ((new->sem_printf == 0) || (new->sem_forks == NULL))
 		ft_perror(RED"Error: semaphore open error"NC);
 	return (new);
 }
@@ -37,7 +37,7 @@ t_philo	*ft_init_data(int argc, char **argv)
 
 	new = malloc(sizeof(t_philo));
 	if (!new)
-		ft_perror("Error: Failed to allocate memory (ft_init)\n");
+		ft_perror(RED"Error: Failed to allocate memory (ft_init)\n"NC);
 	new->n_philos = ft_parse_arg(argv[1]);
 	new->n_forks = new->n_philos;
 	new->t_death = ft_parse_arg(argv[2]);

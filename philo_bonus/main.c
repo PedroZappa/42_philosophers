@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 		if (philo->pid[i] == 0)
 		{
 			philo->idx = (i + 1);
-			philo->t_meal = ft_gettime();
+			philo->curr_meal = ft_gettime();
 			ft_philosophize(philo);
 		}
 	}
@@ -81,7 +81,7 @@ static void	*ft_monitor(void *arg)
 	while (!philo->wait)
 	{
 		usleep(100);
-		if ((ft_gettime() - philo->t_meal) >= philo->t_death)
+		if ((ft_gettime() - philo->curr_meal) >= philo->t_death)
 		{
 			philo->died = YES;
 			sem_wait(philo->sem_printf);
@@ -96,7 +96,7 @@ static void	*ft_monitor(void *arg)
 			break ;
 		}
 	}
-	if (philo->died == YES)
+	if (philo->died)
 		exit(1);
 	else
 		exit(0);

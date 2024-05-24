@@ -48,12 +48,6 @@
 /// Macros
 # define YES 1
 # define NO 0
-# define FORK 1
-# define EATING 2
-# define SLEEPING 3
-# define THINKING 4
-# define DIED 5
-# define DONE 6
 
 /// Typedefs
 typedef long long		t_msec;
