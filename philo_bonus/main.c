@@ -28,8 +28,8 @@ int	main(int argc, char **argv)
 	t_philo	*philos;
 	int		i;
 
-	philos = ft_parsinit(argc, argv);
 	i = -1;
+	philos = ft_parsinit(argc, argv);
 	philos->t_start = ft_gettime();
 	while (++i < philos->n_philos)
 	{
@@ -65,7 +65,7 @@ static void	ft_philosophize(t_philo *philo)
 		philo->curr_meal = ft_gettime();
 		sem_post(philo->sem_forks);
 		sem_post(philo->sem_forks);
-		++philo->meal_counter;
+		philo->meal_counter += 1;
 		ft_philo_log(philo, "is sleeping");
 		ft_philo_do(philo->t_sleep, philo);
 	}
@@ -81,7 +81,7 @@ static void	*ft_monitor(void *arg)
 	while (!philo->wait)
 	{
 		usleep(100);
-		if ((ft_gettime() - philo->curr_meal) >= philo->t_death)
+		if ((ft_gettime() - philo->curr_meal) > philo->t_death)
 		{
 			philo->died = YES;
 			sem_wait(philo->sem_printf);
