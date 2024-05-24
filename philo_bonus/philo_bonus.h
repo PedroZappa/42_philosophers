@@ -102,11 +102,7 @@ t_philo	*ft_parsinit(int argc, char **argv);
 t_philo	*ft_init_data(int argc, char **argv);
 
 /// ft_ops.c
-void	*ft_monitor(void *arg);
 void	ft_philo_log(t_philo *philo, char *str);
-void	ft_grab_fork(t_philo *philo);
-void	ft_have_meal(t_philo *philo);
-void	ft_sleep(t_philo *philo);
 
 /// ft_time.c
 t_msec	ft_gettime(void);

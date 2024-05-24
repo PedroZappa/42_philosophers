@@ -14,6 +14,7 @@
 #include <pthread.h>
 
 static void	ft_philosophize(t_philo *philo);
+static void	*ft_monitor(void *arg);
 static void	ft_free(t_philo **philo);
 
 /// @brief		Philosophers main function
@@ -71,21 +72,37 @@ static void	ft_philosophize(t_philo *philo)
 		ft_perror("Error: pthread_join failed\n");
 
 }
-//
-// ///
-// /// @brief			Lock and unlock mutex and print message to stdout
-// /// @param philo	Pointer to a t_philo struct
-// /// @param str		Message to print
-// void	ft_philo_log(t_philo *philo, char *str)
-// {
-// 	sem_wait(philo->sem_printf);
-// 	if (!philo->wait)
-// 		printf("%lld %d %s\n", \
-// 				(ft_gettime() - philo->t_start), philo->idx, str);
-// 	sem_post(philo->sem_printf);
-// }
-//
-// static void	ft_free(t_philo **philo)
-// {
-// 	(void)philo;
-// }
+
+static void	*ft_monitor(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (!philo->wait)
+	{
+		usleep(100);
+		if ((ft_gettime() - philo->t_meal) >= philo->t_death)
+		{
+			philo->died = YES;
+			sem_wait(philo->sem_printf);
+			printf("%lld %d %s\n", \
+					(ft_gettime() - philo->t_start), philo->idx, "died");
+			philo->wait = YES;
+			break ;
+		}
+		if ((philo->meal_max != -1) && (philo->meal_counter >= philo->meal_max))
+		{
+			philo->wait = YES;
+			break ;
+		}
+	}
+	if (philo->died == YES)
+		exit(1);
+	else
+		exit(0);
+}
+
+static void	ft_free(t_philo **philo)
+{
+	(void)philo;
+}
