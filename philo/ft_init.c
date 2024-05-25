@@ -69,7 +69,8 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	new->t_meal = ft_parse_arg(argv[3]);
 	new->t_sleep = ft_parse_arg(argv[4]);
 	if ((new->n_philos < 1) || (new->n_philos > 200) || (new->t_death == -1) \
-		|| (new->t_meal == -1) || (new->t_sleep == -1))
+		|| (new->t_meal == -1) || (new->t_sleep == -1) || (new->t_death < 60) \
+		|| (new->t_meal < 60) || (new->t_sleep < 60))
 		return (ft_perror(RED"Error: invalid arguments\n"NC));
 	new->n_meals = -1;
 	if (argc == 6)
