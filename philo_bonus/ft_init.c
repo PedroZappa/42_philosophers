@@ -73,7 +73,7 @@ t_philo	*ft_init_data(int argc, char **argv)
 			exit(ft_perror(RED"Error: invalid arguments\n"NC));
 	}
 	new->meal_counter = 0;
-	new->wait = 0;
-	new->died = 0;
+	new->wait = NO;
+	new->died = NO;
 	return (new);
 }
