@@ -174,7 +174,6 @@ test: all				## Run test with input args
 	@echo "$(YEL)$(_SEP)$(D)"
 	tmux split-window -h "./philo $(ARG)"
 	@echo "$(YEL)$(_SEP)$(D)"
-	make count_meals
 
 test_kill_one: all			## Run a kill test
 	tmux set-option remain-on-exit on
