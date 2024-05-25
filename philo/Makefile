@@ -157,29 +157,37 @@ check_ext_func: all		## Check for external functions
 test_input: all			## Run tests on input args
 	@echo "$(CYA)Testing $(RED)invalid $(CYA)input$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
-	@echo "$(CYA)Test 1$(D)"
-	-./philo
-	@echo "$(CYA)Test 2$(D)"
-	-./philo 2 200 200
-	@echo "$(CYA)Test 3$(D)"
-	-./philo 2 200 200 200 -42
-	@echo "$(CYA)Test 4$(D)"
-	-./philo 2 2147483648 200 200
-	@echo "$(CYA)Test 5$(D)"
-	-./philo "  a2" 200 200 200
+	@echo "$(CYA)Test 1 : Less arguments than required$(D)"
+	-./$(NAME)
+	@echo "$(CYA)Test 2 : Less arguments than required$(D)"
+	-./$(NAME) 2 200 200
+	@echo "$(CYA)Test 3 : Negative argument$(D)"
+	-./$(NAME) 2 200 200 200 -42
+	@echo "$(CYA)Test 4 : Argument larger than INT_MAX$(D)"
+	-./$(NAME) 2 2147483648 200 200
+	@echo "$(CYA)Test 5 : Invalid argument$(D)"
+	-./$(NAME) "  a2" 200 200 200
+	@echo "$(CYA)Test 6 : Argument value out of range (too many philos)$(D)"
+	-./$(NAME) 201 800 200 200 2
+	@echo "$(CYA)Test 7 : Argument value out of range (time_to_die less than 60)$(D)"
+	-./$(NAME) 5 59 30 30 
+	@echo "$(CYA)Test 7 : Argument value out of range (time_to_eat less than 60)$(D)"
+	-./$(NAME) 5 120 59 60 
+	@echo "$(CYA)Test 7 : Argument value out of range (time_to_sleep less than 60)$(D)"
+	-./$(NAME) 5 120 60 59 
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test: all				## Run test with input args
 	tmux set-option remain-on-exit on
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./philo $(ARG)"
+	tmux split-window -h "./$(NAME) $(ARG)"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_kill_one: all			## Run a kill test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
-	./philo 1 800 200 200
+	./$(NAME) 1 800 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_kill_four: all			## Run a kill test
@@ -213,7 +221,7 @@ test_life_5: all			## Run a infinite meal test
 
 test_seven_meals: all			## Run a seven meals test
 	tmux set-option remain-on-exit on
-	-./philo 5 800 200 200 7 > $(TEMP_PATH)/out.txt
+	-./$(NAME) 5 800 200 200 7 > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
