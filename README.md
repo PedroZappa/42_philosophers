@@ -27,6 +27,7 @@ ___
 <!-- mtoc-start -->
 
 * [About 📌](#about-)
+* [`philosophers` Problem 🜎](#philosophers-problem-)
 * [`philosophers` Requirements Overview ✅](#philosophers-requirements-overview-)
 * [`philosophers` Implementation 📜](#philosophers-implementation-)
 * [Usage 🏁](#usage-)
@@ -37,6 +38,26 @@ ___
 <!-- mtoc-end -->
 
 # About 📌
+
+This is a classic CS project conceived as an introduction to the basics of threading a process. It gives an introductory glance into the difficulties contingent to the non-deterministic nature of multi-threaded application programming.
+
+## `philosophers` Problem 🜎
+
+*  **One or more philosophers** sit at a round table.
+There is a large bowl of spaghetti in the middle of the table.
+
+* The philosophers alternate between eating, thinking, or sleeping:
+	- While they are eating, they are not thinking nor sleeping;
+	- while thinking, they are not eating nor sleeping;
+	- While sleeping, they are not eating nor thinking.
+* There are also **forks** on the table. There are **as many forks as philosophers**.
+* A philosopher **must take two forks to eat**, one in each hand.
+* When finished eating, they **put their forks back on the table** and start sleeping. 
+* Once awake, they start thinking again. 
+* The simulation **stops** when a philosopher **dies of starvation**.
+* Every philosopher needs to eat and should never starve.
+* Philosophers don’t speak with each other.
+* Philosophers don’t know if another philosopher is about to die.
 
 ## `philosophers` Requirements Overview ✅
 
