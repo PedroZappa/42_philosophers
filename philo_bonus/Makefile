@@ -168,8 +168,12 @@ test_input: all			## Run tests on input args
 	@echo "$(CYA)Test 5 : Invalid argument$(D)"
 	-./$(NAME) "  a2" 200 200 200
 	@echo "$(CYA)Test 6 : Argument value out of range (too many philos)$(D)"
-	-./$(NAME) 300 800 200 200 2
-	@echo "$(CYA)Test 7 : Argument value out of range (time to die less than 60)$(D)"
+	-./$(NAME) 201 800 200 200 2
+	@echo "$(CYA)Test 7 : Argument value out of range (time_to_die less than 60)$(D)"
+	-./$(NAME) 5 59 30 30 
+	@echo "$(CYA)Test 7 : Argument value out of range (time_to_eat less than 60)$(D)"
+	-./$(NAME) 5 120 59 60 
+	@echo "$(CYA)Test 7 : Argument value out of range (time_to_sleep less than 60)$(D)"
 	-./$(NAME) 5 120 60 59 
 	@echo "$(YEL)$(_SEP)$(D)"
 
