@@ -12,6 +12,17 @@
 
 #include "philo_bonus.h"
 
+/// @brief		Parse and initialize the data
+/// @param argc	Number of arguments
+/// @param argv	Argument vector
+/// @return		Pointer to a t_philo struct w/ the initialized data
+/// @details	- Check if the number of arguments is valid
+/// 			- Initialize the data
+/// 			- Alloc memory for the pid array
+/// 			- Create semaphoreso
+/// 			- Open semaphores
+///				- Handle failure to open semaphores
+///				- Return pointer to a t_philo struct w/ the initialized data
 t_philo	*ft_parsinit(int argc, char **argv)
 {
 	t_philo	*new;
@@ -31,6 +42,13 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	return (new);
 }
 
+/// @brief		Initialize the data
+/// @param argc	Number of arguments
+/// @param argv	Argument vector
+/// @return		Pointer to a t_philo struct w/ the initialized data
+/// @details	- Allocate memory for a t_philo struct
+///				- Initialize the data
+///				- return pointer to a t_philo struct w/ the initialized data
 t_philo	*ft_init_data(int argc, char **argv)
 {
 	t_philo	*new;
