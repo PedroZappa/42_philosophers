@@ -191,11 +191,11 @@ test_kill_one: all			## Run a kill test
 	./$(NAME) 1 800 200 200
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test_life_5: all			## Run a infinite meal test
+test_kill_four: all			## Run a kill test
 	tmux set-option remain-on-exit on
-	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
+	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./$(NAME) 5 800 200 200"
+	tmux split-window -h "./$(NAME) 4 310 200 100"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_seven_meals: all			## Run a seven meals test
@@ -206,6 +206,13 @@ test_seven_meals: all			## Run a seven meals test
 	make count_meals
 	tmux resize-pane -R 54
 
+test_life_min: all			## Run a infinite test with shortest life possible
+	tmux set-option remain-on-exit on
+	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
+	@echo "$(YEL)$(_SEP)$(D)"
+	tmux split-window -h "./$(NAME) 200 169 60 60"
+	@echo "$(YEL)$(_SEP)$(D)"
+
 test_life_4: all			## Run a infinite meal test
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 4 philos should eat and live forever"
@@ -213,11 +220,11 @@ test_life_4: all			## Run a infinite meal test
 	tmux split-window -h "./$(NAME) 4 410 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test_kill_four: all			## Run a kill test
+test_life_5: all			## Run a infinite meal test
 	tmux set-option remain-on-exit on
-	@echo "$(CYA)Testing $(GRN)kill $(D): A philo should not eat and should die"
+	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./$(NAME) 4 310 200 100"
+	tmux split-window -h "./$(NAME) 5 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_count_panes:
@@ -226,7 +233,6 @@ test_count_panes:
 	# Print the number of panes
 	@echo "$(CYA)Number of panes: $(GRN)$$PANES_COUNT$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
-
 
 test_chaos: all			## Run a chaos test
 	tmux set-option remain-on-exit on
