@@ -68,6 +68,7 @@ static void	ft_philosophize(t_philo *philo)
 {
 	if (pthread_create(&philo->monitor, NULL, &ft_monitor, philo))
 		ft_perror(RED"Error: pthread_create failed\n"NC);
+	pthread_detach(philo->monitor);
 	if ((philo->idx % 2) == 1)
 		usleep(1000);
 	while (1)
@@ -86,8 +87,6 @@ static void	ft_philosophize(t_philo *philo)
 		ft_philo_log(philo, "is sleeping");
 		ft_philo_do(philo->t_sleep, philo);
 	}
-	if (pthread_join(philo->monitor, NULL))
-		ft_perror(RED"Error: pthread_join failed\n"NC);
 }
 
 /// @brief		Monitor thread
