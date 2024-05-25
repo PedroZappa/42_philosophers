@@ -61,6 +61,38 @@ There is a large bowl of spaghetti in the middle of the table.
 
 ## `philosophers` Requirements Overview ✅
 
+- The program must not include any global variables.
+
+- It should accept the following command line arguments (as positive integers):
+```sh
+./philosophers <n_philos> <time_to_die> <time_to_eat> <time_to_sleep> [max_meals]
+```
+
+- `n_philos` also the number of forks.
+
+- `time_to_die` the time to die in milliseconds (length of philo's life).
+
+- `time_to_eat` the time to eat in milliseconds (length of time to hold forks).
+
+- `time_to_sleep` the time to sleep in milliseconds (length of time to rest).
+
+- `max_meals` the maximum number of meals for the simulation (optional argument).
+
+- Each philosopher is numbered from 1 to `n_philos`.
+
+- Philosophers number 1 should be sitting next to philosopher `n_philos` and philosophers number 2.
+
+Regarding logs, the program should report any state change of a philosopher formatted as:
+	- `timestamp_in_ms <philo_n> has taken a fork.`
+	- `timestamp_in_ms <philo_n> is eating.`
+	- `timestamp_in_ms <philo_n> is sleeping.`
+	- `timestamp_in_ms <philo_n> is thinking.`
+	- `timestamp_in_ms <philo_n> has died.`
+
+- Messages should not mix with each other.
+
+- A message announcing the end of the simulation should be displayed no more than 10ms after the time of death of the philosopher.
+
 ___
 # `philosophers` Implementation 📜
 
