@@ -36,6 +36,6 @@ void	ft_philo_do(t_msec time, t_data *data)
 	{
 		if ((ft_gettime() - t) >= time)
 			break ;
-		usleep(500);
+		usleep(100);
 	}
 }
