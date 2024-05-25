@@ -119,6 +119,15 @@ ___
 
 # Usage 🏁
 
+Clone the repository and cd into either the mandatory (`philo`) or bonus implementation (`philo_bonus`):
+```sh
+git clone https://github.com/PedroZappa/42_philosophers.git 42_philosophers_passunca
+# For the mandatory (Threads implementation)
+cd 42_philosophers_passunca/philo
+# For the bonus (Processes implementation)
+cd 42_philosophers_passunca/philo_bonus
+```
+
 ___
 
 # Tests 🧪
