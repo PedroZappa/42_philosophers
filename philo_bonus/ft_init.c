@@ -38,7 +38,7 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	new->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
 	new->sem_forks = sem_open("/sem_forks", O_CREAT, S_IRWXU, new->n_forks);
 	if ((new->sem_printf == NULL) || (new->sem_forks == NULL))
-		ft_perror(RED"Error: semaphore open error"NC);
+		exit(ft_perror(RED"Error: semaphore open error"NC));
 	return (new);
 }
 
@@ -62,14 +62,15 @@ t_philo	*ft_init_data(int argc, char **argv)
 	new->t_meal = ft_parse_arg(argv[3]);
 	new->t_sleep = ft_parse_arg(argv[4]);
 	if ((new->n_philos < 1) || (new->n_philos > 200) || (new->t_death == -1) \
-		|| (new->t_meal == -1) || (new->t_sleep == -1))
-		ft_perror(RED"Error: invalid arguments\n"NC);
+		|| (new->t_meal == -1) || (new->t_sleep == -1) || (new->t_death < 60) \
+		|| (new->t_meal < 60) || (new->t_sleep < 60))
+		exit(ft_perror(RED"Error: invalid arguments\n"NC));
 	new->meal_max = -1;
 	if (argc == 6)
 	{
 		new->meal_max = ft_parse_arg(argv[5]);
 		if (new->meal_max == -1)
-			ft_perror(RED"Error: invalid arguments\n"NC);
+			exit(ft_perror(RED"Error: invalid arguments\n"NC));
 	}
 	new->meal_counter = 0;
 	new->wait = 0;
