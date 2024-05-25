@@ -18,8 +18,8 @@ MAKE	= make -C
 SHELL	:= bash
 
 # Default test values
-ARG				= 5 800 200 200
-TIMESTEP		= 100
+ARG			= 5 800 200 200
+TIMESTEP	= 100
 TIMEOUT		= 10
 ITER		= 10
 
@@ -64,7 +64,7 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 # CFLAGS		+= -lpthread
 DFLAGS		= -g
-DFLAGS		+= -fsanitize=thread
+# DFLAGS		+= -fsanitize=thread
 INC			= -I.
 
 #==============================================================================#
