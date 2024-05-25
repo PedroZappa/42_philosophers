@@ -20,9 +20,12 @@ static void	ft_free(t_philo **philo);
 /// @brief		Philosophers main function
 /// @param argc	Number of arguments
 /// @param argv	Argument vector
-/// @details	- Parse the arguments and 
-///				- Initialize the data
-///				-
+/// @details	- Parse input arguments and initialize the data 
+///				- Get the current time (simulation start)
+///				- Fork n_philos processes
+///					- Handle failure to fork on main process
+///					- Handle child processes logic
+///				- Free allocated memory
 int	main(int argc, char **argv)
 {
 	t_philo	*philos;
@@ -47,6 +50,21 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+/// @brief			Philosophers logic
+/// @param philo	Pointer to a t_philo struct
+/// @details		- Create monitor thread
+/// 				- If idx is odd, wait 1ms
+/// 				- While alive:
+/// 					- Log "is thinking"
+/// 					- Wait for forks
+/// 					- Log "has taken a fork" when fork is available
+/// 					- Log "is eating" when both forks have been taken
+/// 					- Wait for t_meal (eat)
+/// 					- Get current meal time
+/// 					- Put back forks
+/// 					- Count meal
+/// 					- Log "is sleeping"
+/// 				- Join monitor thread
 static void	ft_philosophize(t_philo *philo)
 {
 	if (pthread_create(&philo->monitor, NULL, &ft_monitor, philo))
@@ -73,6 +91,21 @@ static void	ft_philosophize(t_philo *philo)
 		ft_perror(RED"Error: pthread_join failed\n"NC);
 }
 
+/// @brief		Monitor thread
+/// @param arg	Pointer to a t_philo struct passed by reference
+/// @return		0 if alive, 1 if dead
+/// @details	- Typecast arg (void *) to a t_philo *
+/// 			- While simulation is not over:
+/// 				- Sleep 100ms
+/// 				- Check if philo died
+///						- Set philo as dead
+///						- Print death message protected by semaphore
+/// 				- Check if philo has eaten max number of meals
+///						- Set philo as dead
+///				- If philo has died
+///					- Exit wiith 1
+///				- Else if philo has eaten max number of meals
+///					- Exit with 0
 static void	*ft_monitor(void *arg)
 {
 	t_philo	*philo;
@@ -102,6 +135,14 @@ static void	*ft_monitor(void *arg)
 		exit(0);
 }
 
+/// @brief			Free allocated memory
+/// @param philo	Pointer to a t_philo struct
+/// @details		- Kill all child processes
+/// 				- Close semaphores
+/// 				- Unlink semaphores
+/// 				- Free pointer to pid array
+/// 				- Free pointer to t_philo struct
+///
 static void	ft_free(t_philo **philo)
 {
 	t_philo	*to_del;
