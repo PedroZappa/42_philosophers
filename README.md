@@ -29,7 +29,7 @@ ___
 * [About 📌](#about-)
 * [`philosophers` Problem 🜎](#philosophers-problem-)
 * [`philosophers` Requirements Overview ✅](#philosophers-requirements-overview-)
-* [`philosophers` Implementation 📜](#philosophers-implementation-)
+* [`philosophers`  Mandatory Implementation 📜](#philosophers--mandatory-implementation-)
 * [Usage 🏁](#usage-)
 * [Tests 🧪](#tests-)
 * [References 📚](#references-)
@@ -83,6 +83,7 @@ There is a large bowl of spaghetti in the middle of the table.
 - Philosophers number 1 should be sitting next to philosopher `n_philos` and philosophers number 2.
 
 Regarding logs, the program should report any state change of a philosopher formatted as:
+
 	- `timestamp_in_ms <philo_n> has taken a fork.`
 	- `timestamp_in_ms <philo_n> is eating.`
 	- `timestamp_in_ms <philo_n> is sleeping.`
@@ -94,7 +95,7 @@ Regarding logs, the program should report any state change of a philosopher form
 - A message announcing the end of the simulation should be displayed no more than 10ms after the time of death of the philosopher.
 
 ___
-# `philosophers` Implementation 📜
+# `philosophers`  Mandatory Implementation 📜
 
 ___
 
