@@ -122,12 +122,29 @@ ___
 Clone the repository and cd into either the mandatory (`philo`) or bonus implementation (`philo_bonus`):
 ```sh
 git clone https://github.com/PedroZappa/42_philosophers.git 42_philosophers_passunca
-# For the mandatory (Threads implementation)
+# For the mandatory (Threads implementation w/ mutexes)
 cd 42_philosophers_passunca/philo
-# For the bonus (Processes implementation)
+# For the bonus (Processes implementation w/ semaphores)
 cd 42_philosophers_passunca/philo_bonus
 ```
 
+Build the program:
+```sh
+# For the mandatory
+make
+# For the bonus
+make bonus
+```
+
+Run the program:
+```sh
+./philo 5 800 200 200
+# or with a set max number of meals
+./philo 5 800 200 200 7
+```
+
+> [!Note] 
+> To execute the bonus implementation, you will need to instead call `./philo_bonus` command.
 ___
 
 # Tests 🧪
