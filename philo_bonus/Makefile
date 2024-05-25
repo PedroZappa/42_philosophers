@@ -213,7 +213,7 @@ test_life_min: all			## Run a infinite test with shortest life possible
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./$(NAME) 200 169 60 60"
+	tmux split-window -h "./$(NAME) 200 180 60 60"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_life_4: all			## Run a infinite meal test
@@ -332,7 +332,7 @@ gdb: all $(NAME) $(TEMP_PATH)			## Debug w/ gdb
 	make get_log
 
 vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
-	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind --vgdb-error=0 --leak-check=full --show-leak-kinds=all --log-file=gdb.txt ./$(NAME) $(ARG)"
 	make vgdb_pid
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
 	tmux resize-pane -U 18
@@ -340,7 +340,8 @@ vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 
 valgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
 	tmux set-option remain-on-exit on
-	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) $(CHAOS)"
+	# tmux split-window -h "valgrind ./$(NAME) $(CHAOS)"
 
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux set-option remain-on-exit on

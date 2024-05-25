@@ -20,6 +20,7 @@ define philosophize
 end
 
 define free
+	display to_del
 	display *to_del
 	display philo
 	display *philo
@@ -49,7 +50,14 @@ end
 
 # GO GDB GO!
 # Start at main
+# break main
+# run 300 800 200 200 7
+# main
+# fs cmd
+
+# Break before free
 break main
-run 300 800 200 200 7
+break 48
+run 3 800 200 200 7
 main
 fs cmd
