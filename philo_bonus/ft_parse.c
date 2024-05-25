@@ -17,10 +17,10 @@
 /// @return		Parsed argument as long on success, -1 on failure
 /// @details	- Skip whitespaces
 /// 			- Check for sign
-///					- Return -1 if sign is negative
+///					- Exit -1 if sign is negative
 ///				- Check for digits
 ///					- Convert digit by digit
-///					- Return -1 if number is larger than INT_MAX
+///					- Exit with -1 if number is larger than INT_MAX
 ///				- Return converted number;
 int	ft_parse_arg(char *str)
 {
@@ -36,14 +36,14 @@ int	ft_parse_arg(char *str)
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-			return (ft_perror(RED"Error: Negative number\n"NC));
+			exit(ft_perror(RED"Error: Negative number\n"NC));
 		++i;
 	}
 	while (ft_isdigit(str[i]))
 	{
 		num = (num * 10) + (str[i++] - '0');
 		if (num > INT_MAX)
-			return (ft_perror(RED"Error: arg exceeds INT_MAX\n"NC));
+			exit(ft_perror(RED"Error: arg exceeds INT_MAX\n"NC));
 	}
 	return (num * sign);
 }
