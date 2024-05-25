@@ -87,6 +87,12 @@ static void	ft_philosophize(t_philo *philo)
 		ft_philo_log(philo, "is sleeping");
 		ft_philo_do(philo->t_sleep, philo);
 	}
+	sem_close(philo->sem_printf);
+	sem_close(philo->sem_forks);
+	sem_unlink("/sem_printf");
+	sem_unlink("/sem_forks");
+	free(philo->pid);
+	free(philo);
 }
 
 /// @brief		Monitor thread
