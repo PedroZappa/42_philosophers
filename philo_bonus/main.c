@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <pthread.h>
 
 static void	ft_philosophize(t_philo *philo);
 static void	*ft_monitor(void *arg);
