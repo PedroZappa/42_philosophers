@@ -28,7 +28,7 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	t_philo	*new;
 
 	if ((argc < 5) || (argc > 6))
-		ft_perror(RED"Error: Wrong number of arguments"NC);
+		exit(ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	new = ft_init_data(argc, argv);
 	new->pid = malloc(sizeof(int) * new->n_forks);
 	if (!new->pid)

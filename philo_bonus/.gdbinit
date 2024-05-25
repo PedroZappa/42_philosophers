@@ -27,11 +27,29 @@ define free
 	display i
 end	
 
+# ft_init.c
+define parsinit
+	display argc
+	display *argv@argc
+	display *new
+	display new@(*new)->n_philos
+	display *new->pid@(*new)->n_philos
+	display i
+end
+
+define init_data
+	display argc
+	display *argv@argc
+	display *new
+	display new@(*new)->n_philos
+	display *new->pid@(*new)->n_philos
+end
+
 # ...
 
 # GO GDB GO!
 # Start at main
 break main
-run 5 800 200 200
+run 5 80
 main
 fs cmd
