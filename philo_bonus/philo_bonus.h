@@ -74,7 +74,7 @@ typedef struct s_philo
 	sem_t		*sem_printf;
 	t_msec		t_start;
 	int			idx;
-	t_msec			curr_meal;
+	t_msec		curr_meal;
 	pthread_t	monitor;
 }				t_philo;
 
