@@ -70,7 +70,7 @@ There is a large bowl of spaghetti in the middle of the table.
 
 - It should accept the following command line arguments (as positive integers):
 ```sh
-./philosophers <n_philos> <time_to_die> <time_to_eat> <time_to_sleep> [max_meals]
+./philo <n_philos> <time_to_die> <time_to_eat> <time_to_sleep> [max_meals]
 ```
 
 - `n_philos` also the number of forks.
