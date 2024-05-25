@@ -153,10 +153,13 @@ ___
 
 # Tests & Debug 🧪
 
-Run the following command and look at the `Test Rules 🧪` & `Debug Rules ` to get a comprehensive list of all available test commands:
+Run the following command and look at the `Test Rules 🧪` & `Debug Rules ` to get a comprehensive list of all available test/debug commands:
 ```sh
 make help
 ```
+
+> [!Note] 
+> If you use `tmux` you are in for treat 😏
 ___
 # References 📚
 
