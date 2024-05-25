@@ -157,16 +157,20 @@ check_ext_func: all		## Check for external functions
 test_input: all			## Run tests on input args
 	@echo "$(CYA)Testing $(RED)invalid $(CYA)input$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
-	@echo "$(CYA)Test 1$(D)"
+	@echo "$(CYA)Test 1 : Less arguments than required$(D)"
 	-./$(NAME)
-	@echo "$(CYA)Test 2$(D)"
+	@echo "$(CYA)Test 2 : Less arguments than required$(D)"
 	-./$(NAME) 2 200 200
-	@echo "$(CYA)Test 3$(D)"
+	@echo "$(CYA)Test 3 : Negative argument$(D)"
 	-./$(NAME) 2 200 200 200 -42
-	@echo "$(CYA)Test 4$(D)"
+	@echo "$(CYA)Test 4 : Argument larger than INT_MAX$(D)"
 	-./$(NAME) 2 2147483648 200 200
-	@echo "$(CYA)Test 5$(D)"
+	@echo "$(CYA)Test 5 : Invalid argument$(D)"
 	-./$(NAME) "  a2" 200 200 200
+	@echo "$(CYA)Test 6 : Argument value out of range (too many philos)$(D)"
+	-./$(NAME) 300 800 200 200 2
+	@echo "$(CYA)Test 7 : Argument value out of range (time to die less than 60)$(D)"
+	-./$(NAME) 5 120 60 59 
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test: all				## Run test with input args

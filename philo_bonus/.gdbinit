@@ -50,6 +50,6 @@ end
 # GO GDB GO!
 # Start at main
 break main
-run 5 80
+run 300 800 200 200 7
 main
 fs cmd
