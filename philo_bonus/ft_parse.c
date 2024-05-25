@@ -12,9 +12,16 @@
 
 #include "philo_bonus.h"
 
-/// @brief		Parse input argument and return it as long
+/// @brief		Parse input arguments (digits)
 /// @param str	Argument to parse
 /// @return		Parsed argument as long on success, -1 on failure
+/// @details	- Skip whitespaces
+/// 			- Check for sign
+///					- Return -1 if sign is negative
+///				- Check for digits
+///					- Convert digit by digit
+///					- Return -1 if number is larger than INT_MAX
+///				- Return converted number;
 int	ft_parse_arg(char *str)
 {
 	long	num;
