@@ -32,8 +32,12 @@ ___
 * [`philosophers`  Mandatory Implementation 📜](#philosophers--mandatory-implementation-)
 * [`philosophers`  Bonus Implementation 📜](#philosophers--bonus-implementation-)
 * [Usage 🏁](#usage-)
-* [Tests 🧪](#tests-)
+* [Tests & Debug 🧪](#tests--debug-)
 * [References 📚](#references-)
+* [Documentation](#documentation)
+* [Research Papers](#research-papers)
+* [Tools](#tools)
+* [Articles](#articles)
 * [License 📖](#license-)
 
 <!-- mtoc-end -->
@@ -147,12 +151,36 @@ Run the program:
 > To execute the bonus implementation, you will need to instead call `./philo_bonus` command.
 ___
 
-# Tests 🧪
+# Tests & Debug 🧪
 
+Run the following command and look at the `Test Rules 🧪` & `Debug Rules ` to get a comprehensive list of all available test commands:
+```sh
+make help
+```
 ___
-
 # References 📚
 
+## Documentation
+- [GDB | Documentation](https://sourceware.org/gdb/current/onlinedocs/gdb) 
+- [ThreadSanitizerCppManual · google/sanitizers Wiki · GitHub](https://github.com/google/sanitizers/wiki/ThreadSanitizerCppManual)
+- [Helgrind: a thread error detector | Documentation](https://valgrind.org/docs/manual/hg-manual.html)
+- [Instrumentation Options (Using the GNU Compiler Collection (GCC))](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
+
+## Research Papers
+- [Pthreads and OpenMP](https://www.diva-portal.org/smash/get/diva2:944063/FULLTEXT02.pdf)
+- [Heuristics for Efficient Dynamic Verification of Message Passing Interface And Thread Programs](https://core.ac.uk/download/pdf/276266676.pdf)
+- [Pthreads for Dynamic and Irregular Parallelism](https://core.ac.uk/download/pdf/276266676.pdf)
+___
+## Tools
+- [philosophers-visualizer](https://nafuka11.github.io/philosophers-visualizer/)
+- [GitHub - SimonCROS/philosophers-visualizer CLI](https://github.com/SimonCROS/philosophers-visualizer)
+- [GitHub - mpdn/unthread: A deterministic, fuzzable pthread implementation](https://github.com/mpdn/unthread)
+- [rr: lightweight recording & deterministic debugging](https://rr-project.org/)
+	- [Introducing rr Chaos Mode](https://robert.ocallahan.org/2016/02/introducing-rr-chaos-mode.html)
+
+## Articles
+- [Philosophers 42 Guide— “The Dining Philosophers Problem” | by Dean Ruina | Medium](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
+- [The dining philoshophers (an introduction to multitasking) a 42 The Network project | by MannBell | Medium](https://m4nnb3ll.medium.com/the-dining-philoshophers-an-introduction-to-multitasking-a-42-the-network-project-34e4141dbc49)
 ___
 
 # License 📖
