@@ -149,7 +149,7 @@ check_ext_func: all		## Check for external functions
 	@echo "[$(YEL)Checking for external functions$(D)]"
 	@echo "$(YEL)$(_SEP)$(D)"
 	@echo "$(CYA)Reading binary$(D): $(MAG)$(NAME)$(D)"
-	nm ./$(NAME) | grep "U" | tee $(TEMP_PATH)/ext_func.txt
+	nm ./$(NAME) | grep "U" | grep -v "__" | tee $(TEMP_PATH)/ext_func.txt
 	@echo "$(YEL)$(_SEP)$(D)"
 
 ##@ Test Rules 🧪
