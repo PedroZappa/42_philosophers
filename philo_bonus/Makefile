@@ -19,6 +19,7 @@ SHELL	:= bash
 
 # Default test values
 ARG				= 5 800 200 200
+CHAOS			= 200 180 60 60 7
 TIMESTEP		= 100
 TIMEOUT			= 10
 ITER			= 10
@@ -242,7 +243,7 @@ test_chaos: all			## Run a chaos test
 		TEST_N=$$i; \
 		echo "Test $(CYA)$$TEST_N$(D) of $(GRN)$(ITER)$(D)"; \
 		echo "$(YEL)$(_SEP)$(D)"; \
-		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(ARG); \
+		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(CHAOS); \
 		total_lines=$(shell wc -l < "$(TEMP_PATH)/temp.txt"); \
 		echo "$(YEL)$$total_lines$(D)"; \
 		let "target_line = total_lines - 4"; \
