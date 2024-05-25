@@ -229,13 +229,6 @@ test_life_5: all			## Run a infinite meal test
 	tmux split-window -h "./$(NAME) 5 800 200 200"
 	@echo "$(YEL)$(_SEP)$(D)"
 
-test_count_panes:
-	PANES_COUNT=$(shell tmux display-message -p '#{pane_count}'); \
-	tmux list-panes -t $(shell tmux display -p '#W') | wc -l
-	# Print the number of panes
-	@echo "$(CYA)Number of panes: $(GRN)$$PANES_COUNT$(D)"
-	@echo "$(YEL)$(_SEP)$(D)"
-
 test_chaos: all			## Run a chaos test
 	tmux set-option remain-on-exit on
 	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
@@ -260,6 +253,13 @@ test_chaos: all			## Run a chaos test
 	done
 	@make --no-print-directory test_results
 	@tmux select-pane -L
+
+test_count_panes:
+	PANES_COUNT=$(shell tmux display-message -p '#{pane_count}'); \
+	tmux list-panes -t $(shell tmux display -p '#W') | wc -l
+	# Print the number of panes
+	@echo "$(CYA)Number of panes: $(GRN)$$PANES_COUNT$(D)"
+	@echo "$(YEL)$(_SEP)$(D)"
 
 test_results: $(TEMP_PATH)
 	@make --no-print-directory remove_ansi_noise
