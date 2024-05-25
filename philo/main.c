@@ -46,6 +46,7 @@ static void	ft_philosophize(t_philo *philos)
 	int	i;
 
 	i = -1;
+	printf(GRN"Philosophizing...\n"NC);
 	philos->data->t_start = ft_gettime();
 	while (++i < philos->data->n_philos)
 	{
@@ -60,6 +61,7 @@ static void	ft_philosophize(t_philo *philos)
 		ft_perror(RED"Error: Failed to create monitor thread\n"NC);
 	if (pthread_join(philos->data->monitor, NULL) != 0)
 		ft_perror(RED"Error: Failed to join monitor thread\n"NC);
+	printf(RED"Philosophizing is Over.\n"NC);
 }
 
 /// @brief			Launch a philo thread
@@ -145,7 +147,7 @@ static void	ft_philo_log(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->mutex_printf);
 	if (!philo->data->done)
-		printf("%lld %d %s\n", \
+		printf("%3lld %3d %s\n", \
 				(ft_gettime() - philo->data->t_start), philo->id, str);
 	pthread_mutex_unlock(&philo->data->mutex_printf);
 }
