@@ -84,11 +84,11 @@ There is a large bowl of spaghetti in the middle of the table.
 
 Regarding logs, the program should report any state change of a philosopher formatted as:
 
-	- `timestamp_in_ms <philo_n> has taken a fork.`
-	- `timestamp_in_ms <philo_n> is eating.`
-	- `timestamp_in_ms <philo_n> is sleeping.`
-	- `timestamp_in_ms <philo_n> is thinking.`
-	- `timestamp_in_ms <philo_n> has died.`
+- `timestamp_in_ms <philo_n> has taken a fork.`
+- `timestamp_in_ms <philo_n> is eating.`
+- `timestamp_in_ms <philo_n> is sleeping.`
+- `timestamp_in_ms <philo_n> is thinking.`
+- `timestamp_in_ms <philo_n> has died.`
 
 - Messages should not mix with each other.
 
