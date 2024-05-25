@@ -30,6 +30,7 @@ ___
 * [`philosophers` Problem 🜎](#philosophers-problem-)
 * [`philosophers` Requirements Overview ✅](#philosophers-requirements-overview-)
 * [`philosophers`  Mandatory Implementation 📜](#philosophers--mandatory-implementation-)
+* [`philosophers`  Bonus Implementation 📜](#philosophers--bonus-implementation-)
 * [Usage 🏁](#usage-)
 * [Tests 🧪](#tests-)
 * [References 📚](#references-)
@@ -96,6 +97,23 @@ Regarding logs, the program should report any state change of a philosopher form
 
 ___
 # `philosophers`  Mandatory Implementation 📜
+
+- Each philosopher should be represented by a thread.
+
+- There is a fork between each pair of philosophers. 
+
+- If there is only one philosopher, there should be only one fork on the table.
+
+- Each forks must be pretended by a mutex.
+
+___
+# `philosophers`  Bonus Implementation 📜
+
+- All forks are placed in the middle of the table.
+
+- They have no states in memory. The number of available forks is represented by a semaphore.
+
+- Each philosopher should be represented by a process, but the main process should not be a philosopher
 
 ___
 
