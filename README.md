@@ -8,10 +8,10 @@
 
 <p>
     <img src="https://img.shields.io/badge/score-%20%2F%20100-success?style=for-the-badge" />
-    <img src="https://img.shields.io/github/repo-size/PedroZappa/42_push_swap?style=for-the-badge&logo=github">
-    <img src="https://img.shields.io/github/languages/count/PedroZappa/42_push_swap?style=for-the-badge&logo=" />
-    <img src="https://img.shields.io/github/languages/top/PedroZappa/42_push_swap?style=for-the-badge" />
-    <img src="https://img.shields.io/github/last-commit/PedroZappa/42_push_swap?style=for-the-badge" />
+    <img src="https://img.shields.io/github/repo-size/PedroZappa/42_philosophers?style=for-the-badge&logo=github">
+    <img src="https://img.shields.io/github/languages/count/PedroZappa/42_philosophers?style=for-the-badge&logo=" />
+    <img src="https://img.shields.io/github/languages/top/PedroZappa/42_philosophers?style=for-the-badge" />
+    <img src="https://img.shields.io/github/last-commit/PedroZappa/42_philosophers?style=for-the-badge" />
 </p>
 
 ___
@@ -57,8 +57,8 @@ There is a large bowl of spaghetti in the middle of the table.
 	- While sleeping, they are not eating nor thinking.
 * There are also **forks** on the table. There are **as many forks as philosophers**.
 * A philosopher **must take two forks to eat**, one in each hand.
-* When finished eating, they **put their forks back on the table** and start sleeping. 
-* Once awake, they start thinking again. 
+* When finished eating, they **put their forks back on the table** and start sleeping.
+* Once awake, they start thinking again.
 * The simulation **stops** when a philosopher **dies of starvation**.
 * Every philosopher needs to eat and should never starve.
 * Philosophers don’t speak with each other.
@@ -104,7 +104,7 @@ ___
 
 - Each philosopher should be represented by a thread.
 
-- There is a fork between each pair of philosophers. 
+- There is a fork between each pair of philosophers.
 
 - If there is only one philosopher, there should be only one fork on the table.
 
@@ -147,7 +147,7 @@ Run the program:
 ./philo 5 800 200 200 7
 ```
 
-> [!Note] 
+> [!Note]
 > To execute the bonus implementation, you will need to instead call `./philo_bonus` command.
 ___
 
@@ -158,14 +158,14 @@ Run the following command and look at the `Test Rules 🧪` & `Debug Rules ` 
 make help
 ```
 
-> [!Note] 
+> [!Note]
 > If you use `tmux` you are in for treat 😏
 ___
 # References 📚
 
 ## Documentation
 
-- [GDB | Documentation](https://sourceware.org/gdb/current/onlinedocs/gdb) 
+- [GDB | Documentation](https://sourceware.org/gdb/current/onlinedocs/gdb)
 - [ThreadSanitizerCppManual · google/sanitizers Wiki · GitHub](https://github.com/google/sanitizers/wiki/ThreadSanitizerCppManual)
 - [Helgrind: a thread error detector | Documentation](https://valgrind.org/docs/manual/hg-manual.html)
 - [Instrumentation Options (Using the GNU Compiler Collection (GCC))](https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html)
