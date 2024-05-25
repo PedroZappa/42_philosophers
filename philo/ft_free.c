@@ -17,17 +17,13 @@
 void	ft_free(t_philo **philo)
 {
 	t_data	*data;
-	int i;
+	int		i;
 
-	usleep(1000);
+	usleep(3500);
 	i = -1;
 	data = (*philo)->data;
 	while (++i < data->n_philos)
-	{
-		printf("freeing philo fork %d\n", i + 1);
-		printf("%p\n", (data->mutex_fork + i));
 		pthread_mutex_destroy(data->mutex_fork + i);
-	}
 	pthread_mutex_destroy(&data->mutex_printf);
 	free(*philo);
 	free(data->mutex_fork);

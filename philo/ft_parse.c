@@ -49,10 +49,7 @@ long	ft_parse_arg(char *str)
 /// @return		1 if true, 0 if false
 static int	ft_isspace(char c)
 {
-	if ((c == ' ') || ((c >= 9) && (c <= 13)))
-		return (1);
-	else
-		return (0);
+	return ((c == ' ') || ((c >= 9) && (c <= 13)));
 }
 
 /// @brief		Check if a character is a digit
@@ -60,8 +57,5 @@ static int	ft_isspace(char c)
 /// @return		1 if true, 0 if false
 static int	ft_isdigit(char c)
 {
-	if ((c >= '0') && (c <= '9'))
-		return (1);
-	else
-		return (0);
+	return ((c >= '0') && (c <= '9'));
 }
