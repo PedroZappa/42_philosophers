@@ -42,6 +42,10 @@ int	main(int argc, char **argv)
 		{
 			philos->idx = (i + 1);
 			philos->curr_meal = ft_gettime();
+			if (pthread_create(&philos->monitor, NULL, &ft_monitor, philos))
+				ft_perror(RED"Error: pthread_create failed\n"NC);
+			if (pthread_detach(philos->monitor))
+				ft_perror(RED"Error: pthread_detach failed\n"NC);
 			ft_philosophize(philos);
 		}
 	}
@@ -66,9 +70,6 @@ int	main(int argc, char **argv)
 /// 				- Join monitor thread
 static void	ft_philosophize(t_philo *philo)
 {
-	if (pthread_create(&philo->monitor, NULL, &ft_monitor, philo))
-		ft_perror(RED"Error: pthread_create failed\n"NC);
-	pthread_detach(philo->monitor);
 	if ((philo->idx % 2) == 1)
 		usleep(1000);
 	while (1)
