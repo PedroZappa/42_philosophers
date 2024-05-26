@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 11:27:18 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:40:07 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	ft_free(t_philo **philo);
 
 /// ft_init.c
 t_philo	*ft_parsinit(int argc, char **argv);
-t_philo	*ft_init_data(int argc, char **argv);
 
 /// ft_ops.c
 void	ft_philo_log(t_philo *philo, char *str);
