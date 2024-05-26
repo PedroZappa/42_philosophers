@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 21:11:30 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:27:18 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int		ft_isdigit(char c);
 
 /// ft_error.c
 int		ft_perror(char *err);
+
+/// ft_error.c
+void	ft_free(t_philo **philo);
 
 /// ft_init.c
 t_philo	*ft_parsinit(int argc, char **argv);
