@@ -6,11 +6,14 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:00:25 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 21:16:05 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 11:39:57 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+
+static t_philo	*ft_init_data(int argc, char **argv);
+static int		ft_init_semaphores(t_philo *philo);
 
 /// @brief		Parse and initialize the data
 /// @param argc	Number of arguments
@@ -30,15 +33,15 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	if ((argc < 5) || (argc > 6))
 		exit(ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	new = ft_init_data(argc, argv);
-	new->pid = malloc(sizeof(int) * new->n_forks);
+	new->pid = malloc(sizeof(int) * new->n_philos);
 	if (!new->pid)
 		ft_perror(RED"Error: malloc error (init pid)"NC);
-	sem_unlink("/sem_printf");
-	sem_unlink("/sem_forks");
-	new->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
-	new->sem_forks = sem_open("/sem_forks", O_CREAT, S_IRWXU, new->n_forks);
-	if ((new->sem_printf == NULL) || (new->sem_forks == NULL))
-		exit(ft_perror(RED"Error: semaphore open error"NC));
+	if (ft_init_semaphores(new) == 1)
+	{
+		free(new->pid);
+		free(new);
+		exit(ft_perror(RED"Error: Failed to open semaphores\n"NC));
+	}
 	return (new);
 }
 
@@ -49,7 +52,7 @@ t_philo	*ft_parsinit(int argc, char **argv)
 /// @details	- Allocate memory for a t_philo struct
 ///				- Initialize the data
 ///				- return pointer to a t_philo struct w/ the initialized data
-t_philo	*ft_init_data(int argc, char **argv)
+static t_philo	*ft_init_data(int argc, char **argv)
 {
 	t_philo	*new;
 
@@ -77,3 +80,20 @@ t_philo	*ft_init_data(int argc, char **argv)
 	new->died = NO;
 	return (new);
 }
+
+/// @brief			Initialize semaphores
+/// @param philo	Pointer to a t_philo struct
+/// @return			0 on success, -1 on failure
+static int	ft_init_semaphores(t_philo *philo)
+{
+	sem_unlink("/sem_printf");
+	philo->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
+	if (philo->sem_printf == SEM_FAILED)
+		exit(ft_perror(RED"Error: semaphore open error"NC));
+	sem_unlink("/sem_forks");
+	philo->sem_forks = sem_open("/sem_forks", O_CREAT, S_IRWXU, philo->n_forks);
+	if (philo->sem_forks == SEM_FAILED)
+		exit(ft_perror(RED"Error: semaphore open error"NC));
+	return (0);
+}
+	
