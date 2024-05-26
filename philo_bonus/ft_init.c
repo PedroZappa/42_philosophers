@@ -36,7 +36,7 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	new->pid = malloc(sizeof(int) * new->n_philos);
 	if (!new->pid)
 		ft_perror(RED"Error: malloc error (init pid)"NC);
-	if (ft_init_semaphores(new) == 1)
+	if (ft_init_semaphores(new) == -1)
 	{
 		free(new->pid);
 		free(new);
