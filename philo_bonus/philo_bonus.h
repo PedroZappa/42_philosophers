@@ -67,7 +67,7 @@ typedef struct s_philo
 	t_msec		t_sleep;
 	int			meal_max;
 	int			meal_counter;
-	int			wait;
+	int			done;
 	int			died;
 	int			*pid;
 	sem_t		*sem_forks;

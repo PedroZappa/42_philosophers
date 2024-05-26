@@ -113,7 +113,7 @@ static void	*ft_monitor(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!philo->wait)
+	while (!philo->done)
 	{
 		usleep(100);
 		if ((ft_gettime() - philo->curr_meal) > philo->t_death)
@@ -122,12 +122,12 @@ static void	*ft_monitor(void *arg)
 			sem_wait(philo->sem_printf);
 			printf("%lld %d %s\n", \
 					(ft_gettime() - philo->t_start), philo->idx, "died");
-			philo->wait = YES;
+			philo->done = YES;
 			break ;
 		}
 		if ((philo->meal_max != -1) && (philo->meal_counter >= philo->meal_max))
 		{
-			philo->wait = YES;
+			philo->done = YES;
 			break ;
 		}
 	}

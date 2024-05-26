@@ -33,7 +33,7 @@ void	ft_philo_do(t_msec time, t_philo *philo)
 	t_msec	t;
 
 	t = ft_gettime();
-	while (!philo->wait)
+	while (!philo->done)
 	{
 		if ((ft_gettime() - t) >= time)
 			break ;
