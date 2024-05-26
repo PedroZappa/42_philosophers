@@ -33,6 +33,13 @@ t_philo	*ft_parsinit(int argc, char **argv)
 	if ((argc < 5) || (argc > 6))
 		exit(ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	new = ft_init_data(argc, argv);
+	ft_ms2us(&new->t_death);
+	ft_ms2us(&new->t_meal);
+	ft_ms2us(&new->t_sleep);
+	ft_ms2us(&new->t_think);
+	if ((new->n_philos % 2) \
+		&& ((new->t_death - new->t_meal - new->t_sleep) / 2 > 0))
+		new->t_think = ((new->t_death - new->t_meal - new->t_sleep) / 2);
 	new->pid = malloc(sizeof(int) * new->n_philos);
 	if (!new->pid)
 		ft_perror(RED"Error: malloc error (init pid)"NC);
@@ -86,6 +93,11 @@ static t_philo	*ft_init_data(int argc, char **argv)
 /// @return			0 on success, -1 on failure
 static int	ft_init_semaphores(t_philo *philo)
 {
+	sem_unlink("/sem_start");
+	philo->sem_start = sem_open("/sem_start", O_CREAT, S_IRWXU, \
+								(philo->n_philos / 2));
+	if (philo->sem_start == SEM_FAILED)
+		exit(ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_printf");
 	philo->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
 	if (philo->sem_printf == SEM_FAILED)
@@ -94,6 +106,13 @@ static int	ft_init_semaphores(t_philo *philo)
 	philo->sem_forks = sem_open("/sem_forks", O_CREAT, S_IRWXU, philo->n_forks);
 	if (philo->sem_forks == SEM_FAILED)
 		exit(ft_perror(RED"Error: semaphore open error"NC));
+	sem_unlink("/sem_end");
+	philo->sem_end = sem_open("/sem_end", O_CREAT, S_IRWXU, 0);
+	if (philo->sem_end == SEM_FAILED)
+		exit(ft_perror(RED"Error: semaphore open error"NC));
+	sem_unlink("/sem_death");
+	philo->sem_death = sem_open("/sem_death", O_CREAT, S_IRWXU, 0);
+	if (philo->sem_death == SEM_FAILED)
+		exit(ft_perror(RED"Error: semaphore open error"NC));
 	return (0);
 }
-	

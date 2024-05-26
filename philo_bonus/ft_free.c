@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 11:26:15 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 11:40:18 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:22:48 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	ft_free(t_philo **philo)
 static int	ft_sem_closer(t_philo *to_del)
 {
 	if (sem_close(to_del->sem_printf) \
-		|| sem_close(to_del->sem_forks))
+		|| sem_close(to_del->sem_forks) \
+		|| sem_close(to_del->sem_start) \
+		|| sem_close(to_del->sem_death)
+		|| sem_close(to_del->sem_end))
 	{
 		ft_perror(RED"Error: semaphore close error"NC);
 		return (1);
@@ -67,7 +70,10 @@ static int	ft_sem_closer(t_philo *to_del)
 static int	ft_sem_unlinker(void)
 {
 	if (sem_unlink("/sem_printf") \
-		|| sem_unlink("/sem_forks"))
+		|| sem_unlink("/sem_forks") \
+		|| sem_unlink("/sem_start") \
+		|| sem_unlink("/sem_death")
+		|| sem_unlink("/sem_end"))
 	{
 		ft_perror(RED"Error: semaphore unlink error"NC);
 		return (1);

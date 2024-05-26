@@ -6,37 +6,53 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:24:42 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:24:58 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:35:38 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-/// @brief		Get current time and convert it to milliseconds
-/// @return		Current time in milliseconds
-t_msec	ft_gettime(void)
+/// @brief		Get current time into a struct timeval
+/// @param t	Reference to t_time struct
+/// @return		0 on success, 1 on failure
+int	ft_gettime(t_time *t)
 {
-	struct timeval	t;
-
-	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+	if (gettimeofday(t, NULL) == -1)
+	{
+		printf(RED"Error: gettimeofday failed"NC);
+		return (1);
+	}
+	return (0);
 }
 
-///
-/// @brief			Wait for a certain amount of time
-/// @param time		Time to wait in milliseconds
-/// @param data		Pointer to t_data struct
-/// @details		- Get current time in milliseconds
-/// 				- Wait until time is reached or data->done is set
-void	ft_philo_do(t_msec time, t_philo *philo)
+/// @brief		Get current time and convert it to milliseconds
+/// @return		Current time in microseconds
+t_msec	ft_utime(t_time t)
 {
-	t_msec	t;
+	return (t.tv_sec * 1000000 + t.tv_usec);
+}
 
-	t = ft_gettime();
-	while (!philo->done)
+t_msec	ft_dtime(t_time t0, t_time t1)
+{
+	return ((ft_utime(t1) - ft_utime(t0)) / 1000);
+}
+
+/// @brief		Convert milliseconds to microseconds
+/// @param t	Reference to t_msec variable
+void	ft_ms2us(void *t)
+{
+	*(t_msec *)t = (*(t_msec *)t * 1000);
+}
+
+t_time	ft_now(t_philo *philo)
+{
+	struct timeval	now;
+
+	if (sem_wait(philo->sem_time) == 0)
 	{
-		if ((ft_gettime() - t) >= time)
-			break ;
-		usleep(500);
+		now = philo->t_curr;
+		if (sem_post(philo->sem_time) != 0)
+			printf(RED"Error: sem_post failed"NC);
 	}
+	return (now);
 }

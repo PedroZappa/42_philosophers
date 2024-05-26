@@ -6,14 +6,16 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:39:21 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 11:27:40 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:43:43 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static void	ft_philosophize(t_philo *philo);
+static void	ft_child(t_philo *philo);
+static int	ft_philosophize(t_philo *philo);
 static void	*ft_monitor(void *arg);
+static int	ft_check(t_philo *philo);
 
 /// @brief		Philosophers main function
 /// @param argc	Number of arguments
@@ -27,11 +29,15 @@ static void	*ft_monitor(void *arg);
 int	main(int argc, char **argv)
 {
 	t_philo	*philos;
+	t_time	*t;
 	int		i;
 
 	i = -1;
+	t = malloc(sizeof(t_time));
 	philos = ft_parsinit(argc, argv);
-	philos->t_start = ft_gettime();
+	if (ft_gettime(t) == -1)
+		ft_perror(RED"Error: gettime failed\n"NC);
+	philos->t_start = *t;
 	while (++i < philos->n_philos)
 	{
 		philos->pid[i] = fork();
@@ -40,57 +46,47 @@ int	main(int argc, char **argv)
 		if (philos->pid[i] == 0)
 		{
 			philos->idx = (i + 1);
-			philos->curr_meal = ft_gettime();
-			if (pthread_create(&philos->monitor, NULL, &ft_monitor, philos))
-				ft_perror(RED"Error: pthread_create failed\n"NC);
-			if (pthread_detach(philos->monitor))
-				ft_perror(RED"Error: pthread_detach failed\n"NC);
-			ft_philosophize(philos);
+			philos->curr_meal = ft_gettime(t);
+			ft_child(philos);
 		}
 	}
 	ft_free(&philos);
+	free(t);
 	return (0);
+}
+
+static void	ft_child(t_philo *philo)
+{
+	if (pthread_create(&philo->monitor, NULL, &ft_monitor, philo))
+		ft_perror(RED"Error: pthread_create failed\n"NC);
+	if (pthread_detach(philo->monitor))
+		ft_perror(RED"Error: pthread_detach failed\n"NC);
+	exit(ft_philosophize(philo));
 }
 
 /// @brief			Philosophers logic
 /// @param philo	Pointer to a t_philo struct
-/// @details		- Create monitor thread
-/// 				- If idx is odd, wait 1ms
-/// 				- While alive:
-/// 					- Log "is thinking"
-/// 					- Wait for forks
-/// 					- Log "has taken a fork" when fork is available
-/// 					- Log "is eating" when both forks have been taken
-/// 					- Wait for t_meal (eat)
-/// 					- Get current meal time
-/// 					- Put back forks
-/// 					- Count meal
-/// 					- Log "is sleeping"
-/// 				- Join monitor thread
-static void	ft_philosophize(t_philo *philo)
+/// @details		- Sleep 1000us if philo is even idx'ed
+/// @details		- Set semaphores
+/// 				- While simulation is not over:
+///
+static int	ft_philosophize(t_philo *philo)
 {
-	if ((philo->idx % 2) == 1)
-		usleep(1000);
+	ft_set_sem_t(philo);
 	while (1)
 	{
-		ft_philo_log(philo, "is thinking");
-		sem_wait(philo->sem_forks);
-		ft_philo_log(philo, "has taken a fork");
-		sem_wait(philo->sem_forks);
-		ft_philo_log(philo, "has taken a fork");
-		ft_philo_log(philo, "is eating");
-		ft_philo_do(philo->t_meal, philo);
-		philo->curr_meal = ft_gettime();
-		sem_post(philo->sem_forks);
-		sem_post(philo->sem_forks);
-		philo->meal_counter += 1;
-		ft_philo_log(philo, "is sleeping");
-		ft_philo_do(philo->t_sleep, philo);
+		sem_wait(philo->sem_start);
+		if ((ft_take_fork(philo) == 0) && (ft_take_fork(philo) == 0))
+		{
+			sem_post(philo->sem_start);
+			if ((ft_meal(philo) == 1) || (ft_sleep(philo) == 1) \
+				|| (ft_think(philo) == 1))
+				ft_sem_post_end(philo);
+		}
+		else
+			ft_sem_post_end(philo);
 	}
-	sem_close(philo->sem_printf);
-	sem_close(philo->sem_forks);
-	free(philo->pid);
-	free(philo);
+	return (0);
 }
 
 /// @brief		Monitor thread
@@ -98,16 +94,6 @@ static void	ft_philosophize(t_philo *philo)
 /// @return		0 if alive, 1 if dead
 /// @details	- Typecast arg (void *) to a t_philo *
 /// 			- While simulation is not over:
-/// 				- Sleep 100ms
-/// 				- Check if philo died
-///						- Set philo as dead
-///						- Print death message protected by semaphore
-/// 				- Check if philo has eaten max number of meals
-///						- Set philo as dead
-///				- If philo has died
-///					- Exit wiith 1
-///				- Else if philo has eaten max number of meals
-///					- Exit with 0
 static void	*ft_monitor(void *arg)
 {
 	t_philo	*philo;
@@ -115,24 +101,26 @@ static void	*ft_monitor(void *arg)
 	philo = (t_philo *)arg;
 	while (!philo->done)
 	{
-		usleep(100);
-		if ((ft_gettime() - philo->curr_meal) > philo->t_death)
+		if (ft_check(philo) != 0)
+			return (NULL);
+	}
+	exit(0);
+}
+
+static int	ft_check(t_philo *philo)
+{
+	if (sem_wait(philo->sem_death) == 0)
+	{
+		if (sem_post(philo->sem_death) != 0)
 		{
-			philo->died = YES;
-			sem_wait(philo->sem_printf);
-			printf("%lld %d %s\n", \
-					(ft_gettime() - philo->t_start), philo->idx, "died");
-			philo->done = YES;
-			break ;
-		}
-		if ((philo->meal_max != -1) && (philo->meal_counter >= philo->meal_max))
-		{
-			philo->done = YES;
-			break ;
+			printf(RED"Error: sem_post failed\n"NC);
+			return (1);
 		}
 	}
-	if (philo->died)
-		exit(1);
 	else
-		exit(0);
+	{
+		printf(RED"Error: sem_wait failed\n"NC);
+		return (1);
+	}
+	return (0);
 }
