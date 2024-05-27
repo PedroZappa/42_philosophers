@@ -77,7 +77,6 @@ void	ft_free_philos(t_philo *philo)
 
 	tmp = philo;
 	next = tmp;
-	// ft_free_data(philo->data);
 	if (tmp)
 	{
 		while ((tmp->next != NULL) && (tmp->next != philo))

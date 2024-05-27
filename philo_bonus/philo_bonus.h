@@ -73,7 +73,6 @@ typedef struct s_data
 	t_msec		t_meal;
 	t_msec		t_sleep;
 	t_msec		t_think;
-	t_msec		curr_meal;
 	t_time		t_start;
 	int			meal_max;
 	int			meal_counter;
