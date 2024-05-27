@@ -36,8 +36,29 @@ define free
 	display i
 end	
 
+# ft_init_philo.c
+define free_philo
+	display philo
+	display tmp
+	display *tmp
+	display next
+	display *next
+	display *next->next
+end
+
+
+define init_philo
+	display data
+	display *data
+	display philo
+	display *philo
+	display new
+	display *new
+	display i
+end
+
 # ft_init.c
-define parsinit
+define init
 	display argc
 	display *argv@argc
 	display *new

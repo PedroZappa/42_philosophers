@@ -67,24 +67,5 @@ static void	ft_add_philo(t_philo **philo, t_philo *new)
 	tmp->next = new;
 	new->prev = tmp;
 	new->next = *philo;
-	*philo = new;
-}
-
-void	ft_free_philos(t_philo *philo)
-{
-	t_philo	*tmp;
-	t_philo	*next;
-
-	tmp = philo;
-	next = tmp;
-	if (philo != NULL)
-	{
-		while ((tmp->next != NULL) && (tmp->next != philo))
-		{
-			next = tmp->next;
-			free(tmp);
-			tmp = next;
-		}
-		free(tmp);
-	}
+	(*philo) = new;
 }

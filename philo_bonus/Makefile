@@ -19,7 +19,7 @@ SHELL	:= bash
 
 # Default test values
 ARG				= 5 800 200 200
-CHAOS			= 1 180 60 60 7
+CHAOS			= 3 800 200 200 7
 TIMESTEP		= 100
 TIMEOUT			= 10
 ITER			= 10

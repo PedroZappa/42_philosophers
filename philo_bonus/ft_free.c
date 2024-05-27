@@ -14,6 +14,8 @@
 
 int			ft_sem_closer(t_data *to_del);
 static int	ft_sem_unlinker(void);
+void		ft_free_philos(t_philo *philo);
+int			ft_kill_philos(t_philo *philo);
 
 /// @brief			Free allocated memory
 /// @param philo	Pointer to a t_philo struct
@@ -27,7 +29,7 @@ void	ft_free(t_philo *philos, t_data *data)
 	ft_kill_philos(philos);
 	ft_sem_closer(data);
 	ft_free_philos(philos);
-	ft_free_data(data);
+	free(data);
 }
 
 /// @brief			Close semaphores
@@ -66,26 +68,39 @@ static int	ft_sem_unlinker(void)
 	return (0);
 }
 
+void	ft_free_philos(t_philo *philo)
+{
+	t_philo	*tmp;
+	t_philo	*next;
+
+	tmp = philo;
+	next = tmp;
+	if (philo != NULL)
+	{
+		while ((tmp->next != NULL) && (tmp->next != philo))
+		{
+			next = tmp->next;
+			free(tmp);
+			tmp = next;
+		}
+		free(tmp);
+	}
+}
+
 int	ft_kill_philos(t_philo *philo)
 {
 	t_philo	*target;
 	int	i;
 
 	target = philo;
-	i = 0;
+	i = philo->data->n_philos;
 	while (i--)
-		sem_post(philo->data->sem_end);
+		sem_wait(philo->data->sem_end);
 	while ((target->next) && (target->next != philo))
 	{
 		kill(target->pid, SIGKILL);
 		target = target->next;
 	}
 	kill(target->pid, SIGKILL);
-	return (0);
-}
-
-int	ft_free_data(t_data *data)
-{
-	free(data);
 	return (0);
 }
