@@ -115,7 +115,7 @@ int		ft_take_fork(t_philo *philo);
 int		ft_drop_fork(t_philo *philo);
 
 /// ft_free.c
-void	ft_free(t_philo *philos);
+void	ft_free(t_philo *philos, t_data *data);
 int		ft_sem_closer(t_data *to_del);
 int		ft_kill_philos(t_philo *philo);
 int		ft_free_data(t_data *data);

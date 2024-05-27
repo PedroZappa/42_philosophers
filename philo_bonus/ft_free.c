@@ -22,10 +22,10 @@ static int	ft_sem_unlinker(void);
 /// 				- Unlink semaphores
 /// 				- Free pointer to pid array
 /// 				- Free pointer to t_philo struct
-void	ft_free(t_philo *philos)
+void	ft_free(t_philo *philos, t_data *data)
 {
 	ft_kill_philos(philos);
-	ft_sem_closer(philos->data);
+	ft_sem_closer(data);
 	ft_free_philos(philos);
 }
 

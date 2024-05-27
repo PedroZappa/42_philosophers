@@ -50,7 +50,7 @@ static t_data	*ft_init_data(int argc, char **argv)
 {
 	t_data	*new;
 
-	new = malloc(sizeof(t_philo));
+	new = malloc(sizeof(t_data));
 	if (!new)
 		ft_perror(RED"Error: Failed to allocate memory (ft_init)\n"NC);
 	ft_bzero(new, sizeof(t_philo));

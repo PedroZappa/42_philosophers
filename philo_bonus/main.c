@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 		ft_free_philos(philos);
 		return (1);
 	}
-	ft_free(philos);
+	ft_free(philos, data);
 	return (0);
 }
 
