@@ -19,20 +19,21 @@ int	ft_meal(t_philo *philo)
 		philo->t_curr = ft_now(philo);
 		if (sem_post(philo->data->sem_death) != 0)
 		{
-			printf(RED"Error: sem_post failed"NC);
+			printf(RED"Error: sem_post failed\n"NC);
 			return (1);
 		}
 	}
 	else
 	{
-		printf(RED"Error: sem_wait failed"NC);
+		printf(RED"Error: sem_wait failed\n"NC);
 		return (1);
 	}
 	ft_log(philo, EAT, ft_now(philo));
 	usleep(ft_min(philo->data->t_meal, philo->data->t_death));
 	if ((ft_drop_fork(philo) == 1) || (ft_drop_fork(philo) == 1))
 		return (1);
-	if ((philo->data->meal_max) && (++philo->n_meals == philo->data->meal_max))
+	if ((philo->data->meal_max != NULL) \
+		&& (++philo->n_meals == *philo->data->meal_max))
 		sem_post(philo->data->sem_end);
 	return (0);
 }

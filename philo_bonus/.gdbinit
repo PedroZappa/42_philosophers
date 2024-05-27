@@ -27,12 +27,13 @@ define set_sem_t
 	display *philo
 end
 
-define free
-	display to_del
-	display *to_del
+# ft_free.c
+define kill_philos
 	display philo
 	display *philo
-	display **philo
+	display target
+	display *target
+	display *target->next
 	display i
 end	
 

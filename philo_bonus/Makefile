@@ -83,10 +83,10 @@ MKDIR_P	= mkdir -p
 
 ##@ philosophers Compilation Rules 🏗
 
-all: $(BUILD_PATH) $(NAME)	## Compile Mandatory version
+all: $(BUILD_PATH) $(NAME)	## Compile Bonus version
 
-$(NAME): $(BUILD_PATH) $(OBJS)			## Compile Mandatory version
-	@echo "$(YEL)Compiling $(MAG)$(NAME)$(YEL) mandatory version$(D)"
+$(NAME): $(BUILD_PATH) $(OBJS)			## Compile Bonus version
+	@echo "$(YEL)Compiling $(MAG)$(NAME)$(YEL) bpnus version$(D)"
 	$(CC) $(CFLAGS) $(DFLAGS) $(OBJS) -o $(NAME)
 	@echo "[$(_SUCCESS) compiling $(MAG)$(NAME)$(D) $(YEL)🖔$(D)]"
 	make norm

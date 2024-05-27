@@ -74,10 +74,8 @@ typedef struct s_data
 	t_msec		t_sleep;
 	t_msec		t_think;
 	t_time		t_start;
-	int			meal_max;
-	int			meal_counter;
-	int			idx;
-	// int			*pid;
+	// int			idx;
+	int			*meal_max;
 	sem_t		*sem_start;
 	sem_t		*sem_forks;
 	sem_t		*sem_printf;
@@ -117,7 +115,6 @@ int		ft_drop_fork(t_philo *philo);
 /// ft_free.c
 void	ft_free(t_philo *philos, t_data *data);
 int		ft_sem_closer(t_data *to_del);
-void	ft_free_philos(t_philo *philo);
 int		ft_kill_philos(t_philo *philo);
 
 /// ft_init.c

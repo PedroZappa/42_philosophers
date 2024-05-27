@@ -63,14 +63,13 @@ static t_data	*ft_init_data(int argc, char **argv)
 		|| (new->t_meal == -1) || (new->t_sleep == -1) || (new->t_death < 60) \
 		|| (new->t_meal < 60) || (new->t_sleep < 60))
 		exit(ft_perror(RED"Error: invalid arguments\n"NC));
-	new->meal_max = -1;
 	if (argc == 6)
 	{
-		new->meal_max = ft_parse_arg(argv[5]);
-		if (new->meal_max == -1)
+		new->meal_max = malloc(sizeof(t_msec));
+		*new->meal_max = ft_parse_arg(argv[5]);
+		if ((*new->meal_max <= 0) || (*new->meal_max > INT_MAX))
 			exit(ft_perror(RED"Error: invalid arguments\n"NC));
 	}
-	new->meal_counter = 0;
 	return (new);
 }
 
