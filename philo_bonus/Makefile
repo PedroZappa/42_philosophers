@@ -333,7 +333,7 @@ gdb: all $(NAME) $(TEMP_PATH)			## Debug w/ gdb
 	make get_log
 
 vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
-	tmux split-window -h "valgrind --vgdb-error=1 --leak-check=full --show-leak-kinds=all --log-file=gdb.txt ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind --vgdb-error=0 --leak-check=full --show-leak-kinds=all --log-file=gdb.txt ./$(NAME) $(ARG)"
 	make vgdb_pid
 	tmux split-window -v "gdb --tui -x $(TEMP_PATH)/gdb_commands.txt $(NAME)"
 	tmux resize-pane -U 18
