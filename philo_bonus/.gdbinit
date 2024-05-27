@@ -16,7 +16,16 @@ end
 
 define philosophize
 	display *philos
-	display i 
+end
+
+define children
+	display *philo
+	display new
+	display i
+end
+
+define set_sem_t
+	display *philo
 end
 
 define free
@@ -56,8 +65,14 @@ end
 # fs cmd
 
 # Break before free
-break main
-break 48
+# break main
+# break 48
+# run 3 800 200 200 7
+# main
+# fs cmd
+
+# Break at ft_children
+break ft_children
 run 3 800 200 200 7
-main
+children
 fs cmd

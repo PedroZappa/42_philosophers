@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 20:24:42 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 20:35:38 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:17:10 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ t_time	ft_now(t_philo *philo)
 {
 	struct timeval	now;
 
-	if (sem_wait(philo->sem_time) == 0)
+	if (sem_wait(philo->data->sem_time) == 0)
 	{
 		now = philo->t_curr;
-		if (sem_post(philo->sem_time) != 0)
+		if (sem_post(philo->data->sem_time) != 0)
 			printf(RED"Error: sem_post failed"NC);
 	}
 	return (now);

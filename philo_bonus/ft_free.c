@@ -6,13 +6,13 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 11:26:15 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 20:22:48 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:08:42 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static int	ft_sem_closer(t_philo *to_del);
+int	ft_sem_closer(t_data *to_del);
 static int	ft_sem_unlinker(void);
 
 /// @brief			Free allocated memory
@@ -22,13 +22,13 @@ static int	ft_sem_unlinker(void);
 /// 				- Unlink semaphores
 /// 				- Free pointer to pid array
 /// 				- Free pointer to t_philo struct
-void	ft_free(t_philo **philo)
+void	ft_free(t_data *data)
 {
-	t_philo	*to_del;
+	t_data	*to_del;
 	int		i;
 	int		pid_status;
 
-	to_del = *philo;
+	to_del = data;
 	i = 0;
 	while (i < to_del->n_philos)
 	{
@@ -50,7 +50,7 @@ void	ft_free(t_philo **philo)
 /// @brief			Close semaphores
 /// @param to_del	Pointer to a t_philo struct
 /// @return			0 on success, 1 on failure
-static int	ft_sem_closer(t_philo *to_del)
+int	ft_sem_closer(t_data *to_del)
 {
 	if (sem_close(to_del->sem_printf) \
 		|| sem_close(to_del->sem_forks) \
@@ -78,5 +78,23 @@ static int	ft_sem_unlinker(void)
 		ft_perror(RED"Error: semaphore unlink error"NC);
 		return (1);
 	}
+	return (0);
+}
+
+int	ft_kill_philos(t_philo *philo)
+{
+	t_philo	*target;
+	int	i;
+
+	target = philo;
+	i = 0;
+	while (i--)
+		sem_post(philo->data->sem_end);
+	while ((target->next) && (target->next != philo))
+	{
+		kill(target->pid, SIGKILL);
+		target = target->next;
+	}
+	kill(target->pid, SIGKILL);
 	return (0);
 }

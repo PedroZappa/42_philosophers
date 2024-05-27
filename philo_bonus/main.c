@@ -6,13 +6,13 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:39:21 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 20:43:43 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:11:22 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static void	ft_child(t_philo *philo);
+static int	ft_children(t_philo *philo);
 static int	ft_philosophize(t_philo *philo);
 static void	*ft_monitor(void *arg);
 static int	ft_check(t_philo *philo);
@@ -28,38 +28,51 @@ static int	ft_check(t_philo *philo);
 ///				- Free allocated memory
 int	main(int argc, char **argv)
 {
+	t_data	*data;
 	t_philo	*philos;
-	t_time	*t;
-	int		i;
 
-	i = -1;
-	t = malloc(sizeof(t_time));
-	philos = ft_parsinit(argc, argv);
-	if (ft_gettime(t) == -1)
-		ft_perror(RED"Error: gettime failed\n"NC);
-	philos->t_start = *t;
-	while (++i < philos->n_philos)
+	data = ft_init(argc, argv);
+	if (!data)
+		exit(1);
+	philos = ft_init_philos(data);
+	if (!philos)
+		exit(1);
+	if ((ft_init_semaphores(data) == 1) || (ft_children(philos) == 1))
 	{
-		philos->pid[i] = fork();
-		if (philos->pid[i] == -1)
-			ft_perror(RED"Error: fork failed\n"NC);
-		if (philos->pid[i] == 0)
-		{
-			philos->idx = (i + 1);
-			philos->curr_meal = ft_gettime(t);
-			ft_child(philos);
-		}
+		ft_free_philos(philos);
+		exit(1);
 	}
-	ft_free(&philos);
-	free(t);
+	ft_kill_philos(philos);
+	ft_sem_closer(data);
+	ft_free_philos(philos);
 	return (0);
+
 }
 
-static void	ft_child(t_philo *philo)
+static int	ft_children(t_philo *philo)
 {
-	if (pthread_create(&philo->monitor, NULL, &ft_monitor, philo))
+	t_philo	*new;
+	int		i;
+
+	new = philo;
+	i = philo->data->n_philos;
+	while (i--)
+	{
+		new->pid = fork();
+		if (new->pid == 0)
+		{
+
+			exit(ft_philosophize(new));
+		}
+		else if (new->pid == -1)
+			return(ft_perror(RED"Error: fork failed\n"NC));
+		else
+			new = new->next;
+	}
+
+	if (pthread_create(&philo->data->monitor, NULL, &ft_monitor, philo))
 		ft_perror(RED"Error: pthread_create failed\n"NC);
-	if (pthread_detach(philo->monitor))
+	if (pthread_detach(philo->data->monitor))
 		ft_perror(RED"Error: pthread_detach failed\n"NC);
 	exit(ft_philosophize(philo));
 }
@@ -75,10 +88,10 @@ static int	ft_philosophize(t_philo *philo)
 	ft_set_sem_t(philo);
 	while (1)
 	{
-		sem_wait(philo->sem_start);
+		sem_wait(philo->data->sem_start);
 		if ((ft_take_fork(philo) == 0) && (ft_take_fork(philo) == 0))
 		{
-			sem_post(philo->sem_start);
+			sem_post(philo->data->sem_start);
 			if ((ft_meal(philo) == 1) || (ft_sleep(philo) == 1) \
 				|| (ft_think(philo) == 1))
 				ft_sem_post_end(philo);
@@ -99,7 +112,7 @@ static void	*ft_monitor(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (!philo->done)
+	while (1)
 	{
 		if (ft_check(philo) != 0)
 			return (NULL);
@@ -109,9 +122,9 @@ static void	*ft_monitor(void *arg)
 
 static int	ft_check(t_philo *philo)
 {
-	if (sem_wait(philo->sem_death) == 0)
+	if (sem_wait(philo->data->sem_death) == 0)
 	{
-		if (sem_post(philo->sem_death) != 0)
+		if (sem_post(philo->data->sem_death) != 0)
 		{
 			printf(RED"Error: sem_post failed\n"NC);
 			return (1);

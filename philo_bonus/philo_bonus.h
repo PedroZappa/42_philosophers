@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:12:47 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/26 20:36:07 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/26 22:19:26 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct timeval	t_time;
 //                               Structures                                    /
 //=============================================================================/
 
-typedef struct s_philo
+typedef struct s_data
 {
 	int			n_philos;
 	int			n_forks;
@@ -75,12 +75,8 @@ typedef struct s_philo
 	t_msec		t_think;
 	t_msec		curr_meal;
 	t_time		t_start;
-	t_time		t_now;
-	t_time		t_curr;
 	int			meal_max;
 	int			meal_counter;
-	int			done;
-	int			died;
 	int			idx;
 	int			*pid;
 	sem_t		*sem_start;
@@ -90,6 +86,18 @@ typedef struct s_philo
 	sem_t		*sem_death;
 	sem_t		*sem_end;
 	pthread_t	monitor;
+}				t_data;
+
+typedef struct s_philo
+{
+	int				idx;
+	pid_t			pid;
+	t_data			*data;
+	t_time			t_curr;
+	t_time			t_now;
+	int				n_meals;
+	struct s_philo	*next;
+	struct s_philo	*prev;
 }				t_philo;
 
 //=============================================================================/
@@ -107,11 +115,18 @@ int		ft_perror(char *err);
 int		ft_take_fork(t_philo *philo);
 int		ft_drop_fork(t_philo *philo);
 
-/// ft_error.c
-void	ft_free(t_philo **philo);
+/// ft_free.c
+void	ft_free(t_data *data);
+int		ft_sem_closer(t_data *to_del);
+int		ft_kill_philos(t_philo *philo);
 
 /// ft_init.c
-t_philo	*ft_parsinit(int argc, char **argv);
+t_data	*ft_init(int argc, char **argv);
+int		ft_init_semaphores(t_data *data);
+
+/// ft_init_philo.c
+t_philo	*ft_init_philos(t_data *data);
+void	ft_free_philos(t_philo *philo);
 
 /// ft_math.c
 int		ft_min(int a, int b);
@@ -136,6 +151,5 @@ t_msec	ft_utime(t_time t);
 t_msec	ft_dtime(t_time t0, t_time t1);
 void	ft_ms2us(void *t);
 t_time	ft_now(t_philo *philo);
-// void	ft_philo_do(t_msec time, t_philo *philo);
 
 #endif
