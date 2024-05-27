@@ -53,6 +53,7 @@ static int	ft_children(t_philo *philo)
 
 	new = philo;
 	i = philo->data->n_philos;
+	ft_set_start_time(philo);
 	while (i--)
 	{
 		new->pid = fork();

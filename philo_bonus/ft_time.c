@@ -56,3 +56,23 @@ t_time	ft_now(t_philo *philo)
 	}
 	return (now);
 }
+
+/// @brief			Set t_start time
+/// @param philo	Reference to t_philo struct
+/// @return			0 on success, 1 on failure
+int	ft_set_start_time(t_philo *philo)
+{
+	t_philo	*tmp;
+	int		i;
+
+	if (ft_gettime(&philo->data->t_start) == -1)
+		return (1);
+	tmp = philo;
+	i = philo->data->n_philos;
+	while (i--)
+	{
+		tmp->t_curr = philo->data->t_start;
+		tmp = tmp->next;
+	}
+	return (0);
+}

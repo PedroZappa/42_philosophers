@@ -8,10 +8,8 @@ set print array on
 define main
 	display argc
 	display *argv@argc
+	display *data
 	display *philos
-	display philos@(*philos)->n_philos
-	display *philos->pid@(*philos)->n_philos
-	display i
 end
 
 define philosophize
@@ -59,10 +57,10 @@ end
 
 # GO GDB GO!
 # Start at main
-# break main
-# run 300 800 200 200 7
-# main
-# fs cmd
+break main
+run 5 800 200 200 7
+main
+fs cmd
 
 # Break before free
 # break main
@@ -72,7 +70,11 @@ end
 # fs cmd
 
 # Break at ft_children
-break ft_children
-run 3 800 200 200 7
-children
-fs cmd
+# break ft_children
+# run 3 800 200 200 7
+# children
+# fs cmd
+
+
+info break
+info threads

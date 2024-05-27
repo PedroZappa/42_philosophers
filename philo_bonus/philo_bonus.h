@@ -153,5 +153,6 @@ t_msec	ft_utime(t_time t);
 t_msec	ft_dtime(t_time t0, t_time t1);
 void	ft_ms2us(void *t);
 t_time	ft_now(t_philo *philo);
+int		ft_set_start_time(t_philo *philo);
 
 #endif
