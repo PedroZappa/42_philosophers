@@ -14,8 +14,9 @@
 #                                  MAKE CONFIG                                 #
 #==============================================================================#
 
-MAKE	= make -C
-SHELL	:= bash
+MAKE			= make -C
+SHELL			:= bash
+TIMESTAMP		=$(shell date +%Y%m%d%H%M%S); \
 
 # Default test values
 ARG				= 5 800 200 200
@@ -361,13 +362,11 @@ vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind & gdb
 	make get_log
 
 massif: all $(TEMP_PATH)		## Run Valgrind w/ Massif (gather profiling information)
-	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
-	if [ -f massif.out.* ]; then \
-		rm -f massif.out.*; \
-	fi
-	@echo " 🔎 [$(YEL)Massif Profiling$(D)]"
+	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S)
+	echo " 🔎 [$(YEL)Massif Profiling$(D)]"
 	valgrind --tool=massif --time-unit=B ./$(NAME) $(ARG7)
-	ms_print massif.out.*
+	ms_print $(TEMP_PATH)/massif.out.*
+	mv massif.out.* $(TEMP_PATH)
 # Learn more about massif and ms_print:
 ### https://valgrind.org/docs/manual/ms-manual.html
 
