@@ -67,5 +67,5 @@ static void	ft_add_philo(t_philo **philo, t_philo *new)
 	tmp->next = new;
 	new->prev = tmp;
 	new->next = *philo;
-	(*philo) = new;
+	(*philo)->prev = new;
 }

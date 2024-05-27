@@ -80,7 +80,7 @@ int	ft_init_semaphores(t_data *data)
 {
 	sem_unlink("/sem_forks");
 	data->sem_forks = sem_open("/sem_forks", O_CREAT, 0644, \
-										data->n_forks);
+										data->n_philos);
 	if (data->sem_forks == SEM_FAILED)
 		 return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_printf");
