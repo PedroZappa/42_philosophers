@@ -33,13 +33,9 @@ t_data	*ft_init(int argc, char **argv)
 	ft_ms2us(&new->t_death);
 	ft_ms2us(&new->t_meal);
 	ft_ms2us(&new->t_sleep);
-	ft_ms2us(&new->t_think);
 	if ((new->n_philos % 2) \
 		&& ((new->t_death - new->t_meal - new->t_sleep) / 2 > 0))
 		new->t_think = ((new->t_death - new->t_meal - new->t_sleep) / 2);
-	new->pid = malloc(sizeof(int) * new->n_philos);
-	if (!new->pid)
-		ft_perror(RED"Error: malloc error (init pid)"NC);
 	return (new);
 }
 
@@ -55,6 +51,7 @@ static t_data	*ft_init_data(int argc, char **argv)
 	t_data	*new;
 
 	new = malloc(sizeof(t_philo));
+	ft_bzero(new, sizeof(t_philo));
 	if (!new)
 		ft_perror(RED"Error: Failed to allocate memory (ft_init)\n"NC);
 	new->n_philos = ft_parse_arg(argv[1]);
@@ -82,31 +79,31 @@ static t_data	*ft_init_data(int argc, char **argv)
 /// @return			0 on success, -1 on failure
 int	ft_init_semaphores(t_data *data)
 {
-	sem_unlink("/sem_start");
-	data->sem_start = sem_open("/sem_start", O_CREAT, S_IRWXU, \
-								(data->n_philos / 2));
-	if (data->sem_start == SEM_FAILED)
-		exit(ft_perror(RED"Error: semaphore open error"NC));
-	sem_unlink("/sem_printf");
-	data->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
-	if (data->sem_printf == SEM_FAILED)
-		exit(ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_forks");
 	data->sem_forks = sem_open("/sem_forks", O_CREAT, S_IRWXU, \
 										data->n_forks);
 	if (data->sem_forks == SEM_FAILED)
-		exit(ft_perror(RED"Error: semaphore open error"NC));
+		 return (ft_perror(RED"Error: semaphore open error"NC));
+	sem_unlink("/sem_printf");
+	data->sem_printf = sem_open("/sem_printf", O_CREAT, S_IRWXU, 1);
+	if (data->sem_printf == SEM_FAILED)
+		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_end");
 	data->sem_end = sem_open("/sem_end", O_CREAT, S_IRWXU, 0);
 	if (data->sem_end == SEM_FAILED)
-		exit(ft_perror(RED"Error: semaphore open error"NC));
+		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_death");
 	data->sem_death = sem_open("/sem_death", O_CREAT, S_IRWXU, 0);
 	if (data->sem_death == SEM_FAILED)
-		exit(ft_perror(RED"Error: semaphore open error"NC));
+		return (ft_perror(RED"Error: semaphore open error"NC));
+	sem_unlink("/sem_start");
+	data->sem_start = sem_open("/sem_start", O_CREAT, S_IRWXU, \
+								(data->n_philos / 2));
+	if (data->sem_start == SEM_FAILED)
+		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_time");
 	data->sem_time = sem_open("/sem_time", O_CREAT, S_IRWXU, 0);
 	if (data->sem_time == SEM_FAILED)
-		exit(ft_perror(RED"Error: semaphore open error"NC));
+		return (ft_perror(RED"Error: semaphore open error"NC));
 	return (0);
 }

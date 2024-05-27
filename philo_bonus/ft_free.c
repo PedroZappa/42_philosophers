@@ -12,7 +12,7 @@
 
 #include "philo_bonus.h"
 
-int	ft_sem_closer(t_data *to_del);
+int			ft_sem_closer(t_data *to_del);
 static int	ft_sem_unlinker(void);
 
 /// @brief			Free allocated memory
@@ -22,29 +22,11 @@ static int	ft_sem_unlinker(void);
 /// 				- Unlink semaphores
 /// 				- Free pointer to pid array
 /// 				- Free pointer to t_philo struct
-void	ft_free(t_data *data)
+void	ft_free(t_philo *philos)
 {
-	t_data	*to_del;
-	int		i;
-	int		pid_status;
-
-	to_del = data;
-	i = 0;
-	while (i < to_del->n_philos)
-	{
-		waitpid(-1, &pid_status, 0);
-		if (pid_status != 0)
-		{
-			i = -1;
-			while (++i < to_del->n_philos)
-				kill(to_del->pid[i], SIGKILL);
-			break ;
-		}
-		++i;
-	}
-	ft_sem_closer(to_del);
-	free(to_del->pid);
-	free(to_del);
+	ft_kill_philos(philos);
+	ft_sem_closer(philos->data);
+	ft_free_philos(philos);
 }
 
 /// @brief			Close semaphores
@@ -96,5 +78,13 @@ int	ft_kill_philos(t_philo *philo)
 		target = target->next;
 	}
 	kill(target->pid, SIGKILL);
+	return (0);
+}
+
+int	ft_free_data(t_data *data)
+{
+	// if (data->t_meal != NULL)
+	// 	free(data->meal_max);
+	free(data);
 	return (0);
 }

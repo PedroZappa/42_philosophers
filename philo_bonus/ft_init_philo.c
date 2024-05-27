@@ -31,7 +31,7 @@ t_philo	*ft_init_philos(t_data *data)
 		if (!new)
 		{
 			ft_free_philos(philo);
-			ft_free(data);
+			ft_free(philo);
 			return (NULL);
 		}
 		ft_add_philo(&philo, new);
@@ -46,6 +46,7 @@ static t_philo	*ft_make_philo(t_data *data, int idx)
 	new = malloc(sizeof(t_philo));
 	if (!new)
 		return (NULL);
+	ft_bzero(new, sizeof(t_philo));
 	new->idx = idx;
 	new->data = data;
 	return (new);
@@ -74,10 +75,9 @@ void	ft_free_philos(t_philo *philo)
 	t_philo	*tmp;
 	t_philo	*next;
 
-
 	tmp = philo;
 	next = tmp;
-	ft_free(philo->data);
+	ft_free_data(philo->data);
 	if (tmp)
 	{
 		while ((tmp->next != NULL) && (tmp->next != philo))

@@ -32,9 +32,15 @@ int	ft_set_sem_t(t_philo *philo)
 
 void	ft_sem_post_end(t_philo *philo)
 {
-	if (sem_post(philo->data->sem_end) != 0)
+	int	i;
+
+	i = philo->data->n_philos;
+	while (i--)
 	{
-		printf(RED"Error: sem_post failed"NC);
-		exit(1);
+		if (sem_post(philo->data->sem_end) != 0)
+		{
+			printf(RED"Error: sem_post failed"NC);
+			exit(1);
+		}
 	}
 }

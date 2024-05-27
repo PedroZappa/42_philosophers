@@ -40,13 +40,10 @@ int	main(int argc, char **argv)
 	if ((ft_init_semaphores(data) == 1) || (ft_children(philos) == 1))
 	{
 		ft_free_philos(philos);
-		exit(1);
+		return (1);
 	}
-	ft_kill_philos(philos);
-	ft_sem_closer(data);
-	ft_free_philos(philos);
+	ft_free(philos);
 	return (0);
-
 }
 
 static int	ft_children(t_philo *philo)
@@ -124,6 +121,16 @@ static int	ft_check(t_philo *philo)
 {
 	if (sem_wait(philo->data->sem_death) == 0)
 	{
+		if (ft_set_sem_t(philo) == 0)
+		{
+			if ((ft_utime(philo->t_now) - ft_utime(philo->t_curr)) \
+				> philo->data->t_death)
+			{
+				ft_log(philo, DEAD, philo->t_now);
+				ft_sem_post_end(philo);
+				return (0);
+			}
+		}
 		if (sem_post(philo->data->sem_death) != 0)
 		{
 			printf(RED"Error: sem_post failed\n"NC);

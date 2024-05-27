@@ -78,7 +78,7 @@ typedef struct s_data
 	int			meal_max;
 	int			meal_counter;
 	int			idx;
-	int			*pid;
+	// int			*pid;
 	sem_t		*sem_start;
 	sem_t		*sem_forks;
 	sem_t		*sem_printf;
@@ -116,9 +116,10 @@ int		ft_take_fork(t_philo *philo);
 int		ft_drop_fork(t_philo *philo);
 
 /// ft_free.c
-void	ft_free(t_data *data);
+void	ft_free(t_philo *philos);
 int		ft_sem_closer(t_data *to_del);
 int		ft_kill_philos(t_philo *philo);
+int		ft_free_data(t_data *data);
 
 /// ft_init.c
 t_data	*ft_init(int argc, char **argv);
@@ -130,6 +131,7 @@ void	ft_free_philos(t_philo *philo);
 
 /// ft_math.c
 int		ft_min(int a, int b);
+void	ft_bzero(void *s, size_t n);
 
 /// ft_ops.c
 int		ft_meal(t_philo *philo);
