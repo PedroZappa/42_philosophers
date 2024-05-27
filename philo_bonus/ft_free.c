@@ -27,6 +27,7 @@ void	ft_free(t_philo *philos, t_data *data)
 	ft_kill_philos(philos);
 	ft_sem_closer(data);
 	ft_free_philos(philos);
+	ft_free_data(data);
 }
 
 /// @brief			Close semaphores

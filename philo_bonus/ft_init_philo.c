@@ -31,6 +31,7 @@ t_philo	*ft_init_philos(t_data *data)
 		if (!new)
 		{
 			ft_free_philos(philo);
+			free(data);
 			return (NULL);
 		}
 		ft_add_philo(&philo, new);
