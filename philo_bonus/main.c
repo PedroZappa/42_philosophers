@@ -58,7 +58,10 @@ static int	ft_children(t_philo *philo)
 		new->pid = fork();
 		if (new->pid == 0)
 		{
-
+			if (pthread_create(&philo->data->monitor, NULL, &ft_monitor, philo))
+				ft_perror(RED"Error: pthread_create failed\n"NC);
+			if (pthread_detach(philo->data->monitor))
+				ft_perror(RED"Error: pthread_detach failed\n"NC);
 			exit(ft_philosophize(new));
 		}
 		else if (new->pid == -1)
@@ -66,12 +69,7 @@ static int	ft_children(t_philo *philo)
 		else
 			new = new->next;
 	}
-
-	if (pthread_create(&philo->data->monitor, NULL, &ft_monitor, philo))
-		ft_perror(RED"Error: pthread_create failed\n"NC);
-	if (pthread_detach(philo->data->monitor))
-		ft_perror(RED"Error: pthread_detach failed\n"NC);
-	exit(ft_philosophize(philo));
+	return (0);
 }
 
 /// @brief			Philosophers logic
