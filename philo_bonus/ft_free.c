@@ -61,11 +61,12 @@ void	ft_free_philos(t_philo *philo)
 
 	tmp = philo;
 	next = tmp;
+	ft_free_data(philo->data);
 	if (philo != NULL)
 	{
 		while ((tmp->next != NULL) && (tmp->next != philo))
 		{
-			next = tmp->prev;
+			next = tmp->next;
 			free(tmp);
 			tmp = next;
 		}
@@ -80,7 +81,6 @@ int	ft_kill_philos(t_philo *philo)
 
 	target = philo;
 	i = philo->data->n_philos;
-	ft_free_data(philo->data);
 	while (i--)
 		sem_wait(philo->data->sem_end);
 	while ((target->next != NULL) && (target->next != philo))
