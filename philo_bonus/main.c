@@ -115,7 +115,7 @@ static void	*ft_monitor(void *arg)
 		if (ft_check(philo) != 0)
 			return (NULL);
 	}
-	exit(0);
+	return (0);
 }
 
 static int	ft_check(t_philo *philo)
