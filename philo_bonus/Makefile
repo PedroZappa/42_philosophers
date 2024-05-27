@@ -205,17 +205,18 @@ test_kill_four: all			## Run a kill test
 
 test_seven_meals: all			## Run a seven meals test
 	tmux set-option remain-on-exit on
-	./$(NAME) $(ARG7) > $(TEMP_PATH)/out.txt
+	# -./$(NAME) $(ARG7) > $(TEMP_PATH)/out.txt
+	./$(NAME) 5 800 200 200 7 > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
-	# tmux resize-pane -R 54
+	tmux resize-pane -R 54
 
 test_life_min: all			## Run a infinite test with shortest life possible
 	tmux set-option remain-on-exit on
 	@echo "$(CYA)Testing $(GRN)life $(D): 5 philos should eat and live forever"
 	@echo "$(YEL)$(_SEP)$(D)"
-	tmux split-window -h "./$(NAME) 200 180 60 60"
+	tmux split-window -h "./$(NAME) 3 200 60 60"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_life_4: all			## Run a infinite meal test
