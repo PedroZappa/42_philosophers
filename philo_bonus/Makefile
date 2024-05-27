@@ -19,6 +19,7 @@ SHELL	:= bash
 
 # Default test values
 ARG				= 5 800 200 200
+ARG7			= 5 800 200 200 7
 CHAOS			= 3 800 200 200 7
 TIMESTEP		= 100
 TIMEOUT			= 10
@@ -204,11 +205,11 @@ test_kill_four: all			## Run a kill test
 
 test_seven_meals: all			## Run a seven meals test
 	tmux set-option remain-on-exit on
-	-./$(NAME) 5 800 200 200 7 > $(TEMP_PATH)/out.txt
+	./$(NAME) $(ARG7) > $(TEMP_PATH)/out.txt
 	@echo "$(CYA)Testing $(GRN)seven meals $(D): 5 philos should eat seven meals"
 	@echo "$(YEL)$(_SEP)$(D)"
 	make count_meals
-	tmux resize-pane -R 54
+	# tmux resize-pane -R 54
 
 test_life_min: all			## Run a infinite test with shortest life possible
 	tmux set-option remain-on-exit on
@@ -245,12 +246,12 @@ test_chaos: all			## Run a chaos test
 		echo "Test $(CYA)$$TEST_N$(D) of $(GRN)$(ITER)$(D)"; \
 		echo "$(YEL)$(_SEP)$(D)"; \
 		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(CHAOS); \
-		total_lines=$(shell wc -l < "$(TEMP_PATH)/temp.txt"); \
-		echo "$(YEL)$$total_lines$(D)"; \
-		let "target_line = total_lines - 4"; \
-		sed -n "$${target_line}p" "$(TEMP_PATH)/temp.txt" | tee -a "$(TEMP_PATH)/out.txt"; \
-		COUNTER=$$((COUNTER + 1)); \
-		echo $$COUNTER > $(TEMP_PATH)/passed_count.txt; \
+			total_lines=$(shell wc -l < "$(TEMP_PATH)/temp.txt"); \
+			echo "$(YEL)$$total_lines$(D)"; \
+			let "target_line = total_lines - 4"; \
+			sed -n "$${target_line}p" "$(TEMP_PATH)/temp.txt" | tee -a "$(TEMP_PATH)/out.txt"; \
+			COUNTER=$$((COUNTER + 1)); \
+			echo $$COUNTER > $(TEMP_PATH)/passed_count.txt; \
 		echo "$(YEL)$(_SEP)$(D)"; \
 	done
 	@make --no-print-directory test_results
@@ -361,10 +362,10 @@ vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind & gdb
 massif: all $(TEMP_PATH)		## Run Valgrind w/ Massif (gather profiling information)
 	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
 	if [ -f massif.out.* ]; then \
-		mv -f massif.out.* $(TEMP_PATH)/massif.out.$$TIMESTAMP; \
+		rm -f massif.out.*; \
 	fi
 	@echo " 🔎 [$(YEL)Massif Profiling$(D)]"
-	valgrind --tool=massif --time-unit=B ./$(NAME) $(ARG)
+	valgrind --tool=massif --time-unit=B ./$(NAME) $(ARG7)
 	ms_print massif.out.*
 # Learn more about massif and ms_print:
 ### https://valgrind.org/docs/manual/ms-manual.html
