@@ -32,6 +32,10 @@ t_msec	ft_utime(t_time t)
 	return (t.tv_sec * 1000000 + t.tv_usec);
 }
 
+/// @brief		Difference between two times in milliseconds
+/// @param t0	Reference to t_time struct
+/// @param t1	Reference to t_time struct
+/// @return		Difference in milliseconds
 t_msec	ft_dtime(t_time t0, t_time t1)
 {
 	return ((ft_utime(t1) - ft_utime(t0)) / 1000);
@@ -53,7 +57,7 @@ t_time	ft_now(t_philo *philo)
 	{
 		now = philo->t_curr;
 		if (sem_post(philo->data->sem_time) != 0)
-			printf(RED"Error: sem_post failed"NC);
+			perror(RED"Error: sem_post failed"NC);
 	}
 	return (now);
 }

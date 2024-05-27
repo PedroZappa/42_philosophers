@@ -16,6 +16,7 @@ int			ft_sem_closer(t_data *to_del);
 static int	ft_sem_unlinker(void);
 void		ft_free_philos(t_philo *philo);
 int			ft_kill_philos(t_philo *philo);
+static int	ft_free_data(t_data *data);
 
 /// @brief			Free allocated memory
 /// @param philo	Pointer to a t_philo struct
@@ -29,9 +30,6 @@ void	ft_free(t_philo *philos, t_data *data)
 	ft_kill_philos(philos);
 	ft_sem_closer(data);
 	ft_free_philos(philos);
-	if (data->meal_max != NULL)
-		free(data->meal_max);
-	free(data);
 }
 
 /// @brief			Close semaphores
@@ -96,6 +94,7 @@ int	ft_kill_philos(t_philo *philo)
 
 	target = philo;
 	i = philo->data->n_philos;
+	ft_free_data(philo->data);
 	while (i--)
 		sem_wait(philo->data->sem_end);
 	while ((target->next != NULL) && (target->next != philo))
@@ -106,3 +105,12 @@ int	ft_kill_philos(t_philo *philo)
 	kill(target->pid, SIGKILL);
 	return (0);
 }
+
+static int	ft_free_data(t_data *data)
+{
+	if (data->meal_max != NULL)
+		free(data->meal_max);
+	free(data);
+	return (0);
+}
+
