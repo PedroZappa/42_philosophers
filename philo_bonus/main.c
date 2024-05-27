@@ -40,10 +40,12 @@ int	main(int argc, char **argv)
 	if ((ft_init_semaphores(data) == 1) || (ft_children(philos) == 1))
 	{
 		ft_free_philos(philos);
-		return (1);
+		exit(1);
 	}
-	ft_free(philos, data);
-	return (0);
+	ft_kill_philos(philos);
+	ft_sem_closer(data);
+	ft_free_philos(philos);
+	exit(0);
 }
 
 static int	ft_children(t_philo *philo)
@@ -59,7 +61,8 @@ static int	ft_children(t_philo *philo)
 		curr_philo->pid = fork();
 		if (curr_philo->pid == 0)
 		{
-			if (pthread_create(&philo->data->monitor, NULL, &ft_monitor, philo))
+			if (pthread_create(&philo->data->monitor, NULL, 
+					  &ft_monitor, curr_philo))
 				ft_perror(RED"Error: pthread_create failed\n"NC);
 			if (pthread_detach(philo->data->monitor))
 				ft_perror(RED"Error: pthread_detach failed\n"NC);

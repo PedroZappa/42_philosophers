@@ -116,6 +116,7 @@ int		ft_drop_fork(t_philo *philo);
 void	ft_free(t_philo *philos, t_data *data);
 int		ft_sem_closer(t_data *to_del);
 int		ft_kill_philos(t_philo *philo);
+int	ft_free_data(t_data *data);
 
 /// ft_init.c
 t_data	*ft_init(int argc, char **argv);
