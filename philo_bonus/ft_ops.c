@@ -32,6 +32,8 @@ int	ft_meal(t_philo *philo)
 	usleep(ft_min(philo->data->t_meal, philo->data->t_death));
 	if ((ft_drop_fork(philo) == 1) || (ft_drop_fork(philo) == 1))
 		return (1);
+	if ((philo->data->meal_max) && (++philo->n_meals == philo->data->meal_max))
+		sem_post(philo->data->sem_end);
 	return (0);
 }
 

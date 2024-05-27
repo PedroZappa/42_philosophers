@@ -40,7 +40,7 @@ int	ft_sem_closer(t_data *to_del)
 		|| sem_close(to_del->sem_death)
 		|| sem_close(to_del->sem_end))
 	{
-		ft_perror(RED"Error: semaphore close error"NC);
+		ft_perror(RED"Error: semaphore close error\n"NC);
 		return (1);
 	}
 	return (ft_sem_unlinker());
@@ -57,7 +57,7 @@ static int	ft_sem_unlinker(void)
 		|| sem_unlink("/sem_death")
 		|| sem_unlink("/sem_end"))
 	{
-		ft_perror(RED"Error: semaphore unlink error"NC);
+		ft_perror(RED"Error: semaphore unlink error\n"NC);
 		return (1);
 	}
 	return (0);
@@ -83,8 +83,6 @@ int	ft_kill_philos(t_philo *philo)
 
 int	ft_free_data(t_data *data)
 {
-	// if (data->t_meal != NULL)
-	// 	free(data->meal_max);
 	free(data);
 	return (0);
 }

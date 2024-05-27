@@ -13,8 +13,8 @@
 #include "philo_bonus.h"
 
 static t_philo	*ft_make_philo(t_data *data, int idx);
-static void	ft_add_philo(t_philo **philo, t_philo *new);
-void	ft_free_philos(t_philo *philo);
+static void		ft_add_philo(t_philo **philo, t_philo *new);
+void			ft_free_philos(t_philo *philo);
 
 t_philo	*ft_init_philos(t_data *data)
 {
@@ -77,7 +77,7 @@ void	ft_free_philos(t_philo *philo)
 
 	tmp = philo;
 	next = tmp;
-	ft_free_data(philo->data);
+	// ft_free_data(philo->data);
 	if (tmp)
 	{
 		while ((tmp->next != NULL) && (tmp->next != philo))

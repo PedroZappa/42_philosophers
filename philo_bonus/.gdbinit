@@ -58,7 +58,7 @@ end
 # GO GDB GO!
 # Start at main
 break main
-run 5 800 200 200 7
+run 1 800 200 200 7
 main
 fs cmd
 

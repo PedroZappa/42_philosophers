@@ -58,7 +58,7 @@
 # define DEAD 4
 
 /// Typedefs
-typedef long long int	t_msec;
+typedef long long		t_msec;
 typedef struct timeval	t_time;
 
 //=============================================================================/
@@ -144,7 +144,7 @@ void	ft_philo_log(t_philo *philo, char *str);
 int		ft_parse_arg(char *str);
 
 /// ft_sem.c
-int		ft_set_sem_t(t_philo *philo);
+int		ft_set_time_sem(t_philo *philo);
 void	ft_sem_post_end(t_philo *philo);
 
 /// ft_time.c

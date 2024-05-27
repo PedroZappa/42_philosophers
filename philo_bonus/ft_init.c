@@ -22,7 +22,7 @@ int				ft_init_semaphores(t_data *data);
 /// @details	- Check if the number of arguments is valid
 ///				- Initialize the data
 ///				- Convert milliseconds to microseconds
-///
+///				- Calculate t_think time if it's not divisible by 2
 t_data	*ft_init(int argc, char **argv)
 {
 	t_data	*new;
@@ -51,9 +51,9 @@ static t_data	*ft_init_data(int argc, char **argv)
 	t_data	*new;
 
 	new = malloc(sizeof(t_philo));
-	ft_bzero(new, sizeof(t_philo));
 	if (!new)
 		ft_perror(RED"Error: Failed to allocate memory (ft_init)\n"NC);
+	ft_bzero(new, sizeof(t_philo));
 	new->n_philos = ft_parse_arg(argv[1]);
 	new->n_forks = new->n_philos;
 	new->t_death = ft_parse_arg(argv[2]);

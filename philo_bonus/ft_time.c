@@ -48,6 +48,7 @@ t_time	ft_now(t_philo *philo)
 {
 	struct timeval	now;
 
+	ft_bzero(&now, sizeof(t_time));
 	if (sem_wait(philo->data->sem_time) == 0)
 	{
 		now = philo->t_curr;
