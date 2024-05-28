@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/23 21:24:22 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/28 16:26:58 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,8 @@ TEMP_PATH		= .temp
 TESTS_PATH		= files
 VISUALIZER_PATH	= $(LIBS_PATH)/visualizer
 
-SRC		= $(addprefix $(SRC_PATH)/, main.c ft_error.c ft_free.c ft_init.c \
-		  ft_parse.c ft_time.c)
+SRC		= $(addprefix $(SRC_PATH)/, main.c ft_done.c ft_eat.c ft_error.c \
+		  ft_free.c ft_init.c ft_parse.c ft_time.c)
 
 OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 

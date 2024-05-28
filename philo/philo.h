@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:20:17 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:33:05 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef enum e_mutex
 	MTX_PRINTF,
 	MTX_MEALS,
 	MTX_DIED,
+	MTX_DONE,
 	MTX_NUM
 }	t_mutexes;
 
@@ -136,6 +137,15 @@ typedef struct s_philo
 
 /// main.c
 void	ft_log(t_philo *philo, char *str);
+
+/// ft_done.c
+int ft_check_died(t_philo *philo);
+void ft_died(t_philo *philo);
+int ft_check_done(t_philo *philo);
+void ft_done(t_philo *philo);
+
+/// ft_eat.c
+int	ft_eating(t_philo *philo);
 
 /// ft_error.c
 int		ft_perror(char *err);

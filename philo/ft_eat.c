@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ops.c                                           :+:      :+:    :+:   */
+/*   ft_eat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:10:33 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:23:24 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:25:21 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_eating(t_philo *philo)
 		ft_eating_done(philo);
 		return (FAILURE);
 	}
-	usleep(philo->data->time_to_eat);
+	usleep(philo->data->t_meal);
 	ft_eating_done(philo);
 	return (SUCCESS);
 }
