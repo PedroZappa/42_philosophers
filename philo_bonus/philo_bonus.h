@@ -74,7 +74,6 @@ typedef struct s_data
 	t_msec		t_sleep;
 	t_msec		t_think;
 	t_time		t_start;
-	// int			idx;
 	int			*meal_max;
 	sem_t		*sem_start;
 	sem_t		*sem_forks;
@@ -116,7 +115,7 @@ int		ft_drop_fork(t_philo *philo);
 void	ft_free(t_philo *philos, t_data *data);
 int		ft_sem_closer(t_data *to_del);
 int		ft_kill_philos(t_philo *philo);
-int	ft_free_data(t_data *data);
+int		ft_free_data(t_data *data);
 
 /// ft_init.c
 t_data	*ft_init(int argc, char **argv);
@@ -126,9 +125,10 @@ int		ft_init_semaphores(t_data *data);
 t_philo	*ft_init_philos(t_data *data);
 void	ft_free_philos(t_philo *philo);
 
-/// ft_math.c
+/// ft_helper.c
 int		ft_min(int a, int b);
 void	ft_bzero(void *s, size_t n);
+int		ft_set_start_time(t_philo *philo);
 
 /// ft_ops.c
 int		ft_meal(t_philo *philo);
@@ -150,6 +150,5 @@ t_msec	ft_utime(t_time t);
 t_msec	ft_dtime(t_time t0, t_time t1);
 void	ft_ms2us(void *t);
 t_time	ft_now(t_philo *philo);
-int		ft_set_start_time(t_philo *philo);
 
 #endif

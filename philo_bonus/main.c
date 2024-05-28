@@ -20,7 +20,7 @@ static int	ft_check(t_philo *philo);
 /// @brief		Philosophers main function
 /// @param argc	Number of arguments
 /// @param argv	Argument vector
-/// @details	- Parse input arguments and initialize the data 
+/// @details	- Parse input arguments and initialize the data
 ///				- Get the current time (simulation start)
 ///				- Fork n_philos processes
 ///					- Handle failure to fork on main process
@@ -61,15 +61,15 @@ static int	ft_children(t_philo *philo)
 		curr_philo->pid = fork();
 		if (curr_philo->pid == 0)
 		{
-			if (pthread_create(&philo->data->monitor, NULL, 
-					  &ft_monitor, curr_philo))
+			if (pthread_create(&philo->data->monitor, NULL, \
+								&ft_monitor, curr_philo))
 				ft_perror(RED"Error: pthread_create failed\n"NC);
 			if (pthread_detach(philo->data->monitor))
 				ft_perror(RED"Error: pthread_detach failed\n"NC);
 			exit(ft_philosophize(curr_philo));
 		}
 		else if (curr_philo->pid == -1)
-			return(ft_perror(RED"Error: fork failed\n"NC));
+			return (ft_perror(RED"Error: fork failed\n"NC));
 		else
 			curr_philo = curr_philo->next;
 	}
@@ -88,7 +88,7 @@ static int	ft_philosophize(t_philo *philo)
 	while (1)
 	{
 		if (philo->data->n_philos < 2)
-			continue;
+			continue ;
 		sem_wait(philo->data->sem_start);
 		if ((ft_take_fork(philo) == 0) && (ft_take_fork(philo) == 0))
 		{

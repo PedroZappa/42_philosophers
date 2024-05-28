@@ -76,33 +76,31 @@ static t_data	*ft_init_data(int argc, char **argv)
 /// @brief			Initialize semaphores
 /// @param philo	Pointer to a t_philo struct
 /// @return			0 on success, -1 on failure
-int	ft_init_semaphores(t_data *data)
+int	ft_init_semaphores(t_data *d)
 {
 	sem_unlink("/sem_forks");
-	data->sem_forks = sem_open("/sem_forks", O_CREAT, 0644, \
-										data->n_philos);
-	if (data->sem_forks == SEM_FAILED)
-		 return (ft_perror(RED"Error: semaphore open error"NC));
+	d->sem_forks = sem_open("/sem_forks", O_CREAT, 0644, d->n_philos);
+	if (d->sem_forks == SEM_FAILED)
+		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_printf");
-	data->sem_printf = sem_open("/sem_printf", O_CREAT, 0644, 1);
-	if (data->sem_printf == SEM_FAILED)
+	d->sem_printf = sem_open("/sem_printf", O_CREAT, 0644, 1);
+	if (d->sem_printf == SEM_FAILED)
 		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_death");
-	data->sem_death = sem_open("/sem_death", O_CREAT, 0644, 1);
-	if (data->sem_death == SEM_FAILED)
+	d->sem_death = sem_open("/sem_death", O_CREAT, 0644, 1);
+	if (d->sem_death == SEM_FAILED)
 		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_start");
-	data->sem_start = sem_open("/sem_start", O_CREAT, 0644, \
-								(data->n_philos / 2));
-	if (data->sem_start == SEM_FAILED)
+	d->sem_start = sem_open("/sem_start", O_CREAT, 0644, (d->n_philos / 2));
+	if (d->sem_start == SEM_FAILED)
 		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_end");
-	data->sem_end = sem_open("/sem_end", O_CREAT, 0644, 0);
-	if (data->sem_end == SEM_FAILED)
+	d->sem_end = sem_open("/sem_end", O_CREAT, 0644, 0);
+	if (d->sem_end == SEM_FAILED)
 		return (ft_perror(RED"Error: semaphore open error"NC));
 	sem_unlink("/sem_time");
-	data->sem_time = sem_open("/sem_time", O_CREAT, 0644, 1);
-	if (data->sem_time == SEM_FAILED)
+	d->sem_time = sem_open("/sem_time", O_CREAT, 0644, 1);
+	if (d->sem_time == SEM_FAILED)
 		return (ft_perror(RED"Error: semaphore open error"NC));
 	return (0);
 }

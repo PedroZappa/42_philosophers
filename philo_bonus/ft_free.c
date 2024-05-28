@@ -77,7 +77,7 @@ void	ft_free_philos(t_philo *philo)
 int	ft_kill_philos(t_philo *philo)
 {
 	t_philo	*target;
-	int	i;
+	int		i;
 
 	target = philo;
 	i = philo->data->n_philos;
@@ -99,4 +99,3 @@ int	ft_free_data(t_data *data)
 	free(data);
 	return (0);
 }
-

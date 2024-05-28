@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_math.c                                          :+:      :+:    :+:   */
+/*   ft_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -29,4 +29,24 @@ void	ft_bzero(void *s, size_t n)
 	i = 0;
 	while (i < n)
 		((unsigned char *)s)[i++] = '\0';
+}
+
+/// @brief			Set t_start time
+/// @param philo	Reference to t_philo struct
+/// @return			0 on success, 1 on failure
+int	ft_set_start_time(t_philo *philo)
+{
+	t_philo	*tmp;
+	int		i;
+
+	if (ft_gettime(&philo->data->t_start) == -1)
+		return (1);
+	tmp = philo;
+	i = philo->data->n_philos;
+	while (i--)
+	{
+		tmp->t_curr = philo->data->t_start;
+		tmp = tmp->next;
+	}
+	return (0);
 }
