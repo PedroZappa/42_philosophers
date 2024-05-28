@@ -95,7 +95,7 @@ static void	*ft_start_philo(void *args)
 	}
 	while (1)
 	{
-		if (ft_check_died(philo))
+		if (ft_isdead(philo) == TRUE)
 			break ;
 		if (ft_eating(philo) != SUCCESS)
 			break ;
@@ -126,7 +126,7 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 		pthread_mutex_lock(&data->mutex[MTX_MEALS]);
 		last_meal = philo[i].last_meal;
 		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
-		if (last_meal && ft_aredone(philo, data))
+		if (last_meal && ft_are_done(philo, data))
 		{
 			ft_done(data);
 			break ;
@@ -142,6 +142,7 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 	}
 	return (SUCCESS);
 }
+
 static void	ft_free(t_philo *philo, t_data *data)
 {
 	if (data && data->mutex)

@@ -24,11 +24,11 @@ int ft_isdead(t_philo *philo)
 	return (FALSE);
 }
 
-void ft_died(t_philo *philo)
+void ft_died(t_data *data)
 {
-	pthread_mutex_lock(&philo->data->mutex[MTX_DIED]);
-	philo->data->died = TRUE;
-	pthread_mutex_unlock(&philo->data->mutex[MTX_DIED]);
+	pthread_mutex_lock(&data->mutex[MTX_DIED]);
+	data->died = TRUE;
+	pthread_mutex_unlock(&data->mutex[MTX_DIED]);
 }
 
 int ft_isdone(t_philo *philo)
@@ -71,16 +71,4 @@ int	ft_are_done(t_philo *philo, t_data *data)
 		usleep(50);
 	}
 	return (FALSE);
-}
-
-/// @brief			Lock and unlock mutex and print message to stdout
-/// @param philo	Pointer to a t_philo struct
-/// @param str		Message to print
-void	ft_log(t_philo *philo, char *str)
-{
-	pthread_mutex_lock(&philo->data->mutex[MTX_PRINTF]);
-	if (!philo->data->done)
-		printf("%3lld %3d %s\n", ft_dtime(philo->data->t_start), 
-				philo->id, str);
-	pthread_mutex_unlock(&philo->data->mutex[MTX_PRINTF]);
 }

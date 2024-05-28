@@ -75,7 +75,7 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	}
 	new->done = FALSE;
 	new->died = FALSE;
-	if (ft_init_mutexes(new))
+	if (ft_init_mutexes(&new))
 		return (ft_perror(RED"Error: failure to init mutexes\n"NC));
 	*data = new;
 	return (SUCCESS);
@@ -118,16 +118,16 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		philo[i].id = (i + 1);
-		philo[i].last_meal = data->t_start;
-		philo[i].meal_count = 0;
-		philo[i].l_fork = i;
+		philo[i]->id = (i + 1);
+		philo[i]->last_meal = data->t_start;
+		philo[i]->meal_count = 0;
+		philo[i]->l_fork = i;
 		if ((i - 1) < 0)
-			philo[i].r_fork = (data->n_philos - 1);
+			philo[i]->r_fork = (data->n_philos - 1);
 		else
-			philo[i].r_fork = (i - 1);
-		philo[i].fork = &fork[i];
-		philo[i].data = data;
+			philo[i]->r_fork = (i - 1);
+		philo[i]->fork = &fork[i];
+		philo[i]->data = data;
 		++i;
 	}
 	return (SUCCESS);

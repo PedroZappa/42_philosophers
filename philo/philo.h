@@ -135,14 +135,12 @@ typedef struct s_philo
 //							Function Prototypes                                /
 //=============================================================================/
 
-/// main.c
-void	ft_log(t_philo *philo, char *str);
-
 /// ft_done.c
 int		ft_isdead(t_philo *philo);
-void	ft_died(t_philo *philo);
+void	ft_died(t_data *data);
 int		ft_isdone(t_philo *philo);
 void	ft_done(t_data *data);
+int		ft_are_done(t_philo *philo, t_data *data);
 
 /// ft_eat.c
 int		ft_eating(t_philo *philo);
@@ -151,7 +149,7 @@ int		ft_eating(t_philo *philo);
 int		ft_perror(char *err);
 
 /// ft_free.c
-// void	ft_free(t_philo **philo);
+void	ft_kill_mtx(t_philo *philo);
 
 /// ft_init.c
 int		ft_init(t_philo **philo, int argc, char **argv);
@@ -165,5 +163,6 @@ int		ft_min(int a, int b);
 t_msec	ft_gettime(void);
 void	ft_philo_do(t_msec time, t_data *data);
 t_msec	ft_dtime(t_msec start);
+void	ft_log(t_philo *philo, char *str);
 
 #endif

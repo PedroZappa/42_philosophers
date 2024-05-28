@@ -23,7 +23,7 @@ int	ft_eating(t_philo *philo)
 	philo->last_meal = ft_gettime();
 	philo->meal_count++;
 	pthread_mutex_unlock(&philo->data->mutex[MTX_MEALS]);
-	if (ft_check_done(philo) == SUCCESS)
+	if (ft_isdone(philo) == SUCCESS)
 	{
 		ft_eating_done(philo);
 		return (FAILURE);

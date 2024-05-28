@@ -12,6 +12,19 @@
 
 #include "philo.h"
 
+void	ft_kill_mtx(t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < philo->data->n_philos)
+		pthread_mutex_destroy(&philo->data->mutex[i++]);
+	i = 0;
+	while (i < MTX_NUM)
+		pthread_mutex_destroy(&philo->data->mutex[i++]);
+}
+
+
 /// @brief			Free all simulation data
 /// @param philo	Pointer to array of philos
 // void	ft_free(t_philo **philo)
