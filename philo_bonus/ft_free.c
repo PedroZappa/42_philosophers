@@ -48,6 +48,15 @@ static int	ft_sem_unlinker(void)
 	return (0);
 }
 
+/// @brief			Free philo linked list
+/// @param philo	Pointer to a t_philo struct
+/// @details		- Save reference to philo in tmp & next
+/// 				- Free data
+/// 				- While the next node exists and the next node !philo
+///						- Move tmp to next (in next)
+///						- Free the current node (tmp)
+///						- Save reference to next in tmp
+///					- Free the last node (tmp)
 void	ft_free_philos(t_philo *philo)
 {
 	t_philo	*tmp;
@@ -68,6 +77,13 @@ void	ft_free_philos(t_philo *philo)
 	}
 }
 
+/// @brief			Kill all philos by sending SIGKILL
+/// @param philo	Pointer to a t_philo struct
+/// @return			0 on success, 1 on failure
+/// @details		- Save reference to philo in target
+///					- Initialize i to number of philos
+///					- Send `i` sem_waits to sem_end
+///					- While the next node exists and the next node !philo
 int	ft_kill_philos(t_philo *philo)
 {
 	t_philo	*target;
@@ -86,6 +102,11 @@ int	ft_kill_philos(t_philo *philo)
 	return (0);
 }
 
+/// @brief			Free data
+/// @param data		Pointer to a t_data struct
+/// @return			0 on success, 1 on failure
+/// @details		- Free pointer to meal_max if it exists
+/// 				- Free data
 int	ft_free_data(t_data *data)
 {
 	if (data->meal_max != NULL)
