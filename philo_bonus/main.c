@@ -81,9 +81,13 @@ static int	ft_children(t_philo *philo)
 
 /// @brief		Philosophers logic
 /// @param p	Pointer to a t_philo struct
-/// @details	- Sleep 1000us if philo is even idx'ed
-/// @details	- Set semaphores
+/// @details	- Get the current time
 /// 			- While simulation is not over:
+///					- Activate sem_start semaphore
+///					- If both forks are taken:
+///						- Deactivate sem_start semaphore
+///						- Eat or sleep or think
+///					- Else 
 static int	ft_philosophize(t_philo *p)
 {
 	ft_gettime_sem(p);
@@ -106,7 +110,7 @@ static int	ft_philosophize(t_philo *p)
 
 /// @brief		Monitor thread
 /// @param arg	Pointer to a t_philo struct passed by reference
-/// @return		0 if alive, 1 if dead
+/// @return		0 for success, 1 if dead
 /// @details	- Typecast arg (void *) to a t_philo *
 /// 			- While simulation is not over:
 static void	*ft_monitor(void *arg)
@@ -120,21 +124,27 @@ static void	*ft_monitor(void *arg)
 	return (0);
 }
 
-static int	ft_check(t_philo *philo)
+/// @brief		Check if a philo has died
+/// @param p	Pointer to a t_philo struct passed by reference
+/// @return		0 for success alive, 1 on failure
+/// @details	- Activate sem_death semaphore
+///					- Get the current time
+///						- Check if the philo has died
+///					- Deactivate sem_death semaphore
+static int	ft_check(t_philo *p)
 {
-	if (sem_wait(philo->d->sem_death) == 0)
+	if (sem_wait(p->d->sem_death) == 0)
 	{
-		if (ft_gettime_sem(philo) == 0)
+		if (ft_gettime_sem(p) == 0)
 		{
-			if ((ft_utime(philo->t_now) - ft_utime(philo->t_curr)) \
-				> philo->d->t_death)
+			if ((ft_utime(p->t_now) - ft_utime(p->t_curr)) > p->d->t_death)
 			{
-				ft_log(philo, DEAD, philo->t_now);
-				ft_end_sem(philo);
+				ft_log(p, DEAD, p->t_now);
+				ft_end_sem(p);
 				return (0);
 			}
 		}
-		if (sem_post(philo->d->sem_death) != 0)
+		if (sem_post(p->d->sem_death) != 0)
 			return (ft_perror(RED"Error: sem_post failed\n"NC));
 	}
 	else
