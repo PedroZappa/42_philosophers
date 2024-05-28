@@ -107,7 +107,7 @@ typedef struct s_data
 	t_mutex		*mutex;
 }			t_data;
 
-/// @brief      Philo's data.
+/// @brief				Philo's data.
 ///
 /// @var id				philo's id				
 /// @var last_meal		Time of last meal
