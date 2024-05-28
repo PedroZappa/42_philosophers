@@ -89,8 +89,8 @@ static void	*ft_start_philo(void *args)
 		pthread_mutex_lock(philo->r_fork);
 		ft_philo_log(philo, "has taken a fork");
 		ft_philo_log(philo, "is eating");
-		pthread_mutex_lock(&philo->data->mutex_time);
 		ft_philo_do(philo->data->t_meal, philo->data);
+		pthread_mutex_lock(&philo->data->mutex_time);
 		philo->t_meal = ft_gettime();
 		pthread_mutex_unlock(&philo->data->mutex_time);
 		pthread_mutex_unlock(philo->r_fork);
