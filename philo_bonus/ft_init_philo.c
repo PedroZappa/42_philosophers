@@ -46,7 +46,7 @@ static t_philo	*ft_make_philo(t_data *data, int idx)
 	new = malloc(sizeof(t_philo));
 	if (!new)
 		return (NULL);
-	ft_bzero(new, sizeof(t_philo));
+	memset(new, '\0', sizeof(t_philo));
 	new->idx = idx;
 	new->d = data;
 	return (new);

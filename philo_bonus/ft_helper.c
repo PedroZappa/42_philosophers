@@ -19,18 +19,6 @@ int	ft_min(int a, int b)
 	return (b);
 }
 
-/// @brief 		Initializes a zeroed array
-/// @param s	Pointer to the array
-/// @param n	Number of bytes to set to zero
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < n)
-		((unsigned char *)s)[i++] = '\0';
-}
-
 /// @brief			Set t_start time
 /// @param philo	Reference to t_philo struct
 /// @return			0 on success, 1 on failure

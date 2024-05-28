@@ -23,6 +23,7 @@
 # include <semaphore.h>		// sem_open sem_close sem_unlink
 # include <signal.h>		// SIGKILL
 # include <stdio.h>			// printf
+# include <string.h>		// memset
 # include <stdlib.h>		// exit
 # include <sys/time.h>		// gettimeofday
 # include <unistd.h>		// fork usleep
@@ -121,7 +122,6 @@ void	ft_free_philos(t_philo *philo);
 
 /// ft_helper.c
 int		ft_min(int a, int b);
-void	ft_bzero(void *s, size_t n);
 int		ft_set_start_time(t_philo *philo);
 
 /// ft_ops.c

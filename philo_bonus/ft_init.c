@@ -54,7 +54,7 @@ static t_data	*ft_init_data(int argc, char **argv)
 	new = malloc(sizeof(t_data));
 	if (!new)
 		ft_perror(RED"Error: Failed to allocate memory (ft_init)\n"NC);
-	ft_bzero(new, sizeof(t_philo));
+	memset(new, '\0', sizeof(t_data));
 	new->n_philos = ft_parse_arg(argv[1]);
 	new->t_death = ft_parse_arg(argv[2]);
 	new->t_meal = ft_parse_arg(argv[3]);
