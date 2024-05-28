@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/17 21:11:13 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:17:05 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,18 @@ static int	ft_isspace(char c)
 static int	ft_isdigit(char c)
 {
 	return ((c >= '0') && (c <= '9'));
+}
+
+int	ft_max(int a, int b)
+{
+	if (b > a)
+		return (b);
+	return (a);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }

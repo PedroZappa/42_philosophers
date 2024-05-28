@@ -39,3 +39,8 @@ void	ft_philo_do(t_msec time, t_data *data)
 		usleep(100);
 	}
 }
+
+t_msec	ft_rel_time(t_msec start)
+{
+	return (ft_gettime() - start);
+}

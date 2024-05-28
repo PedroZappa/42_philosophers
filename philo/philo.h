@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/22 11:32:31 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:20:17 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef enum e_exit
 /// Typedefs
 typedef long long		t_msec;
 typedef pthread_mutex_t	t_mutex;
+typedef struct timeval	t_time;
 
 //=============================================================================/
 //                               Structures                                    /
@@ -105,6 +106,7 @@ typedef struct s_data
 	int			done;
 	int			died;
 	t_mutex		*mutex;
+	pthread_t	*thread;
 }			t_data;
 
 /// @brief				Philo's data.
@@ -122,7 +124,6 @@ typedef struct s_philo
 	int			id;
 	int			last_meal;
 	int			meal_count;
-	pthread_t	thread;
 	int			l_fork;
 	int			r_fork;
 	t_mutex		*fork;
@@ -133,6 +134,9 @@ typedef struct s_philo
 //							Function Prototypes                                /
 //=============================================================================/
 
+/// main.c
+void	ft_log(t_philo *philo, char *str);
+
 /// ft_error.c
 int		ft_perror(char *err);
 
@@ -142,8 +146,10 @@ void	ft_free(t_philo **philo);
 /// ft_init.c
 int		ft_init(t_philo **philo, int argc, char **argv);
 
-/// ft_parse_args.c
+/// ft_parse.c
 long	ft_parse_arg(char *str);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 
 /// ft_time.c
 t_msec	ft_gettime(void);

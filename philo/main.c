@@ -6,16 +6,17 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:17:35 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/22 11:33:46 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:19:48 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
-static void	ft_philosophize(t_philo *philos);
+static int	ft_philosophize(t_philo *philos, t_data *data);
 static void	*ft_start_philo(void *args);
-static void	*ft_monitor(void *args);
-static void	ft_philo_log(t_philo *philo, char *str);
+static int	ft_monitor(t_philo *philo, t_data *data);
+void	ft_log(t_philo *philo, char *str);
 
 /// @brief		Main function
 /// @param argc	Number of arguments
@@ -28,7 +29,7 @@ int	main(int argc, char **argv)
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	if (ft_init(&philos, argc, argv) == -1)
 		return (0);
-	ft_philosophize(philos);
+	ft_philosophize(philos, philos->data);
 	ft_free(&philos);
 	return (0);
 }
@@ -41,27 +42,33 @@ int	main(int argc, char **argv)
 /// 				- Create monitor thread
 /// 				- Join monitor thread
 /// 				- Destroy philos mutexes and printf mutex
-static void	ft_philosophize(t_philo *philos)
+static int	ft_philosophize(t_philo *philos, t_data *data)
 {
 	int	i;
 
 	i = -1;
 	printf(GRN"Philosophizing...\n"NC);
-	philos->data->t_start = ft_gettime();
+	philos->data->thread = malloc(sizeof(pthread_t) * philos->data->n_philos);
+	if (!philos->data->thread)
+		return (ft_perror(RED"Error: failure to alloc threads\n"NC));
 	while (++i < philos->data->n_philos)
 	{
-		(philos + i)->t_meal = ft_gettime();
-		if (pthread_create(&philos[i].thread, NULL, &ft_start_philo, \
-							&philos[i]) != 0)
-			ft_perror(RED"Error: Failed to create philo thread\n"NC);
-		pthread_detach((philos + i)->thread);
-		usleep(100);
+		if (pthread_create(&philos->data->thread[i], 0, \
+					 ft_start_philo, &philos[i]))
+		{
+			while (i--)
+				pthread_join(philos->data->thread[i], NULL);
+			return (free(philos->data->thread), FAILURE);
+		}
 	}
-	if (pthread_create(&philos->data->monitor, NULL, &ft_monitor, philos) != 0)
-		ft_perror(RED"Error: Failed to create monitor thread\n"NC);
-	if (pthread_join(philos->data->monitor, NULL) != 0)
-		ft_perror(RED"Error: Failed to join monitor thread\n"NC);
+	if (ft_monitor(philos, data) != SUCCESS)
+		return ((void)ft_kill_mtx(philos), free(philos->data->thread), FAILURE);
+	i = -1;
+	while (++i < philos->data->n_philos)
+		if (pthread_join(philos->data->thread[i], NULL))
+			return (FAILURE);
 	printf(RED"Philosophizing is Over.\n"NC);
+	return ((void)ft_kill_mtx(philos), free(philos->data->thread), SUCCESS);
 }
 
 /// @brief			Launch a philo thread
@@ -81,22 +88,19 @@ static void	*ft_start_philo(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	while (!philo->data->done)
+	if (philo->id % 2 == 0)
 	{
-		ft_philo_log(philo, "is thinking");
-		pthread_mutex_lock(philo->l_fork);
-		ft_philo_log(philo, "has taken a fork");
-		pthread_mutex_lock(philo->r_fork);
-		ft_philo_log(philo, "has taken a fork");
-		ft_philo_log(philo, "is eating");
-		ft_philo_do(philo->data->t_meal, philo->data);
-		philo->t_meal = ft_gettime();
-		pthread_mutex_unlock(philo->r_fork);
-		pthread_mutex_unlock(philo->l_fork);
-		if (!philo->data->done)
-			philo->meal_count++;
-		ft_philo_log(philo, "is sleeping");
-		ft_philo_do(philo->data->t_sleep, philo->data);
+		ft_log(philo, "is thinking");
+		usleep(1000);
+	}
+	while (1)
+	{
+		if (ft_check_died(philo))
+			break ;
+		if (ft_eating(philo) != SUCCESS)
+			break ;
+		ft_log(philo, "is thinking");
+		usleep(1000);
 	}
 	return (NULL);
 }
@@ -111,39 +115,38 @@ static void	*ft_start_philo(void *args)
 ///						- Increments the number of times the philo has eaten
 ///					- Check if n_meals has been reached
 ///	@return			NULL
-static void	*ft_monitor(void *args)
+static int	ft_monitor(t_philo *philo, t_data *data)
 {
-	t_philo	*philos;
-	int		meals_done;
+	int		last_meal;
 	int		i;
 
-	philos = (t_philo *)args;
-	while (!philos->data->done)
+	i = 0;
+	while (1)
 	{
-		i = -1;
-		meals_done = 0;
-		while (++i < philos->data->n_philos)
+		pthread_mutex_lock(&data->mutex[MTX_MEALS]);
+		last_meal = philo[i].last_meal;
+		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
+		if (last_meal && ft_is_end(philo, data))
 		{
-			if ((ft_gettime() - (philos + i)->t_meal) > philos->data->t_death)
-			{
-				ft_philo_log((philos + i), "died");
-				philos->data->done = YES;
-				break ;
-			}
-			if ((philos->data->n_meals != -1) \
-				&& ((philos + i)->meal_count >= philos->data->n_meals))
-				++meals_done;
+			ft_end(data);
+			break ;
 		}
-		if (meals_done == philos->data->n_philos)
-			philos->data->done = YES;
+		if (last_meal && ((ft_gettime() - last_meal) >= data->t_death))
+		{
+			ft_died(data);
+			ft_log(&philo[i], "died");
+			break ;
+		}
+		i = ((i + 1) % data->n_philos);
+		usleep(200);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 /// @brief			Lock and unlock mutex and print message to stdout
 /// @param philo	Pointer to a t_philo struct
 /// @param str		Message to print
-static void	ft_philo_log(t_philo *philo, char *str)
+void	ft_log(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->data->mutex_printf);
 	if (!philo->data->done)
