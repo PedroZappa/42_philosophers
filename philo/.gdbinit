@@ -30,16 +30,12 @@ define init
 	display argc
 	display argv
 	display *data
-	display *new_philo
-	display *new_philo@philo->data->n_philos
 	display i
 end 
 
 define init_data
 	display argc
 	display argv
-	display new
-	display *new
 	display data
 	display *data
 end 
@@ -51,10 +47,12 @@ define init_forks
 end
 
 define init_philo
+	display fork
 	display i
-	display *philo
 	display *data
-	display *forks
+	display *philo
+	display philo[i]
+	display *philo[i]
 end
 
 # ft_parse.c
@@ -77,7 +75,7 @@ end
 
 # Start at init
 break ft_init
-run 4 410 200 200
+run 3 800 400 400 3
 # init
 # fs cmd
 

@@ -24,13 +24,11 @@ static int	ft_init_philo(t_philo **philo, t_data *data);
 /// @param argc		Number of arguments
 /// @param argv		Argument vector
 /// @return			0 on success, 1 on failure
-int	ft_init(t_philo **philo, int argc, char **argv)
+int	ft_init(t_philo **philo, t_data *data, int argc, char **argv)
 {
-	t_data	*data;
-
 	if (ft_init_data(&data, argc, argv) == -1)
 		return (FAILURE);
-	*philo = malloc(sizeof(t_philo) * data->n_philos);
+	*philo = malloc(sizeof(t_philo) * (size_t)data->n_philos);
 	if (!(*philo))
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	(*philo)->fork = NULL;
@@ -52,32 +50,29 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 /// @return			0 on success, -1 on failure
 static int	ft_init_data(t_data **data, int argc, char **argv)
 {
-	t_data	*new;
-
-	new = malloc(sizeof(t_data));
-	if (!new)
-		return (ft_perror(RED"Error: failure to alloc data\n"NC));
-	new->mutex = NULL;
-	new->n_philos = ft_parse_arg(argv[1]);
-	new->t_death = ft_parse_arg(argv[2]);
-	new->t_meal = ft_parse_arg(argv[3]);
-	new->t_sleep = ft_parse_arg(argv[4]);
-	if ((new->n_philos < 1) || (new->n_philos > 200) || (new->t_death == -1) \
-		|| (new->t_meal == -1) || (new->t_sleep == -1) || (new->t_death < 60) \
-		|| (new->t_meal < 60) || (new->t_sleep < 60))
+	(*data)->t_start = ft_gettime();
+	(*data)->n_philos = ft_parse_arg(argv[1]);
+	(*data)->t_death = ft_parse_arg(argv[2]);
+	(*data)->t_meal = ft_parse_arg(argv[3]);
+	(*data)->t_sleep = ft_parse_arg(argv[4]);
+	(*data)->t_think = 0;
+	if (((*data)->n_philos % 2) && ((*data)->t_meal > (*data)->t_sleep))
+		(*data)->t_think = (1 + ((*data)->t_meal - (*data)->t_sleep) / 2); 
+	if (((*data)->n_philos < 1) || ((*data)->n_philos > 200) || ((*data)->t_death == -1) \
+		|| ((*data)->t_meal == -1) || ((*data)->t_sleep == -1) || ((*data)->t_death < 60) \
+		|| ((*data)->t_meal < 60) || ((*data)->t_sleep < 60))
 		return (ft_perror(RED"Error: invalid arguments\n"NC));
-	new->n_meals = -1;
+	(*data)->n_meals = -1;
 	if (argc == 6)
 	{
-		new->n_meals = ft_parse_arg(argv[5]);
-		if (new->n_meals == -1)
+		(*data)->n_meals = ft_parse_arg(argv[5]);
+		if ((*data)->n_meals == -1)
 			return (ft_perror(RED"Error: invalid number of meals\n"NC));
 	}
-	new->done = FALSE;
-	new->died = FALSE;
-	if (ft_init_mutexes(&new))
+	(*data)->done = FALSE;
+	(*data)->died = FALSE;
+	if (ft_init_mutexes(&(*data)))
 		return (ft_perror(RED"Error: failure to init mutexes\n"NC));
-	*data = new;
 	return (SUCCESS);
 }
 
@@ -118,7 +113,7 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		philo[i]->id = (i + 1);
+		philo[i]->id = i + 1;
 		philo[i]->last_meal = data->t_start;
 		philo[i]->meal_count = 0;
 		philo[i]->l_fork = i;
@@ -126,7 +121,7 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 			philo[i]->r_fork = (data->n_philos - 1);
 		else
 			philo[i]->r_fork = (i - 1);
-		philo[i]->fork = &fork[i];
+		philo[i]->fork = fork;
 		philo[i]->data = data;
 		++i;
 	}

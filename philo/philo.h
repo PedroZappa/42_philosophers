@@ -123,7 +123,7 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int			id;
-	int			last_meal;
+	t_msec		last_meal;
 	int			meal_count;
 	int			l_fork;
 	int			r_fork;
@@ -152,7 +152,7 @@ int		ft_perror(char *err);
 void	ft_kill_mtx(t_philo *philo);
 
 /// ft_init.c
-int		ft_init(t_philo **philo, int argc, char **argv);
+int		ft_init(t_philo **philo, t_data *data, int argc, char **argv);
 
 /// ft_parse.c
 long	ft_parse_arg(char *str);

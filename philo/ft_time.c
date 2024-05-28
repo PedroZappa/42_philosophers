@@ -16,28 +16,11 @@
 /// @return		Current time in milliseconds
 t_msec	ft_gettime(void)
 {
-	struct timeval	t;
+	t_time	t;
 
-	gettimeofday(&t, NULL);
+	if (gettimeofday(&t, NULL) == -1)
+		ft_perror(RED"Error: gettimeofday failed\n"NC);
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
-}
-
-/// @brief			Wait for a certain amount of time
-/// @param time		Time to wait in milliseconds
-/// @param data		Pointer to t_data struct
-/// @details		- Get current time in milliseconds
-/// 				- Wait until time is reached or data->done is set
-void	ft_philo_do(t_msec time, t_data *data)
-{
-	t_msec	t;
-
-	t = ft_gettime();
-	while (!data->done)
-	{
-		if ((ft_gettime() - t) >= time)
-			break ;
-		usleep(100);
-	}
 }
 
 t_msec	ft_dtime(t_msec start)

@@ -24,14 +24,17 @@ static void	ft_free(t_philo *philo, t_data *data);
 int	main(int argc, char **argv)
 {
 	t_philo	*philos;
+	t_data	*data;
 
+	data = NULL;
+	philos = NULL;
 	if ((argc != 5) && (argc != 6))
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
-	if (ft_init(&philos, argc, argv) == -1)
-		return (EXIT_FAILURE);
-	ft_philosophize(philos, philos->data);
-	ft_free(philos, philos->data);
-	return (EXIT_SUCCESS);
+	if (ft_init(&philos, data, argc, argv) != SUCCESS)
+		return (ft_free(philos, data), EXIT_FAILURE);
+	if (ft_philosophize(philos, philos->data) != SUCCESS)
+		return (ft_free(philos, data), EXIT_FAILURE);
+	return (ft_free(philos, data), EXIT_SUCCESS);
 }
 
 /// @brief			Launch all philos

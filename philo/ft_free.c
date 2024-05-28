@@ -23,22 +23,3 @@ void	ft_kill_mtx(t_philo *philo)
 	while (i < MTX_NUM)
 		pthread_mutex_destroy(&philo->data->mutex[i++]);
 }
-
-
-/// @brief			Free all simulation data
-/// @param philo	Pointer to array of philos
-// void	ft_free(t_philo **philo)
-// {
-// 	t_data	*data;
-// 	int		i;
-//
-// 	usleep(3500);
-// 	i = -1;
-// 	data = (*philo)->data;
-// 	while (++i < data->n_philos)
-// 		pthread_mutex_destroy(data->mutex_fork + i);
-// 	pthread_mutex_destroy(&data->mutex_printf);
-// 	free(*philo);
-// 	free(data->mutex_fork);
-// 	free(data);
-// }
