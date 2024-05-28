@@ -30,8 +30,7 @@ static int	ft_putstr_fd(char *str, int fd)
 {
 	if (!str || (fd < 0))
 		return (0);
-	write(fd, str, ft_strlen(str));
-	return (0);
+	return (write(fd, str, ft_strlen(str)));
 }
 
 /// @brief		Count the number of chars in a string

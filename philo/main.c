@@ -89,8 +89,10 @@ static void	*ft_start_philo(void *args)
 		pthread_mutex_lock(philo->r_fork);
 		ft_philo_log(philo, "has taken a fork");
 		ft_philo_log(philo, "is eating");
+		pthread_mutex_lock(&philo->data->mutex_time);
 		ft_philo_do(philo->data->t_meal, philo->data);
 		philo->t_meal = ft_gettime();
+		pthread_mutex_unlock(&philo->data->mutex_time);
 		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(philo->l_fork);
 		if (!philo->data->done)
@@ -127,7 +129,9 @@ static void	*ft_monitor(void *args)
 			if ((ft_gettime() - (philos + i)->t_meal) > philos->data->t_death)
 			{
 				ft_philo_log((philos + i), "died");
+				pthread_mutex_lock(&philos->data->mutex_end);
 				philos->data->done = YES;
+				pthread_mutex_unlock(&philos->data->mutex_end);
 				break ;
 			}
 			if ((philos->data->n_meals != -1) \
@@ -135,7 +139,11 @@ static void	*ft_monitor(void *args)
 				++meals_done;
 		}
 		if (meals_done == philos->data->n_philos)
+		{
+			pthread_mutex_lock(&philos->data->mutex_end);
 			philos->data->done = YES;
+			pthread_mutex_unlock(&philos->data->mutex_end);
+		}
 	}
 	return (0);
 }

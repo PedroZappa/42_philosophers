@@ -71,6 +71,8 @@ typedef struct s_data
 	t_msec		t_sleep;
 	t_mutex		*mutex_fork;
 	t_mutex		mutex_printf;
+	t_mutex		mutex_time;
+	t_mutex		mutex_end;
 	pthread_t	monitor;
 }			t_data;
 
