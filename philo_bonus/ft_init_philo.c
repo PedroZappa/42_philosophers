@@ -48,7 +48,7 @@ static t_philo	*ft_make_philo(t_data *data, int idx)
 		return (NULL);
 	ft_bzero(new, sizeof(t_philo));
 	new->idx = idx;
-	new->data = data;
+	new->d = data;
 	return (new);
 }
 

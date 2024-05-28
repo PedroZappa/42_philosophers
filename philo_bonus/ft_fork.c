@@ -14,7 +14,7 @@
 
 int	ft_take_fork(t_philo *philo)
 {
-	if (sem_wait(philo->data->sem_forks) == 0)
+	if (sem_wait(philo->d->sem_forks) == 0)
 	{
 		if (ft_log(philo, FORK, ft_now(philo)) == 1)
 			return (1);
@@ -29,7 +29,7 @@ int	ft_take_fork(t_philo *philo)
 
 int	ft_drop_fork(t_philo *philo)
 {
-	if (sem_post(philo->data->sem_forks) != 0)
+	if (sem_post(philo->d->sem_forks) != 0)
 	{
 		printf(RED"Error: sem_post failed"NC);
 		return (1);

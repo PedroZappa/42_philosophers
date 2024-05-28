@@ -53,10 +53,10 @@ t_time	ft_now(t_philo *philo)
 	struct timeval	now;
 
 	ft_bzero(&now, sizeof(t_time));
-	if (sem_wait(philo->data->sem_time) == 0)
+	if (sem_wait(philo->d->sem_time) == 0)
 	{
 		now = philo->t_now;
-		if (sem_post(philo->data->sem_time) != 0)
+		if (sem_post(philo->d->sem_time) != 0)
 			perror(RED"Error: sem_post failed"NC);
 	}
 	return (now);

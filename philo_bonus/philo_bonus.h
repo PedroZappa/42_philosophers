@@ -88,7 +88,7 @@ typedef struct s_philo
 {
 	int				idx;
 	pid_t			pid;
-	t_data			*data;
+	t_data			*d;
 	t_time			t_curr;
 	t_time			t_now;
 	int				n_meals;

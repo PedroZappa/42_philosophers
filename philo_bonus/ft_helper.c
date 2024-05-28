@@ -39,13 +39,13 @@ int	ft_set_start_time(t_philo *philo)
 	t_philo	*tmp;
 	int		i;
 
-	if (ft_gettime(&philo->data->t_start) == -1)
+	if (ft_gettime(&philo->d->t_start) == -1)
 		return (1);
 	tmp = philo;
-	i = philo->data->n_philos;
+	i = philo->d->n_philos;
 	while (i--)
 	{
-		tmp->t_curr = philo->data->t_start;
+		tmp->t_curr = philo->d->t_start;
 		tmp = tmp->next;
 	}
 	return (0);
