@@ -81,7 +81,6 @@ static int	ft_children(t_philo *philo)
 /// @details		- Sleep 1000us if philo is even idx'ed
 /// @details		- Set semaphores
 /// 				- While simulation is not over:
-///
 static int	ft_philosophize(t_philo *p)
 {
 	ft_set_time_sem(p);
