@@ -17,22 +17,16 @@ int	ft_take_fork(t_philo *philo)
 	if (sem_wait(philo->d->sem_forks) == 0)
 	{
 		if (ft_log(philo, FORK, ft_now(philo)) == 1)
-			return (1);
+			exit(ft_perror("Error: ft_log failed (FORK)\n"));
 	}
 	else
-	{
-		printf(RED"Error: sem_wait failed"NC);
-		return (1);
-	}
+		exit(ft_perror(RED"Error: sem_wait failed"NC));
 	return (0);
 }
 
 int	ft_drop_fork(t_philo *philo)
 {
 	if (sem_post(philo->d->sem_forks) != 0)
-	{
-		printf(RED"Error: sem_post failed"NC);
-		return (1);
-	}
+		exit(ft_perror(RED"Error: sem_post failed"NC));
 	return (0);
 }
