@@ -20,7 +20,7 @@ static int	ft_strlen(char *str);
 int	ft_perror(char *err)
 {
 	ft_putstr_fd(err, 2);
-	return (-1);
+	return (1);
 }
 
 /// @brief		Print a string to a given fd
