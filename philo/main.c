@@ -16,7 +16,7 @@
 static int	ft_philosophize(t_philo *philos, t_data *data);
 static void	*ft_start_philo(void *args);
 static int	ft_monitor(t_philo *philo, t_data *data);
-void	ft_log(t_philo *philo, char *str);
+static void	ft_free(t_philo *philo, t_data *data);
 
 /// @brief		Main function
 /// @param argc	Number of arguments
@@ -28,10 +28,10 @@ int	main(int argc, char **argv)
 	if ((argc != 5) && (argc != 6))
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	if (ft_init(&philos, argc, argv) == -1)
-		return (0);
+		return (EXIT_FAILURE);
 	ft_philosophize(philos, philos->data);
-	ft_free(&philos);
-	return (0);
+	ft_free(philos, philos->data);
+	return (EXIT_SUCCESS);
 }
 
 /// @brief			Launch all philos
@@ -128,7 +128,7 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
 		if (last_meal && ft_is_end(philo, data))
 		{
-			ft_end(data);
+			ft_done(data);
 			break ;
 		}
 		if (last_meal && ((ft_gettime() - last_meal) >= data->t_death))
@@ -142,15 +142,14 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 	}
 	return (SUCCESS);
 }
-
-/// @brief			Lock and unlock mutex and print message to stdout
-/// @param philo	Pointer to a t_philo struct
-/// @param str		Message to print
-void	ft_log(t_philo *philo, char *str)
+static void	ft_free(t_philo *philo, t_data *data)
 {
-	pthread_mutex_lock(&philo->data->mutex_printf);
-	if (!philo->data->done)
-		printf("%3lld %3d %s\n", \
-				(ft_gettime() - philo->data->t_start), philo->id, str);
-	pthread_mutex_unlock(&philo->data->mutex_printf);
+	if (data && data->mutex)
+		free (data->mutex);
+	if (data)
+		free (data);
+	if (philo && philo->fork)
+		free (philo->fork);
+	if (philo)
+		free (philo);
 }

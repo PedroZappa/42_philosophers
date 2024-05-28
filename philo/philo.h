@@ -139,19 +139,19 @@ typedef struct s_philo
 void	ft_log(t_philo *philo, char *str);
 
 /// ft_done.c
-int ft_check_died(t_philo *philo);
-void ft_died(t_philo *philo);
-int ft_check_done(t_philo *philo);
-void ft_done(t_philo *philo);
+int		ft_isdead(t_philo *philo);
+void	ft_died(t_philo *philo);
+int		ft_isdone(t_philo *philo);
+void	ft_done(t_philo *philo);
 
 /// ft_eat.c
-int	ft_eating(t_philo *philo);
+int		ft_eating(t_philo *philo);
 
 /// ft_error.c
 int		ft_perror(char *err);
 
 /// ft_free.c
-void	ft_free(t_philo **philo);
+// void	ft_free(t_philo **philo);
 
 /// ft_init.c
 int		ft_init(t_philo **philo, int argc, char **argv);
@@ -164,5 +164,6 @@ int		ft_min(int a, int b);
 /// ft_time.c
 t_msec	ft_gettime(void);
 void	ft_philo_do(t_msec time, t_data *data);
+t_msec	ft_dtime(t_msec start);
 
 #endif
