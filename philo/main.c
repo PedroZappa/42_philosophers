@@ -126,7 +126,7 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 		pthread_mutex_lock(&data->mutex[MTX_MEALS]);
 		last_meal = philo[i].last_meal;
 		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
-		if (last_meal && ft_is_end(philo, data))
+		if (last_meal && ft_aredone(philo, data))
 		{
 			ft_done(data);
 			break ;

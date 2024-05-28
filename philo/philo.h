@@ -142,7 +142,7 @@ void	ft_log(t_philo *philo, char *str);
 int		ft_isdead(t_philo *philo);
 void	ft_died(t_philo *philo);
 int		ft_isdone(t_philo *philo);
-void	ft_done(t_philo *philo);
+void	ft_done(t_data *data);
 
 /// ft_eat.c
 int		ft_eating(t_philo *philo);
