@@ -343,7 +343,7 @@ helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux split-window -h "valgrind --log-file=gdb.txt --tool=helgrind ./$(NAME) $(ARG)"
 	tmux resize-pane -R 55
 	make get_log
-#t
+
 vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind & gdb
 	tmux split-window -h "valgrind --vgdb-error=0 --log-file=gdb.txt --tool=helgrind ./$(NAME) $(ARG)"
 	make vgdb_pid

@@ -13,8 +13,8 @@
 #include "philo.h"
 
 static int	ft_init_data(t_data **data, int argc, char **argv);
-static int	ft_init_forks(t_data *data);
-static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks);
+static int	ft_init_mutexes(t_data **data);
+static int	ft_init_philo(t_philo **philo, t_data *data);
 
 /// @brief			Initialize all simulation data
 /// @details		- Initialize mutexes
@@ -23,27 +23,21 @@ static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks);
 /// @param philo	Pointer to array of philos
 /// @param argc		Number of arguments
 /// @param argv		Argument vector
-/// @return			0 on success, -1 on failure
+/// @return			0 on success, 1 on failure
 int	ft_init(t_philo **philo, int argc, char **argv)
 {
 	t_data	*data;
-	t_philo	*new_philo;
-	int		i;
 
 	if (ft_init_data(&data, argc, argv) == -1)
-		return (-1);
-	if (pthread_mutex_init(&data->mutex_printf, NULL))
-		return (ft_perror(RED"Error: Printf Mutex init\n"NC));
-	if (ft_init_forks(data) == -1)
-		return (-1);
-	new_philo = malloc(sizeof(t_philo) * data->n_philos);
-	if (!new_philo)
+		return (FAILURE);
+	*philo = malloc(sizeof(t_philo) * data->n_philos);
+	if (!(*philo))
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
-	i = -1;
-	while (++i < data->n_philos)
-		ft_init_philo((new_philo + i), i, data, data->mutex_fork);
-	*philo = new_philo;
-	return (0);
+	(*philo)->fork = NULL;
+	if (ft_init_philo(philo, data) != SUCCESS)
+		return (ft_perror(RED"Error: failure to init philos\n"NC));
+	return (SUCCESS);
+
 }
 
 /// @brief			Parse input arguments and initialize data
@@ -63,8 +57,8 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	new = malloc(sizeof(t_data));
 	if (!new)
 		return (ft_perror(RED"Error: failure to alloc data\n"NC));
+	new->mutex = NULL;
 	new->n_philos = ft_parse_arg(argv[1]);
-	new->n_forks = new->n_philos;
 	new->t_death = ft_parse_arg(argv[2]);
 	new->t_meal = ft_parse_arg(argv[3]);
 	new->t_sleep = ft_parse_arg(argv[4]);
@@ -79,53 +73,62 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 		if (new->n_meals == -1)
 			return (ft_perror(RED"Error: invalid number of meals\n"NC));
 	}
-	new->done = NO;
+	new->done = FALSE;
+	new->died = FALSE;
+	if (ft_init_mutexes(new))
+		return (ft_perror(RED"Error: failure to init mutexes\n"NC));
 	*data = new;
-	return (0);
+	return (SUCCESS);
 }
 
 /// @brief			Initialize forks
-/// @details		- Alloc memory for all mutexes/forks
-///					- Initialize mutexes/forks
 ///	@param data		Pointer to a t_data struct holding the simulation data
 ///	@return			0 on success, -1 on failure
-static int	ft_init_forks(t_data *data)
+static int	ft_init_mutexes(t_data **data)
 {
-	int	i;
+	t_mutex	*mutex;
+	int		i;
 
-	data->mutex_fork = malloc(sizeof(t_mutex) * data->n_forks);
-	if (!data->mutex_fork)
-		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
-	i = -1;
-	while (++i < data->n_forks)
-		if (pthread_mutex_init((data->mutex_fork + i), NULL))
-			return (ft_perror(RED"Error: Fork Mutex init\n"NC));
-	return (0);
+	mutex = malloc(sizeof(t_mutex) * (size_t)MTX_NUM);
+	if (!mutex)
+		return (ft_perror(RED"Error: failure to alloc mutexes\n"NC));
+	i = 0;
+	while (i < MTX_NUM)
+		pthread_mutex_init(&mutex[i++], NULL);
+	(*data)->mutex = mutex;
+	return (SUCCESS);
 }
 
 /// @brief			Initialize a philo
-/// @details		- Assigns id, meal_count, t_meal & data
-/// 				- Assigns l_fork & r_fork
-/// 				(If first philo, l_fork is last fork in forks array)
-/// 				(If not first philo, l_fork is previous philo's r_fork)
 /// @param philo	Pointer to a t_philo struct to init
 /// @param i		Index of the current philo
 /// @param data		Pointer to a t_data struct holding the simulation data
 /// @param forks	Pointer to an array of mutexes/forks (part of t_data)
-static void	ft_init_philo(t_philo *philo, int i, t_data *data, t_mutex *forks)
+static int	ft_init_philo(t_philo **philo, t_data *data)
 {
-	philo->id = (i + 1);
-	philo->meal_count = 0;
-	philo->t_meal = 0;
-	philo->data = data;
-	if (i == 0)
+	t_mutex	*fork;
+	int		i;
+
+	fork = malloc(sizeof(t_mutex) * (size_t)data->n_philos);
+	if (!fork)
+		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
+	i = 0;
+	while (i < data->n_philos)
+		pthread_mutex_init(&fork[i++], NULL);
+	i = 0;
+	while (i < data->n_philos)
 	{
-		philo->l_fork = (forks + data->n_philos - 1);
-		philo->r_fork = (forks + i);
+		philo[i].id = (i + 1);
+		philo[i].last_meal = data->t_start;
+		philo[i].meal_count = 0;
+		philo[i].l_fork = i;
+		if ((i - 1) < 0)
+			philo[i].r_fork = (data->n_philos - 1);
+		else
+			philo[i].r_fork = (i - 1);
+		philo[i].fork = &fork[i];
+		philo[i].data = data;
+		++i;
 	}
-	else
-	{
-		philo->l_fork = (forks + i - 1);
-		philo->r_fork = (forks + i);
-	}
+	return (SUCCESS);
 }
