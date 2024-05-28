@@ -17,10 +17,10 @@
 //								Librariy Headers                               /
 //=============================================================================/
 
-# include <fcntl.h>			// O_CREAT
+# include <fcntl.h>			// O_CREAT S_IRWXU S_IRGRP S_IROTH
 # include <limits.h>		// INT_MAX
 # include <pthread.h>		// pthread_create pthread_detach
-# include <semaphore.h>		// sem_open sem_close
+# include <semaphore.h>		// sem_open sem_close sem_unlink
 # include <signal.h>		// SIGKILL
 # include <stdio.h>			// printf
 # include <stdlib.h>		// exit

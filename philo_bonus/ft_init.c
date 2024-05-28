@@ -96,7 +96,7 @@ static sem_t	*ft_init_semaphore(const char *name, int n)
 	sem_t	*sem;
 
 	sem_unlink(name);
-	sem = sem_open(name, O_CREAT, (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), n);
+	sem = sem_open(name, O_CREAT, (S_IRWXU | S_IRGRP | S_IROTH), n);
 	if (sem == SEM_FAILED)
 		exit(ft_perror(RED"Error: semaphore open error"NC));
 	return (sem);
