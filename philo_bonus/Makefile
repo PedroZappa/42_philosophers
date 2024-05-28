@@ -16,7 +16,7 @@
 
 MAKE			= make -C
 SHELL			:= bash
-TIMESTAMP		=$(shell date +%Y%m%d%H%M%S); \
+TIMESTAMP		=$(shell date +%m%d%H%M%S)
 
 # Default test values
 ARG				= 5 800 200 200
@@ -236,10 +236,6 @@ test_life_5: all			## Run a infinite meal test
 
 test_chaos: all			## Run a chaos test
 	tmux set-option remain-on-exit on
-	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S); \
-	if [ -f $(TEMP_PATH)/out.txt ]; then \
-		mv -f $(TEMP_PATH)/out.txt $(TEMP_PATH)/out.$$TIMESTAMP.txt; \
-	fi
 	@echo "$(CYA)Testing $(RED)chaos$(D)"
 	@echo "Iterations : $(GRN)$(ITER)$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
@@ -254,25 +250,20 @@ test_chaos: all			## Run a chaos test
 		echo "$(YEL)$(_SEP)$(D)"; \
 	done
 	@make --no-print-directory test_results
-	@tmux select-pane -L
 
 test_count_panes:
 	PANES_COUNT=$(shell tmux display-message -p '#{pane_count}'); \
 	tmux list-panes -t $(shell tmux display -p '#W') | wc -l
-	# Print the number of panes
 	@echo "$(CYA)Number of panes: $(GRN)$$PANES_COUNT$(D)"
 	@echo "$(YEL)$(_SEP)$(D)"
 
 test_results: $(TEMP_PATH)
 	@make --no-print-directory remove_ansi_noise
-	@if pgrep -x "lnav" > /dev/null; then \
-		echo "lnav is already running."; \
+	mv -f $(TEMP_PATH)/out.txt $(TEMP_PATH)/out.$(TIMESTAMP).txt
+	if command -v lnav; then \
+		tmux split-window -h "lnav $(TEMP_PATH)/out.$(TIMESTAMP).txt"; \
 	else \
-		if command -v lnav; then \
-		tmux split-window -h "lnav $(TEMP_PATH)/out.txt"; \
-		else \
-			cat $(TEMP_PATH)/out.txt; \
-		fi; \
+		cat $(TEMP_PATH)/out.txt; \
 	fi
 	@echo "$(YEL)$(_SEP)$(D)"
 	@echo "$(BCYA)Tests Summary$(D)"
@@ -280,7 +271,7 @@ test_results: $(TEMP_PATH)
 	@echo -ne "$(MAG)Total\t:  $(YEL)"
 	@awk '{print $$1}' $(TEMP_PATH)/passed_count.txt
 	@echo -ne "$(D)"
-	@cat $(TEMP_PATH)/out.txt | grep heap | awk '{ print $$5, $$7 }' > $(TEMP_PATH)/count.txt
+	@cat $(TEMP_PATH)/out.$(TIMESTAMP).txt | grep heap | awk '{ print $$5, $$7 }' > $(TEMP_PATH)/count.txt
 	@awk -v count=0 '{if ($$1 == $$2) count++} END \
 		{ print "$(GRN)Passed$(D)\t: ", count}' $(TEMP_PATH)/count.txt
 	@awk -v count=0 '{if ($$1 != $$2) \
@@ -359,7 +350,6 @@ vgdb_helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind & gdb
 	make get_log
 
 massif: all $(TEMP_PATH)		## Run Valgrind w/ Massif (gather profiling information)
-	@TIMESTAMP=$(shell date +%Y%m%d%H%M%S)
 	echo " 🔎 [$(YEL)Massif Profiling$(D)]"
 	valgrind --tool=massif --time-unit=B ./$(NAME) $(ARG7)
 	ms_print $(TEMP_PATH)/massif.out.*
