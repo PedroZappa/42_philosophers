@@ -14,6 +14,7 @@
 
 static t_data	*ft_init_data(int argc, char **argv);
 int				ft_init_semaphores(t_data *data);
+static sem_t	*ft_init_semaphore(const char *name, int n);
 
 /// @brief		Parse and initialize the data
 /// @param argc	Number of arguments
@@ -55,7 +56,6 @@ static t_data	*ft_init_data(int argc, char **argv)
 		ft_perror(RED"Error: Failed to allocate memory (ft_init)\n"NC);
 	ft_bzero(new, sizeof(t_philo));
 	new->n_philos = ft_parse_arg(argv[1]);
-	new->n_forks = new->n_philos;
 	new->t_death = ft_parse_arg(argv[2]);
 	new->t_meal = ft_parse_arg(argv[3]);
 	new->t_sleep = ft_parse_arg(argv[4]);
@@ -78,29 +78,26 @@ static t_data	*ft_init_data(int argc, char **argv)
 /// @return			0 on success, -1 on failure
 int	ft_init_semaphores(t_data *d)
 {
-	sem_unlink("/sem_forks");
-	d->sem_forks = sem_open("/sem_forks", O_CREAT, 0644, d->n_philos);
-	if (d->sem_forks == SEM_FAILED)
-		return (ft_perror(RED"Error: semaphore open error"NC));
-	sem_unlink("/sem_printf");
-	d->sem_printf = sem_open("/sem_printf", O_CREAT, 0644, 1);
-	if (d->sem_printf == SEM_FAILED)
-		return (ft_perror(RED"Error: semaphore open error"NC));
-	sem_unlink("/sem_death");
-	d->sem_death = sem_open("/sem_death", O_CREAT, 0644, 1);
-	if (d->sem_death == SEM_FAILED)
-		return (ft_perror(RED"Error: semaphore open error"NC));
-	sem_unlink("/sem_start");
-	d->sem_start = sem_open("/sem_start", O_CREAT, 0644, (d->n_philos / 2));
-	if (d->sem_start == SEM_FAILED)
-		return (ft_perror(RED"Error: semaphore open error"NC));
-	sem_unlink("/sem_end");
-	d->sem_end = sem_open("/sem_end", O_CREAT, 0644, 0);
-	if (d->sem_end == SEM_FAILED)
-		return (ft_perror(RED"Error: semaphore open error"NC));
-	sem_unlink("/sem_time");
-	d->sem_time = sem_open("/sem_time", O_CREAT, 0644, 1);
-	if (d->sem_time == SEM_FAILED)
-		return (ft_perror(RED"Error: semaphore open error"NC));
+	d->sem_forks = ft_init_semaphore("/sem_forks", d->n_philos);
+	d->sem_printf = ft_init_semaphore("/sem_printf", 1);
+	d->sem_death = ft_init_semaphore("/sem_death", 1);
+	d->sem_start = ft_init_semaphore("/sem_start", (d->n_philos / 2));
+	d->sem_end = ft_init_semaphore("/sem_end", 0);
+	d->sem_time = ft_init_semaphore("/sem_time", 1);
 	return (0);
+}
+
+/// @brief		Open and initialize a semaphore
+/// @param name	Name of the semaphore
+/// @param n	Value of the semaphore
+/// @return		Reference to the initialized semaphore
+static sem_t	*ft_init_semaphore(const char *name, int n)
+{
+	sem_t	*sem;
+
+	sem_unlink(name);
+	sem = sem_open(name, O_CREAT, (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH), n);
+	if (sem == SEM_FAILED)
+		exit(ft_perror(RED"Error: semaphore open error"NC));
+	return (sem);
 }

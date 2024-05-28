@@ -17,18 +17,15 @@
 //								Librariy Headers                               /
 //=============================================================================/
 
-# include <fcntl.h>
-# include <limits.h>
-# include <pthread.h>
-# include <semaphore.h>
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/time.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <unistd.h>
+# include <fcntl.h>			// O_CREAT
+# include <limits.h>		// INT_MAX
+# include <pthread.h>		// pthread_create pthread_detach
+# include <semaphore.h>		// sem_open sem_close
+# include <signal.h>		// SIGKILL
+# include <stdio.h>			// printf
+# include <stdlib.h>		// exit
+# include <sys/time.h>		// gettimeofday
+# include <unistd.h>		// fork usleep
 
 //=============================================================================/
 //							Variables & Definitions                            /
@@ -44,13 +41,13 @@
 # define MAG "\e[0;35m"	// RGB(255, 0, 255)
 # define CYN "\e[0;36m"	// RGB(0, 255, 255)
 # define WHT "\e[0;37m"	// RGB(255, 255, 255)
-//Reset
 # define NC "\e[0m"
 
-/// Macros
-# define YES 1
+/// Boolean
 # define NO 0
+# define YES 1
 
+/// States
 enum {
 	FORK = 0,
 	EAT = 1,
@@ -70,7 +67,6 @@ typedef struct timeval	t_time;
 typedef struct s_data
 {
 	int			n_philos;
-	int			n_forks;
 	t_msec		t_death;
 	t_msec		t_meal;
 	t_msec		t_sleep;
@@ -133,7 +129,6 @@ int		ft_meal(t_philo *philo);
 int		ft_sleep(t_philo *philo);
 int		ft_think(t_philo *philo);
 int		ft_log(t_philo *philo, int state, t_time t);
-void	ft_philo_log(t_philo *philo, char *str);
 
 /// ft_parse.c
 int		ft_parse_arg(char *str);
