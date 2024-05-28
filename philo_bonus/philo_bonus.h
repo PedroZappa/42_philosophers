@@ -134,8 +134,8 @@ int		ft_log(t_philo *philo, int state, t_time t);
 int		ft_parse_arg(char *str);
 
 /// ft_sem.c
-int		ft_set_time_sem(t_philo *philo);
-void	ft_sem_post_end(t_philo *philo);
+int		ft_gettime_sem(t_philo *philo);
+void	ft_end_sem(t_philo *philo);
 
 /// ft_time.c
 int		ft_gettime(t_time *t);

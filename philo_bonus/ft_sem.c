@@ -15,7 +15,7 @@
 /// @brief			Get current time through semaphore
 /// @param d	Reference to t_philo struct
 /// @return			0 on success, 1 on failure
-int	ft_set_time_sem(t_philo *philo)
+int	ft_gettime_sem(t_philo *philo)
 {
 	if (sem_wait(philo->d->sem_time) == 0)
 	{
@@ -27,7 +27,7 @@ int	ft_set_time_sem(t_philo *philo)
 	return (0);
 }
 
-void	ft_sem_post_end(t_philo *philo)
+void	ft_end_sem(t_philo *philo)
 {
 	int	i;
 
