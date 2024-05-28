@@ -51,6 +51,26 @@
 # define DIED 5
 # define DONE 6
 
+typedef enum e_mutex
+{
+	MTX_PRINTF,
+	MTX_MEALS,
+	MTX_DIED,
+	MTX_NUM
+}	t_mutexes;
+
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
+
+typedef enum e_exit
+{
+	SUCCESS,
+	FAILURE
+}	t_exit;
+
 /// Typedefs
 typedef long long		t_msec;
 typedef pthread_mutex_t	t_mutex;
@@ -59,29 +79,53 @@ typedef pthread_mutex_t	t_mutex;
 //                               Structures                                    /
 //=============================================================================/
 
+
+/// @brief			Simulation data.
+///
+/// @var n_philos	number of philosophers
+/// @var t_death	philo's life time (in ms)
+/// @var t_meal		philo's meal length (in ms)
+/// @var t_sleep	philo's sleep length (in ms)
+/// @var t_think	philo's think length (in ms)
+/// @var n_meals	max number of meals
+/// @var t_start	Start time of the simulation
+/// @var done		True when all philos ate n_meals times
+/// @var died		True when a philo dies
+/// @var mutex		Array of mutexes
+///
 typedef struct s_data
 {
 	int			n_philos;
-	int			n_forks;
-	int			n_meals;
-	int			done;
-	t_msec		t_start;
 	t_msec		t_death;
 	t_msec		t_meal;
 	t_msec		t_sleep;
-	t_mutex		*mutex_fork;
-	t_mutex		mutex_printf;
-	pthread_t	monitor;
+	t_msec		t_think;
+	int			n_meals;
+	t_msec		t_start;
+	int			done;
+	int			died;
+	t_mutex		*mutex;
 }			t_data;
 
+/// @brief      Philo's data.
+///
+/// @var id				philo's id				
+/// @var last_meal		Time of last meal
+/// @var meals_count	Number of meals eaten
+/// @var l_fork			Philo's left fork
+/// @var r_fork			Philo's right fork
+/// @var fork			a mutex that symbolize one fork from philos dining problem.
+/// @var data			the access to s_data parameters.
+///
 typedef struct s_philo
 {
 	int			id;
+	int			last_meal;
 	int			meal_count;
 	pthread_t	thread;
-	t_mutex		*l_fork;
-	t_mutex		*r_fork;
-	t_msec		t_meal;
+	int			l_fork;
+	int			r_fork;
+	t_mutex		*fork;
 	t_data		*data;
 }			t_philo;
 
