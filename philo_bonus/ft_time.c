@@ -54,7 +54,7 @@ t_time	ft_now(t_philo *philo)
 	{
 		now = philo->t_now;
 		if (sem_post(philo->d->sem_time) != 0)
-			perror(RED"Error: sem_post failed"NC);
+			ft_perror(RED"Error: sem_post failed"NC);
 	}
 	return (now);
 }
