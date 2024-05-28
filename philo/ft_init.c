@@ -39,6 +39,8 @@ int	ft_init(t_philo **philo, int argc, char **argv)
 		return (ft_perror(RED"Error: Time Mutex init\n"NC));
 	if (pthread_mutex_init(&data->mutex_end, NULL))
 		return (ft_perror(RED"Error: End Mutex init\n"NC));
+	if (pthread_mutex_init(&data->mutex_count, NULL))
+		return (ft_perror(RED"Error: Count Mutex init\n"NC));
 	if (ft_init_forks(data) == -1)
 		return (-1);
 	new_philo = malloc(sizeof(t_philo) * data->n_philos);

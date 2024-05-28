@@ -64,7 +64,8 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 # CFLAGS		+= -lpthread
 DFLAGS		= -g
-# DFLAGS		+= -fsanitize=thread -O2
+# DFLAGS		+= -O2 -fsanitize=thread
+# DFLAGS		+= -fPIE -pie
 INC			= -I.
 
 #==============================================================================#

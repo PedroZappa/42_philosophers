@@ -81,6 +81,11 @@ static void	*ft_start_philo(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
+	if (philo->id % 2 == 0)
+	{
+		ft_philo_log(philo, "is thinking");
+		usleep(100);
+	}
 	while (!philo->data->done)
 	{
 		ft_philo_log(philo, "is thinking");
@@ -90,13 +95,13 @@ static void	*ft_start_philo(void *args)
 		ft_philo_log(philo, "has taken a fork");
 		ft_philo_log(philo, "is eating");
 		ft_philo_do(philo->data->t_meal, philo->data);
-		pthread_mutex_lock(&philo->data->mutex_time);
 		philo->t_meal = ft_gettime();
-		pthread_mutex_unlock(&philo->data->mutex_time);
 		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_lock(&philo->data->mutex_count);
 		if (!philo->data->done)
 			philo->meal_count++;
+		pthread_mutex_unlock(&philo->data->mutex_count);
 		ft_philo_log(philo, "is sleeping");
 		ft_philo_do(philo->data->t_sleep, philo->data);
 	}
@@ -144,6 +149,7 @@ static void	*ft_monitor(void *args)
 			philos->data->done = YES;
 			pthread_mutex_unlock(&philos->data->mutex_end);
 		}
+		// usleep(100);
 	}
 	return (0);
 }

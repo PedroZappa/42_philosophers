@@ -31,6 +31,7 @@ void	ft_philo_do(t_msec time, t_data *data)
 {
 	t_msec	t;
 
+	// pthread_mutex_lock(&data->mutex_time);
 	t = ft_gettime();
 	while (!data->done)
 	{
@@ -38,4 +39,5 @@ void	ft_philo_do(t_msec time, t_data *data)
 			break ;
 		usleep(1000);
 	}
+	// pthread_mutex_unlock(&data->mutex_time);
 }

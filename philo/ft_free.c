@@ -25,6 +25,9 @@ void	ft_free(t_philo **philo)
 	while (++i < data->n_philos)
 		pthread_mutex_destroy(data->mutex_fork + i);
 	pthread_mutex_destroy(&data->mutex_printf);
+	pthread_mutex_destroy(&data->mutex_end);
+	pthread_mutex_destroy(&data->mutex_time);
+	pthread_mutex_destroy(&data->mutex_count);
 	free(*philo);
 	free(data->mutex_fork);
 	free(data);
