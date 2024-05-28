@@ -29,10 +29,7 @@ int	ft_sem_closer(t_data *to_del)
 		|| sem_close(to_del->sem_death) \
 		|| sem_close(to_del->sem_time) \
 		|| sem_close(to_del->sem_end))
-	{
-		ft_perror(RED"Error: semaphore close error\n"NC);
-		return (1);
-	}
+		return (ft_perror(RED"Error: semaphore close error\n"NC));
 	return (ft_sem_unlinker());
 }
 
@@ -47,10 +44,7 @@ static int	ft_sem_unlinker(void)
 		|| sem_unlink("/sem_start") \
 		|| sem_unlink("/sem_end") \
 		|| sem_unlink("/sem_time"))
-	{
-		ft_perror(RED"Error: semaphore unlink error\n"NC);
-		return (1);
-	}
+		return (ft_perror(RED"Error: semaphore unlink error\n"NC));
 	return (0);
 }
 
