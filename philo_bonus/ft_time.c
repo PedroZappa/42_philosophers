@@ -47,7 +47,7 @@ void	ft_ms2us(void *t)
 
 t_time	ft_now(t_philo *philo)
 {
-	struct timeval	now;
+	t_time	now;
 
 	memset(&now, '\0', sizeof(t_time));
 	if (sem_wait(philo->d->sem_time) == 0)
