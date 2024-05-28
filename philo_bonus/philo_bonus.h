@@ -100,10 +100,6 @@ typedef struct s_philo
 //							Function Prototypes                                /
 //=============================================================================/
 
-/// ft_ctype.c
-int		ft_isspace(char c);
-int		ft_isdigit(char c);
-
 /// ft_error.c
 int		ft_perror(char *err);
 

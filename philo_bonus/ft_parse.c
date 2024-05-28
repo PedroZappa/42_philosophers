@@ -12,13 +12,16 @@
 
 #include "philo_bonus.h"
 
+static int	ft_isspace(char c);
+static int	ft_isdigit(char c);
+
 /// @brief		Parse input arguments (digits)
 /// @param str	Argument to parse
 /// @return		Parsed argument as long on success, -1 on failure
 /// @details	- Skip whitespaces
-/// 			- Check for sign
+/// 			- Parse sign
 ///					- Exit -1 if sign is negative
-///				- Check for digits
+///				- Parse digits
 ///					- Convert digit by digit
 ///					- Exit with -1 if number is larger than INT_MAX
 ///				- Return converted number;
@@ -46,4 +49,20 @@ int	ft_parse_arg(char *str)
 			exit(ft_perror(RED"Error: arg exceeds INT_MAX\n"NC));
 	}
 	return (num * sign);
+}
+
+/// @brief		Check if a character is a space
+/// @param c	Character to check
+/// @return		1 if true, 0 if false
+static int	ft_isspace(char c)
+{
+	return ((c == ' ') || ((c >= 9) && (c <= 13)));
+}
+
+/// @brief		Check if a character is a digit
+/// @param c	Character to check
+/// @return		1 if true, 0 if false
+static int	ft_isdigit(char c)
+{
+	return ((c >= '0') && (c <= '9'));
 }

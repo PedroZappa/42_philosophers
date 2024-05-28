@@ -18,10 +18,7 @@
 int	ft_gettime(t_time *t)
 {
 	if (gettimeofday(t, NULL) == -1)
-	{
-		printf(RED"Error: gettimeofday failed"NC);
-		return (1);
-	}
+		return (ft_perror(RED"Error: gettimeofday failed"NC));
 	return (0);
 }
 

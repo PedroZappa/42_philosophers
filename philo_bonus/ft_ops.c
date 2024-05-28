@@ -18,16 +18,10 @@ int	ft_meal(t_philo *philo)
 	{
 		philo->t_curr = ft_now(philo);
 		if (sem_post(philo->d->sem_death) != 0)
-		{
-			printf(RED"Error: sem_post failed\n"NC);
-			return (1);
-		}
+			return (printf(RED"Error: sem_post failed\n"NC));
 	}
 	else
-	{
-		printf(RED"Error: sem_wait failed\n"NC);
-		return (1);
-	}
+		return (printf(RED"Error: sem_wait failed\n"NC));
 	ft_log(philo, EAT, ft_now(philo));
 	usleep(ft_min(philo->d->t_meal, philo->d->t_death));
 	if ((ft_drop_fork(philo) == 1) || (ft_drop_fork(philo) == 1))
@@ -70,15 +64,9 @@ int	ft_log(t_philo *p, int select, t_time t)
 		else if (select == DEAD)
 			printf("%lld %d died\n", ft_dtime(p->d->t_start, t), p->idx);
 		if (sem_post(p->d->sem_printf) != 0)
-		{
-			printf(RED"Error: sem_post failed"NC);
-			return (1);
-		}
+			return (ft_perror(RED"Error: sem_post failed"NC));
 	}
 	else
-	{
-		printf(RED"Error: sem_wait failed"NC);
-		return (1);
-	}
+		return (ft_perror(RED"Error: sem_wait failed"NC));
 	return (0);
 }
