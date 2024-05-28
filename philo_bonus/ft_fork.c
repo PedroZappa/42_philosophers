@@ -12,6 +12,9 @@
 
 #include "philo_bonus.h"
 
+/// @brief			Take a fork
+/// @param philo	Reference to t_philo struct
+/// @return			0 on success, 1 on failure
 int	ft_take_fork(t_philo *philo)
 {
 	if (sem_wait(philo->d->sem_forks) == 0)
@@ -24,6 +27,9 @@ int	ft_take_fork(t_philo *philo)
 	return (0);
 }
 
+/// @brief			Drop a fork
+/// @param philo	Reference to t_philo struct
+/// @return			0 on success, 1 on failure
 int	ft_drop_fork(t_philo *philo)
 {
 	if (sem_post(philo->d->sem_forks) != 0)

@@ -18,14 +18,15 @@ int	ft_meal(t_philo *philo)
 	{
 		philo->t_curr = ft_now(philo);
 		if (sem_post(philo->d->sem_death) != 0)
-			return (printf(RED"Error: sem_post failed\n"NC));
+			return (ft_perror(RED"Error: sem_post failed\n"NC));
 	}
 	else
 		return (printf(RED"Error: sem_wait failed\n"NC));
-	ft_log(philo, EAT, ft_now(philo));
+	if (ft_log(philo, EAT, ft_now(philo)) == 1)
+		return (ft_perror("Error: ft_log failed (EAT)\n"));
 	usleep(ft_min(philo->d->t_meal, philo->d->t_death));
-	if ((ft_drop_fork(philo) == 1) || (ft_drop_fork(philo) == 1))
-		return (1);
+	if (ft_drop_fork(philo) || ft_drop_fork(philo))
+		return (ft_perror("Error: ft_drop_fork failed\n"));
 	if ((philo->d->meal_max != NULL) \
 		&& (++philo->n_meals == *philo->d->meal_max))
 		sem_post(philo->d->sem_end);
@@ -35,7 +36,7 @@ int	ft_meal(t_philo *philo)
 int	ft_sleep(t_philo *philo)
 {
 	if (ft_log(philo, SLEEP, ft_now(philo)) == 1)
-		return (1);
+		return (ft_perror("Error: ft_log failed (SLEEP)\n"));
 	usleep(philo->d->t_sleep);
 	return (0);
 }
@@ -43,7 +44,7 @@ int	ft_sleep(t_philo *philo)
 int	ft_think(t_philo *philo)
 {
 	if (ft_log(philo, THINK, ft_now(philo)) == 1)
-		return (1);
+		return (ft_perror("Error: ft_log failed (THINK)\n"));
 	usleep(philo->d->t_think);
 	return (0);
 }

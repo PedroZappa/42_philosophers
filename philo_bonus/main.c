@@ -48,6 +48,9 @@ int	main(int argc, char **argv)
 	exit(0);
 }
 
+/// @brief			Handle child processes creation
+/// @param philo	Pointer to a t_philo struct
+/// @return			0 on success, 1 on failure
 static int	ft_children(t_philo *philo)
 {
 	t_philo	*curr_philo;
@@ -76,11 +79,11 @@ static int	ft_children(t_philo *philo)
 	return (0);
 }
 
-/// @brief			Philosophers logic
-/// @param philo	Pointer to a t_philo struct
-/// @details		- Sleep 1000us if philo is even idx'ed
-/// @details		- Set semaphores
-/// 				- While simulation is not over:
+/// @brief		Philosophers logic
+/// @param p	Pointer to a t_philo struct
+/// @details	- Sleep 1000us if philo is even idx'ed
+/// @details	- Set semaphores
+/// 			- While simulation is not over:
 static int	ft_philosophize(t_philo *p)
 {
 	ft_set_time_sem(p);
@@ -92,7 +95,7 @@ static int	ft_philosophize(t_philo *p)
 		if ((ft_take_fork(p) == 0) && (ft_take_fork(p) == 0))
 		{
 			sem_post(p->d->sem_start);
-			if ((ft_meal(p) == 1) || (ft_sleep(p) == 1) || (ft_think(p) == 1))
+			if (ft_meal(p) || ft_sleep(p) || ft_think(p))
 				ft_sem_post_end(p);
 		}
 		else
