@@ -82,23 +82,22 @@ static int	ft_children(t_philo *philo)
 /// @details		- Set semaphores
 /// 				- While simulation is not over:
 ///
-static int	ft_philosophize(t_philo *philo)
+static int	ft_philosophize(t_philo *p)
 {
-	ft_set_time_sem(philo);
+	ft_set_time_sem(p);
 	while (1)
 	{
-		if (philo->d->n_philos < 2)
+		if (p->d->n_philos < 2)
 			continue ;
-		sem_wait(philo->d->sem_start);
-		if ((ft_take_fork(philo) == 0) && (ft_take_fork(philo) == 0))
+		sem_wait(p->d->sem_start);
+		if ((ft_take_fork(p) == 0) && (ft_take_fork(p) == 0))
 		{
-			sem_post(philo->d->sem_start);
-			if ((ft_meal(philo) == 1) || (ft_sleep(philo) == 1) \
-				|| (ft_think(philo) == 1))
-				ft_sem_post_end(philo);
+			sem_post(p->d->sem_start);
+			if ((ft_meal(p) == 1) || (ft_sleep(p) == 1) || (ft_think(p) == 1))
+				ft_sem_post_end(p);
 		}
 		else
-			ft_sem_post_end(philo);
+			ft_sem_post_end(p);
 	}
 	return (0);
 }
@@ -114,10 +113,8 @@ static void	*ft_monitor(void *arg)
 
 	philo = (t_philo *)arg;
 	while (1)
-	{
 		if (ft_check(philo) != 0)
 			return (NULL);
-	}
 	return (0);
 }
 
@@ -136,15 +133,9 @@ static int	ft_check(t_philo *philo)
 			}
 		}
 		if (sem_post(philo->d->sem_death) != 0)
-		{
-			printf(RED"Error: sem_post failed\n"NC);
-			return (1);
-		}
+			return (printf(RED"Error: sem_post failed\n"NC));
 	}
 	else
-	{
-		printf(RED"Error: sem_wait failed\n"NC);
-		return (1);
-	}
+		return (printf(RED"Error: sem_wait failed\n"NC));
 	return (0);
 }
