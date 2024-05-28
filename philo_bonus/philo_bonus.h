@@ -51,11 +51,13 @@
 # define YES 1
 # define NO 0
 
-# define FORK 0
-# define EAT 1
-# define SLEEP 2
-# define THINK 3
-# define DEAD 4
+enum {
+	FORK = 0,
+	EAT = 1,
+	SLEEP = 2,
+	THINK = 3,
+	DEAD = 4
+};
 
 /// Typedefs
 typedef long long		t_msec;
