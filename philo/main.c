@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 static int	ft_philosophize(t_philo *philos, t_data *data);
 static void	*ft_start_philo(void *args);
@@ -30,7 +29,7 @@ int	main(int argc, char **argv)
 	philos = NULL;
 	if ((argc != 5) && (argc != 6))
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
-	if (ft_init(&philos, data, argc, argv) != SUCCESS)
+	if (ft_init(&philos, &data, argc, argv) != SUCCESS)
 		return (ft_free(philos, data), EXIT_FAILURE);
 	if (ft_philosophize(philos, philos->data) != SUCCESS)
 		return (ft_free(philos, data), EXIT_FAILURE);

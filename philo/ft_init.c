@@ -24,15 +24,19 @@ static int	ft_init_philo(t_philo **philo, t_data *data);
 /// @param argc		Number of arguments
 /// @param argv		Argument vector
 /// @return			0 on success, 1 on failure
-int	ft_init(t_philo **philo, t_data *data, int argc, char **argv)
+int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 {
-	if (ft_init_data(&data, argc, argv) == -1)
+	*data = malloc(sizeof(t_data));
+	if (!(*data))
+		return (ft_perror(RED"Error: failure to alloc data\n"NC));
+	(*data)->mutex = NULL;
+	if (ft_init_data(data, argc, argv) != SUCCESS)
 		return (FAILURE);
-	*philo = malloc(sizeof(t_philo) * (size_t)data->n_philos);
+	*philo = malloc(sizeof(t_philo) * (*data)->n_philos);
 	if (!(*philo))
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	(*philo)->fork = NULL;
-	if (ft_init_philo(philo, data) != SUCCESS)
+	if (ft_init_philo(philo, *data) != SUCCESS)
 		return (ft_perror(RED"Error: failure to init philos\n"NC));
 	return (SUCCESS);
 

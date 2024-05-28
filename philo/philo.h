@@ -152,7 +152,7 @@ int		ft_perror(char *err);
 void	ft_kill_mtx(t_philo *philo);
 
 /// ft_init.c
-int		ft_init(t_philo **philo, t_data *data, int argc, char **argv);
+int		ft_init(t_philo **philo, t_data **data, int argc, char **argv);
 
 /// ft_parse.c
 long	ft_parse_arg(char *str);
