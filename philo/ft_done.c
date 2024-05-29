@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:26:36 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:33:30 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:57:33 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /// @param philo	Pointer to a t_philo struct
 /// @return			TRUE if dead, FALSE if not
 /// @note			Used in ft_start_philo & ft_log
-int ft_isdead(t_philo *philo)
+int	ft_isdead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex[MTX_DIED]);
 	if (philo->data->died)
@@ -32,7 +32,7 @@ int ft_isdead(t_philo *philo)
 /// @param philo	Pointer to a t_philo struct
 /// @return			TRUE if done, FALSE if not
 /// @note			Used in ft_eating & ft_log
-int ft_isdone(t_philo *philo)
+int	ft_isdone(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex[MTX_DONE]);
 	if (philo->data->done)
@@ -47,18 +47,21 @@ int ft_isdone(t_philo *philo)
 /// @brief			Set a philo dead
 /// @param data		Pointer to a t_data struct
 /// @note			Used in ft_monitor
-void ft_died(t_data *data)
+void	ft_died(t_data *data)
 {
 	pthread_mutex_lock(&data->mutex[MTX_DIED]);
 	data->died = TRUE;
 	pthread_mutex_unlock(&data->mutex[MTX_DIED]);
 }
 
-/// @brief			Check if n_meals have been eaten
-/// @param philo	Pointer to a t_philo struct
-/// @param data		Pointer to a t_data struct
-/// @return			TRUE if done, FALSE if not
-/// @note			Used in ft_monitor
+/// @brief				Check if n_meals have been eaten
+/// @param philo		Pointer to a t_philo struct
+/// @param data			Pointer to a t_data struct
+/// @var i				To iterate through the array of philos
+/// @var done			Number of philos who have eaten n_meals
+/// @var meals_count	Number of meals eaten by a philo
+/// @return				TRUE if done, FALSE if not
+/// @note				Used in ft_monitor
 int	ft_are_done(t_philo *philo, t_data *data)
 {
 	int	i;
@@ -85,7 +88,7 @@ int	ft_are_done(t_philo *philo, t_data *data)
 /// @brief			Set the simulation as done
 /// @param data		Pointer to a t_data struct
 /// @note			Used in ft_monitor
-void ft_done(t_data *data)
+void	ft_done(t_data *data)
 {
 	pthread_mutex_lock(&data->mutex[MTX_DONE]);
 	data->done = TRUE;

@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/23 20:34:56 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:49:11 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	(*data)->t_sleep = ft_parse_arg(argv[4]);
 	(*data)->t_think = 0;
 	if (((*data)->n_philos % 2) && ((*data)->t_meal > (*data)->t_sleep))
-		(*data)->t_think = (1 + ((*data)->t_meal - (*data)->t_sleep)); 
-	if (((*data)->n_philos < 1) || ((*data)->n_philos > 200) || ((*data)->t_death == -1) \
-		|| ((*data)->t_meal == -1) || ((*data)->t_sleep == -1) || ((*data)->t_death < 60) \
-		|| ((*data)->t_meal < 60) || ((*data)->t_sleep < 60))
+		(*data)->t_think = (1 + ((*data)->t_meal - (*data)->t_sleep));
+	if (ft_check_data(data) == FAILURE)
 		return (ft_perror(RED"Error: invalid arguments\n"NC));
 	(*data)->n_meals = -1;
 	if (argc == 6)

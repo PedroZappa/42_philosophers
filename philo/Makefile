@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/28 16:26:58 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/29 18:47:53 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,7 +163,7 @@ test_input: all			## Run tests on input args
 	@echo "$(CYA)Test $(GRN)2$(CYA) : Less arguments than required$(D)"
 	-./$(NAME) 2 200 200
 	@echo "$(CYA)Test $(GRN)3$(CYA) : Negative argument$(D)"
-	-./$(NAME) 2 200 200 200 -42
+	-./$(NAME) 2 200 -200 200 
 	@echo "$(CYA)Test $(GRN)4$(CYA) : Argument larger than INT_MAX$(D)"
 	-./$(NAME) 2 2147483648 200 200
 	@echo "$(CYA)Test $(GRN)5$(CYA) : Invalid argument$(D)"

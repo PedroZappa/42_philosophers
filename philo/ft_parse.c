@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 18:36:47 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:55:01 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 /// @brief		Parse input argument and return it as long
 /// @param str	Argument to parse
+/// @var num	To store the converted long
+/// @var sign	To store the sign of the argument
+/// @var i		To iterate through the string
 /// @return		Parsed argument as long on success, -1 on failure
+/// @note		Used in ft_init_data
 long	ft_parse_arg(char *str)
 {
 	long	num;
-	int		i;
 	int		sign;
+	int		i;
 
 	i = 0;
 	sign = 1;
@@ -29,20 +33,28 @@ long	ft_parse_arg(char *str)
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
-			return (ft_perror(RED"Error: Negative number\n"NC));
+			return (FAILURE);
 		++i;
 	}
 	while (ft_isdigit(str[i]))
 	{
 		num = (num * 10) + (str[i++] - '0');
 		if (num > INT_MAX)
-			return (ft_perror(RED"Error: arg exceeds INT_MAX\n"NC));
+			return (FAILURE);
 	}
 	return (num * sign);
 }
 
-// int	ft_parse_data(t_data ***data)
-// {
-//
-// 	return (SUCCESS);
-// }
+/// @brief		Check if the parsed data is valid
+/// @param data	Pointer to a t_data struct
+/// @return		0 on success, 1 on failure
+/// @note		Used in ft_init_data
+int	ft_check_data(t_data **data)
+{
+	if (((*data)->n_philos < 1) || ((*data)->n_philos > 200) \
+		|| ((*data)->t_death == -1) || ((*data)->t_meal == -1) \
+		|| ((*data)->t_sleep == -1) || ((*data)->t_death < 60) \
+		|| ((*data)->t_meal < 60) || ((*data)->t_sleep < 60))
+		return (FAILURE);
+	return (SUCCESS);
+}

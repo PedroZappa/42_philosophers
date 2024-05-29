@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 18:34:06 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:49:51 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ typedef struct timeval	t_time;
 //                               Structures                                    /
 //=============================================================================/
 
-
 /// @brief			Simulation data.
 ///
 /// @var n_philos	number of philosophers
@@ -151,16 +150,17 @@ int		ft_perror(char *err);
 void	ft_kill_mtx(t_philo *philo);
 
 /// ft_helper.c
-int	ft_isspace(char c);
-int	ft_isdigit(char c);
-int	ft_max(int a, int b);
-int	ft_min(int a, int b);
+int		ft_isspace(char c);
+int		ft_isdigit(char c);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 
 /// ft_init.c
 int		ft_init(t_philo **philo, t_data **data, int argc, char **argv);
 
 /// ft_parse.c
 long	ft_parse_arg(char *str);
+int		ft_check_data(t_data **data);
 
 /// ft_time.c
 t_msec	ft_gettime(void);
