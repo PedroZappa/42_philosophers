@@ -27,6 +27,13 @@ define start_philo
 	display *philo->id
 end
 
+define monitor
+	display philo
+	display *philo
+	display last_meal
+	display i
+end
+
 # ft_free.c
 define free
 	display *philo->data->mutex_fork@(*philo)->data->n_philos
@@ -76,18 +83,27 @@ define parse_arg
 	display num
 end
 
+# ft_time.c
+define log
+	display p
+	display *p
+	display *str
+	display ft_dtime(p->data->t_start)
+
+end
+
 # ...
 
 # GO GDB GO!
 # Start at main
-break main
-run 1 800 200 200 3
-main
-fs cmd
+# break main
+# run 1 800 200 200 3
+# main
+# fs cmd
 
 # Start at init
 # break ft_init
-# run 3 800 400 400 3
+# run 1 800 400 400 3
 # init
 # fs cmd
 
@@ -98,10 +114,10 @@ fs cmd
 # fs cmd
 
 # Start at ft_philosophixe
-# break ft_philosophize
-# run 3 800 200 200 3
-# philosophize
-# fs cmd
+break ft_philosophize
+run 3 800 200 200 3
+philosophize
+fs cmd
 
 # Start at ft_start_philo
 # break ft_start_philo
