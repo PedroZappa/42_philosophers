@@ -16,6 +16,16 @@ static t_philo	*ft_make_philo(t_data *data, int idx);
 static void		ft_add_philo(t_philo **philo, t_philo *new);
 void			ft_free_philos(t_philo *philo);
 
+/// @brief		Initialize a doubly linked list of philos
+/// @param data	Pointer to a t_data struct
+/// @var philo	Pointer to a t_philo struct
+/// @var new	Pointer to a t_philo struct
+/// @var i		Iterator
+/// @return		Pointer to an doubly linked list of t_philo structs
+/// @details	Allocate and initialize doubly linked list of t_philo structs
+///				- Create first philo
+/// 			- Add n_philos to the list
+/// @note		Used in main
 t_philo	*ft_init_philos(t_data *data)
 {
 	t_philo	*philo;
@@ -39,6 +49,15 @@ t_philo	*ft_init_philos(t_data *data)
 	return (philo);
 }
 
+/// @brief		Allocate and initialize a doubly linked list of t_philo structs
+/// @param data	Pointer to a t_data struct
+/// @param idx	Index of the current philo
+/// @var new	Pointer to a t_philo struct
+/// @return		Pointer to an doubly linked list of t_philo structs
+/// @details	- Allocate memory for a t_philo struct
+/// 			- Set the memory to 0
+/// 			- Initialize the data
+/// @note		Used in ft_init_philos
 static t_philo	*ft_make_philo(t_data *data, int idx)
 {
 	t_philo	*new;
@@ -52,20 +71,27 @@ static t_philo	*ft_make_philo(t_data *data, int idx)
 	return (new);
 }
 
+/// @brief			Add a new philo to the doubly linked list
+/// @param philo	Pointer to a pointer to t_philo struct
+/// @param new		Pointer to a new t_philo node
+/// @var target		Pointer to a t_philo struct used to traverse the list
+/// @details		- Traverse the list to find the last node
+///					- Add the new node to the list end of the list
+/// @note			Used in ft_init_philos
 static void	ft_add_philo(t_philo **philo, t_philo *new)
 {
-	t_philo	*tmp;
+	t_philo	*target;
 
 	if (!*philo)
 	{
 		*philo = new;
 		return ;
 	}
-	tmp = *philo;
-	while (tmp->idx != (new->idx - 1))
-		tmp = tmp->next;
-	tmp->next = new;
-	new->prev = tmp;
+	target = *philo;
+	while (target->idx != (new->idx - 1))
+		target = target->next;
+	target->next = new;
+	new->prev = target;
 	new->next = *philo;
 	(*philo)->prev = new;
 }
