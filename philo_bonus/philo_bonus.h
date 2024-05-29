@@ -24,7 +24,7 @@
 # include <signal.h>		// SIGKILL
 # include <stdio.h>			// printf
 # include <string.h>		// memset
-# include <stdlib.h>		// exit
+# include <stdlib.h>		// exit, free, malloc
 # include <sys/time.h>		// gettimeofday
 # include <unistd.h>		// fork usleep
 
