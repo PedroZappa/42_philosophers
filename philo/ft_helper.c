@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 18:32:30 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 18:32:52 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:49:36 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ int	ft_isdigit(char c)
 	return ((c >= '0') && (c <= '9'));
 }
 
+/// @brief		Find the max of two numbers
+/// @param a	First number
+/// @param b	Second number
+/// @return		Max of a and b
 int	ft_max(int a, int b)
 {
 	if (b > a)
@@ -33,6 +37,10 @@ int	ft_max(int a, int b)
 	return (a);
 }
 
+/// @brief		Find the min of two numbers
+/// @param a	First number
+/// @param b	Second number
+/// @return		Min of a and b
 int	ft_min(int a, int b)
 {
 	if (a < b)
