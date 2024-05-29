@@ -24,7 +24,7 @@ end
 define start_philo
 	display philo
 	display *philo
-	display *philo->isd
+	display *philo->id
 end
 
 # ft_free.c
@@ -80,10 +80,10 @@ end
 
 # GO GDB GO!
 # Start at main
-# break main
-# run 4 410 200 200
-# main
-# fs cmd
+break main
+run 1 800 200 200 3
+main
+fs cmd
 
 # Start at init
 # break ft_init
@@ -98,16 +98,16 @@ end
 # fs cmd
 
 # Start at ft_philosophixe
-break ft_philosophize
-run 3 800 200 200 3
-philosophize
-fs cmd
+# break ft_philosophize
+# run 3 800 200 200 3
+# philosophize
+# fs cmd
 
 # Start at ft_start_philo
-break ft_start_philo
-run 3 800 200 200 3
-start_philo
-fs cmd
+# break ft_start_philo
+# run 2 800 200 200 3
+# start_philo
+# fs cmd
 
 # break ft_init_forks
 # break ft_init_philo
