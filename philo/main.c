@@ -64,13 +64,13 @@ static int	ft_philosophize(t_philo *p, t_data *data)
 		}
 	}
 	if (ft_monitor(p, data) != SUCCESS)
-		return ((void)ft_kill_mtx(p), free(th), FAILURE);
+		return (ft_kill_mtx(p), free(th), FAILURE);
 	i = -1;
 	while (++i < data->n_philos)
 		if (pthread_join(th[i], NULL))
 			return (FAILURE);
-	printf(RED"\nPhilosophizing is Over.\n"NC);
-	return ((void)ft_kill_mtx(p), free(th), SUCCESS);
+	printf(RED"Philosophizing is Over.\n"NC);
+	return (ft_kill_mtx(p), free(th), SUCCESS);
 }
 
 /// @brief			Launch a philo thread
@@ -90,10 +90,9 @@ static void	*ft_start_philo(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
-	// philo->data->died = 0;
 	if ((philo->id % 2) == 0)
 	{
-		ft_log(philo, "is thinking\n");
+		ft_log(philo, "is thinking");
 		ft_msleep(philo->data->t_meal);
 	}
 	while (1)
@@ -102,7 +101,7 @@ static void	*ft_start_philo(void *args)
 			break ;
 		if (ft_eating(philo) != SUCCESS)
 			break ;
-		ft_log(philo, "is thinking\n");
+		ft_log(philo, "is thinking");
 		ft_msleep(philo->data->t_think);
 	}
 	return (NULL);
@@ -126,15 +125,15 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 	i = 0;
 	while (1)
 	{
-		pthread_mutex_lock(&philo->data->mutex[MTX_MEALS]);
+		pthread_mutex_lock(&data->mutex[MTX_MEALS]);
 		last_meal = philo[i].last_meal;
-		pthread_mutex_unlock(&philo->data->mutex[MTX_MEALS]);
+		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
 		if (last_meal && ft_are_done(philo, data))
 		{
 			ft_done(data);
 			break ;
 		}
-		if (last_meal && ((ft_gettime() - last_meal) > (t_msec)data->t_death))
+		if (last_meal && ((ft_gettime() - last_meal) > data->t_death))
 		{
 			ft_died(data);
 			ft_log(&philo[i], "died");
@@ -149,11 +148,11 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 static void	ft_free(t_philo *philo, t_data *data)
 {
 	if (data && data->mutex)
-		free (data->mutex);
+		free(data->mutex);
 	if (data)
-		free (data);
+		free(data);
 	if (philo && philo->fork)
-		free (philo->fork);
+		free(philo->fork);
 	if (philo)
-		free (philo);
+		free(philo);
 }

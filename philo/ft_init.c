@@ -120,7 +120,7 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 		(*philo)[i].last_meal = data->t_start;
 		(*philo)[i].meal_count = 0;
 		(*philo)[i].l_fork = i;
-		if (i - 1 < 0)
+		if ((i - 1) < 0)
 			(*philo)[i].r_fork = (data->n_philos - 1);
 		else
 			(*philo)[i].r_fork = (i - 1);

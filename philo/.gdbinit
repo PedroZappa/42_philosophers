@@ -34,6 +34,23 @@ define monitor
 	display i
 end
 
+# ft_done.c
+
+define isdone
+	display philo
+	display *philo
+	display *philo->data
+end
+
+define are_done
+	display philo
+	display *philo
+	display data
+	display *data
+	display done
+	display meals_count
+end
+
 # ft_free.c
 define free
 	display *philo->data->mutex_fork@(*philo)->data->n_philos
@@ -96,7 +113,8 @@ end
 # GO GDB GO!
 # Start at main
 break main
-break 66
+break 34
+break ft_start_philo
 run 3 800 200 200 3
 main
 fs cmd
@@ -120,7 +138,7 @@ fs cmd
 # fs cmd
 
 # Start at ft_start_philo
-# break ft_start_philo
+break ft_start_philo
 # run 2 800 200 200 3
 # start_philo
 # fs cmd
@@ -141,7 +159,7 @@ fs cmd
 # break ft_init_philo
 
 # Start at ft_free
-break ft_free
+# break ft_free
 # run "   5" 800 200 200
 # free
 # fs cmd

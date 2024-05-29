@@ -18,7 +18,7 @@ void	ft_kill_mtx(t_philo *philo)
 
 	i = 0;
 	while (i < philo->data->n_philos)
-		pthread_mutex_destroy(&philo->data->mutex[i++]);
+		pthread_mutex_destroy(&philo->fork[i++]);
 	i = 0;
 	while (i < MTX_NUM)
 		pthread_mutex_destroy(&philo->data->mutex[i++]);

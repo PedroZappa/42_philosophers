@@ -29,6 +29,7 @@ int	ft_eating(t_philo *philo)
 		return (FAILURE);
 	}
 	ft_msleep(philo->data->t_meal);
+	// usleep(philo->data->t_meal);
 	ft_eating_done(philo);
 	return (SUCCESS);
 }
@@ -36,23 +37,24 @@ int	ft_eating(t_philo *philo)
 static int	ft_eating_start(t_philo *p)
 {
 	pthread_mutex_lock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
-	ft_log(p, "has taken a fork\n");
+	ft_log(p, "has taken a fork");
 	if (p->l_fork == p->r_fork)
 	{
 		pthread_mutex_unlock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
 		return (FAILURE);
 	}
 	pthread_mutex_lock(&p->fork[ft_max(p->l_fork, p->r_fork)]);
-	ft_log(p, "has taken a fork\n");
-	ft_log(p, "is eating\n");
+	ft_log(p, "has taken a fork");
+	ft_log(p, "is eating");
 	return (SUCCESS);
 }
 
 static int	ft_eating_done(t_philo *p)
 {
-	ft_log(p, "is sleeping\n");
+	ft_log(p, "is sleeping");
 	pthread_mutex_unlock(&p->fork[ft_max(p->l_fork, p->r_fork)]);
 	pthread_mutex_unlock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
 	ft_msleep(p->data->t_sleep);
+	// usleep(p->data->t_sleep);
 	return (SUCCESS);
 }
