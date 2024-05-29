@@ -69,7 +69,7 @@ static int	ft_philosophize(t_philo *p, t_data *data)
 	while (++i < data->n_philos)
 		if (pthread_join(th[i], NULL))
 			return (FAILURE);
-	printf(RED"Philosophizing is Over.\n"NC);
+	printf(RED"\nPhilosophizing is Over.\n"NC);
 	return ((void)ft_kill_mtx(p), free(th), SUCCESS);
 }
 
@@ -93,7 +93,7 @@ static void	*ft_start_philo(void *args)
 	// philo->data->died = 0;
 	if ((philo->id % 2) == 0)
 	{
-		ft_log(philo, "is thinking");
+		ft_log(philo, "is thinking\n");
 		ft_msleep(philo->data->t_meal);
 	}
 	while (1)
@@ -102,7 +102,7 @@ static void	*ft_start_philo(void *args)
 			break ;
 		if (ft_eating(philo) != SUCCESS)
 			break ;
-		ft_log(philo, "is thinking");
+		ft_log(philo, "is thinking\n");
 		ft_msleep(philo->data->t_think);
 	}
 	return (NULL);
