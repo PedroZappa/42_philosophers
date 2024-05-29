@@ -37,7 +37,7 @@ int	ft_eating(t_philo *self)
 {
 	if (ft_eating_start(self) != SUCCESS)
 		return (FAILURE);
-	pthread_mutex_lock (&self->data->mutex[MTX_MEALS]);
+	pthread_mutex_lock(&self->data->mutex[MTX_MEALS]);
 	self->last_meal = ft_gettime();
 	self->meal_count++;
 	pthread_mutex_unlock(&self->data->mutex[MTX_MEALS]);

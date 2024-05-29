@@ -337,6 +337,7 @@ vgdb: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck) & gdb
 	make get_log
 
 valgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
+	tmux set-option remain-on-exit on
 	tmux split-window -h "valgrind --leak-check=full --show-leak-kinds=all -s ./$(NAME) $(ARG)"
 
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind

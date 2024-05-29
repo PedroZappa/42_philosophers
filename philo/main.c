@@ -20,38 +20,36 @@ static void	ft_free(t_philo *philo, t_data *data);
 /// @brief		Main function
 /// @param argc	Number of arguments
 /// @param argv	Argument vector
-// int	main(int argc, char **argv)
-// {
-// 	t_philo	*philos;
-// 	t_data	*data;
-//
-// 	data = NULL;
-// 	philos = NULL;
-// 	if ((argc != 5) && (argc != 6))
-// 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
-// 	if (ft_init(&philos, &data, argc, argv) != SUCCESS)
-// 		return (ft_free(philos, data), EXIT_FAILURE);
-// 	if (ft_philosophize(philos, data) != SUCCESS)
-// 		return (ft_free(philos, data), EXIT_FAILURE);
-// 	return (ft_free(philos, data), EXIT_SUCCESS);
-// }
 int	main(int argc, char **argv)
 {
+	t_philo	*philos;
 	t_data	*data;
-	t_philo	*philo;
 
 	data = NULL;
-	philo = NULL;
+	philos = NULL;
 	if ((argc != 5) && (argc != 6))
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
-	if (ft_init (&philo, &data, argc, argv) != SUCCESS)
-		return ((void)ft_free(philo, data), EXIT_FAILURE);
-	if (ft_init (&philo, &data, argc, argv) != SUCCESS)
-		return ((void)ft_free(philo, data), EXIT_FAILURE);
-	if (ft_philosophize(philo, data) != SUCCESS)
-		return ((void)ft_free(philo, data), EXIT_FAILURE);
-	return ((void)ft_free(philo, data), EXIT_SUCCESS);
+	if (ft_init(&philos, &data, argc, argv) != SUCCESS)
+		return (ft_free(philos, data), EXIT_FAILURE);
+	if (ft_philosophize(philos, data) != SUCCESS)
+		return (ft_free(philos, data), EXIT_FAILURE);
+	return (ft_free(philos, data), EXIT_SUCCESS);
 }
+// int	main(int argc, char **argv)
+// {
+// 	t_data	*data;
+// 	t_philo	*philo;
+//
+// 	data = NULL;
+// 	philo = NULL;
+// 	if ((argc != 5) && (argc != 6))
+// 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
+// 	if (ft_init (&philo, &data, argc, argv) != SUCCESS)
+// 		return ((void)ft_free(philo, data), EXIT_FAILURE);
+// 	if (ft_philosophize(philo, data) != SUCCESS)
+// 		return ((void)ft_free(philo, data), EXIT_FAILURE);
+// 	return ((void)ft_free(philo, data), EXIT_SUCCESS);
+// }
 
 /// @brief			Launch all philos
 /// @param philos	Pointer to array of philos
