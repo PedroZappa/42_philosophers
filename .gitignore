@@ -42,6 +42,8 @@ philo_bonus/philo_bonus
 .build
 .temp
 lib
+html/
+latex/
 
 # Debug files
 *.dSYM/
