@@ -38,3 +38,28 @@ void	ft_log(t_philo *p, char *str)
 		printf("%3lld %3d %s\n", (ft_dtime(p->data->t_start)), p->id, str);
 	pthread_mutex_unlock(&p->data->mutex[MTX_PRINTF]);
 }
+
+void	ft_msleep(t_msec msec)
+{
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+}
+

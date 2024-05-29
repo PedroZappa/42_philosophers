@@ -49,14 +49,14 @@ static int	ft_philosophize(t_philo *p, t_data *data)
 	pthread_t	*th;
 	int	i;
 
-	// printf(GRN"Philosophizing...\n"NC);
+	printf(GRN"Philosophizing...\n"NC);
 	th = malloc(sizeof(pthread_t) * data->n_philos);
 	if (!th)
 		return (ft_perror(RED"Error: failure to alloc threads\n"NC));
 	i = -1;
 	while (++i < data->n_philos)
 	{
-		if (pthread_create(&th[i], 0, ft_start_philo, (void *)&p[i]))
+		if (pthread_create(&th[i], NULL, ft_start_philo, &p[i]))
 		{
 			while (i--)
 				pthread_join(th[i], NULL);
@@ -90,10 +90,11 @@ static void	*ft_start_philo(void *args)
 	t_philo	*philo;
 
 	philo = (t_philo *)args;
+	// philo->data->died = 0;
 	if ((philo->id % 2) == 0)
 	{
 		ft_log(philo, "is thinking");
-		usleep(philo->data->t_meal);
+		ft_msleep(philo->data->t_meal);
 	}
 	while (1)
 	{
@@ -102,7 +103,7 @@ static void	*ft_start_philo(void *args)
 		if (ft_eating(philo) != SUCCESS)
 			break ;
 		ft_log(philo, "is thinking");
-		usleep(philo->data->t_think);
+		ft_msleep(philo->data->t_think);
 	}
 	return (NULL);
 }

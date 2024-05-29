@@ -164,5 +164,6 @@ t_msec	ft_gettime(void);
 void	ft_philo_do(t_msec time, t_data *data);
 t_msec	ft_dtime(t_msec start);
 void	ft_log(t_philo *philo, char *str);
+void	ft_msleep(t_msec msec);
 
 #endif

@@ -7,7 +7,7 @@ set print array on
 # main.c
 define main
 	display argc
-	display argv
+	display *argv@argc
 	display *philos
 	display philos@(*philos)->data->n_philos
 end
@@ -15,16 +15,16 @@ end
 
 define philosophize
 	display *p
-	display p->data->thread@(*p)->data->n_philos
 	display i 
 	display th
 	display *th
+	display *p->data
 end
 
 define start_philo
 	display philo
 	display *philo
-	display *philo->id
+	display *philo->data
 end
 
 define monitor
@@ -95,10 +95,10 @@ end
 
 # GO GDB GO!
 # Start at main
-# break main
-# run 1 800 200 200 3
-# main
-# fs cmd
+break main
+run 3 800 200 200 3
+main
+fs cmd
 
 # Start at init
 # break ft_init
@@ -120,9 +120,9 @@ end
 
 # Start at ft_start_philo
 break ft_start_philo
-run 2 800 200 200 3
-start_philo
-fs cmd
+# run 2 800 200 200 3
+# start_philo
+# fs cmd
 
 # break ft_init_forks
 # break ft_init_philo

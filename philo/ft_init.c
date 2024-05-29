@@ -27,19 +27,18 @@ static int	ft_init_philo(t_philo **philo, t_data *data);
 int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 {
 	*data = malloc(sizeof(t_data));
-	if (!(*data))
+	if (*data == NULL)
 		return (ft_perror(RED"Error: failure to alloc data\n"NC));
 	(*data)->mutex = NULL;
 	if (ft_init_data(data, argc, argv) != SUCCESS)
 		return (FAILURE);
 	*philo = malloc(sizeof(t_philo) * (*data)->n_philos);
-	if (!(*philo))
+	if (*philo == NULL)
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	(*philo)->fork = NULL;
 	if (ft_init_philo(philo, *data) != SUCCESS)
 		return (ft_perror(RED"Error: failure to init philos\n"NC));
 	return (SUCCESS);
-
 }
 
 /// @brief			Parse input arguments and initialize data
@@ -89,7 +88,7 @@ static int	ft_init_mutexes(t_data **data)
 	int		i;
 
 	mutex = malloc(sizeof(t_mutex) * MTX_NUM);
-	if (!mutex)
+	if (mutex == NULL)
 		return (ft_perror(RED"Error: failure to alloc mutexes\n"NC));
 	i = 0;
 	while (i < MTX_NUM)
@@ -108,7 +107,7 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 	t_mutex	*fork;
 	int		i;
 
-	fork = malloc(sizeof(t_mutex) * (size_t)data->n_philos);
+	fork = malloc(sizeof(t_mutex) * data->n_philos);
 	if (!fork)
 		return (ft_perror(RED"Error: failure to alloc forks\n"NC));
 	i = 0;
@@ -117,16 +116,16 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		philo[i]->id = (i + 1);
-		philo[i]->last_meal = data->t_start;
-		philo[i]->meal_count = 0;
-		philo[i]->l_fork = i;
-		if ((i - 1) < 0)
-			philo[i]->r_fork = (data->n_philos - 1);
+		(*philo)[i].id = (i + 1);
+		(*philo)[i].last_meal = data->t_start;
+		(*philo)[i].meal_count = 0;
+		(*philo)[i].l_fork = i;
+		if (i - 1 < 0)
+			(*philo)[i].r_fork = (data->n_philos - 1);
 		else
-			philo[i]->r_fork = (i - 1);
-		philo[i]->fork = fork;
-		philo[i]->data = data;
+			(*philo)[i].r_fork = (i - 1);
+		(*philo)[i].fork = fork;
+		(*philo)[i].data = data;
 		i++;
 	}
 	return (SUCCESS);
