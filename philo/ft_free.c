@@ -12,6 +12,9 @@
 
 #include "philo.h"
 
+/// @brief			Destroy all mutexes
+/// @param philo	Pointer to a t_philo struct
+/// @note			Used in ft_philosophize
 void	ft_kill_mtx(t_philo *philo)
 {
 	int	i;

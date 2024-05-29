@@ -22,8 +22,6 @@ t_msec	ft_gettime(void)
 		ft_perror(RED"Error: gettimeofday failed\n"NC);
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
-// t_msec	ft_gettime(void)
-// {
 
 t_msec	ft_dtime(t_msec start)
 {

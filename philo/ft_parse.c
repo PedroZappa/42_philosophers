@@ -6,14 +6,11 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:17:05 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:36:47 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static int	ft_isspace(char c);
-static int	ft_isdigit(char c);
 
 /// @brief		Parse input argument and return it as long
 /// @param str	Argument to parse
@@ -44,32 +41,8 @@ long	ft_parse_arg(char *str)
 	return (num * sign);
 }
 
-/// @brief		Check if a character is a space
-/// @param c	Character to check
-/// @return		1 if true, 0 if false
-static int	ft_isspace(char c)
-{
-	return ((c == ' ') || ((c >= 9) && (c <= 13)));
-}
-
-/// @brief		Check if a character is a digit
-/// @param c	Character to check
-/// @return		1 if true, 0 if false
-static int	ft_isdigit(char c)
-{
-	return ((c >= '0') && (c <= '9'));
-}
-
-int	ft_max(int a, int b)
-{
-	if (b > a)
-		return (b);
-	return (a);
-}
-
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
+// int	ft_parse_data(t_data ***data)
+// {
+//
+// 	return (SUCCESS);
+// }

@@ -15,6 +15,10 @@
 static int	ft_eating_start(t_philo *p);
 static int	ft_eating_done(t_philo *p);
 
+/// @brief			Eating logic
+/// @param p		Pointer to a t_philo struct
+/// @return			SUCCESS if eating, FAILURE if not
+/// @note			Used in ft_start_philo
 int	ft_eating(t_philo *p)
 {
 	if (ft_eating_start(p) != SUCCESS)
@@ -33,6 +37,10 @@ int	ft_eating(t_philo *p)
 	return (SUCCESS);
 }
 
+/// @brief			Grabbing forks and eating
+/// @param p		Pointer to a t_philo struct
+/// @return			SUCCESS if eating, FAILURE if not
+/// @note			Used in ft_eating
 static int	ft_eating_start(t_philo *p)
 {
 	pthread_mutex_lock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
@@ -48,6 +56,10 @@ static int	ft_eating_start(t_philo *p)
 	return (SUCCESS);
 }
 
+/// @brief			Release forks
+/// @param p		Pointer to a t_philo struct
+/// @return			SUCCESS if eating, FAILURE if not
+/// @note			Used in ft_eating
 static int	ft_eating_done(t_philo *p)
 {
 	ft_log(p, "is sleeping");

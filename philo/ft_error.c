@@ -17,10 +17,10 @@ static int	ft_strlen(char *str);
 
 /// @brief		Print error message
 /// @param err	Error message to print
+/// @return		Return FAILURE (1)
 int	ft_perror(char *err)
 {
-	ft_putstr_fd(err, 2);
-	return (-1);
+	return (ft_putstr_fd(err, 2), FAILURE);
 }
 
 /// @brief		Print a string to a given fd
@@ -29,12 +29,14 @@ int	ft_perror(char *err)
 static int	ft_putstr_fd(char *str, int fd)
 {
 	if (!str || (fd < 0))
-		return (0);
+		return (FAILURE);
 	return (write(fd, str, ft_strlen(str)));
 }
 
 /// @brief		Count the number of chars in a string
-/// @param str	String to count
+/// @param str	String to measure
+/// @return		Length of the string
+/// @note		Used in ft_putstr_fd
 static int	ft_strlen(char *str)
 {
 	int	len;

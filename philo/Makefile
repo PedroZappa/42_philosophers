@@ -51,7 +51,7 @@ TESTS_PATH		= files
 VISUALIZER_PATH	= $(LIBS_PATH)/visualizer
 
 SRC		= $(addprefix $(SRC_PATH)/, main.c ft_done.c ft_eat.c ft_error.c \
-		  ft_free.c ft_init.c ft_parse.c ft_time.c)
+		  ft_free.c ft_helper.c ft_init.c ft_parse.c ft_time.c)
 
 OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 

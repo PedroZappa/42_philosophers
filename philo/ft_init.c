@@ -17,9 +17,7 @@ static int	ft_init_mutexes(t_data **data);
 static int	ft_init_philo(t_philo **philo, t_data *data);
 
 /// @brief			Initialize all simulation data
-/// @details		- Initialize mutexes
-///					- Initialize forks
-///					- Alloc & Initialize philos
+/// @details		- ...
 /// @param philo	Pointer to array of philos
 /// @param argc		Number of arguments
 /// @param argv		Argument vector

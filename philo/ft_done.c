@@ -12,6 +12,10 @@
 
 #include "philo.h"
 
+/// @brief			Check if a philo dead
+/// @param philo	Pointer to a t_philo struct
+/// @return			TRUE if dead, FALSE if not
+/// @note			Used in ft_start_philo & ft_log
 int ft_isdead(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex[MTX_DIED]);
@@ -24,13 +28,10 @@ int ft_isdead(t_philo *philo)
 	return (FALSE);
 }
 
-void ft_died(t_data *data)
-{
-	pthread_mutex_lock(&data->mutex[MTX_DIED]);
-	data->died = TRUE;
-	pthread_mutex_unlock(&data->mutex[MTX_DIED]);
-}
-
+/// @brief			Check if the simulation is done
+/// @param philo	Pointer to a t_philo struct
+/// @return			TRUE if done, FALSE if not
+/// @note			Used in ft_eating & ft_log
 int ft_isdone(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->mutex[MTX_DONE]);
@@ -43,13 +44,21 @@ int ft_isdone(t_philo *philo)
 	return (FALSE);
 }
 
-void ft_done(t_data *data)
+/// @brief			Set a philo dead
+/// @param data		Pointer to a t_data struct
+/// @note			Used in ft_monitor
+void ft_died(t_data *data)
 {
-	pthread_mutex_lock(&data->mutex[MTX_DONE]);
-	data->done = TRUE;
-	pthread_mutex_unlock(&data->mutex[MTX_DONE]);
+	pthread_mutex_lock(&data->mutex[MTX_DIED]);
+	data->died = TRUE;
+	pthread_mutex_unlock(&data->mutex[MTX_DIED]);
 }
 
+/// @brief			Check if n_meals have been eaten
+/// @param philo	Pointer to a t_philo struct
+/// @param data		Pointer to a t_data struct
+/// @return			TRUE if done, FALSE if not
+/// @note			Used in ft_monitor
 int	ft_are_done(t_philo *philo, t_data *data)
 {
 	int	i;
@@ -71,4 +80,14 @@ int	ft_are_done(t_philo *philo, t_data *data)
 		usleep(50);
 	}
 	return (FALSE);
+}
+
+/// @brief			Set the simulation as done
+/// @param data		Pointer to a t_data struct
+/// @note			Used in ft_monitor
+void ft_done(t_data *data)
+{
+	pthread_mutex_lock(&data->mutex[MTX_DONE]);
+	data->done = TRUE;
+	pthread_mutex_unlock(&data->mutex[MTX_DONE]);
 }

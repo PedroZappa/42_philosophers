@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:33:05 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:34:06 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ typedef struct s_philo
 int		ft_isdead(t_philo *philo);
 void	ft_died(t_data *data);
 int		ft_isdone(t_philo *philo);
-void	ft_done(t_data *data);
 int		ft_are_done(t_philo *philo, t_data *data);
+void	ft_done(t_data *data);
 
 /// ft_eat.c
 int		ft_eating(t_philo *philo);
@@ -150,13 +150,17 @@ int		ft_perror(char *err);
 /// ft_free.c
 void	ft_kill_mtx(t_philo *philo);
 
+/// ft_helper.c
+int	ft_isspace(char c);
+int	ft_isdigit(char c);
+int	ft_max(int a, int b);
+int	ft_min(int a, int b);
+
 /// ft_init.c
 int		ft_init(t_philo **philo, t_data **data, int argc, char **argv);
 
 /// ft_parse.c
 long	ft_parse_arg(char *str);
-int		ft_max(int a, int b);
-int		ft_min(int a, int b);
 
 /// ft_time.c
 t_msec	ft_gettime(void);
