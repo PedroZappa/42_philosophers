@@ -140,8 +140,6 @@ Build the program:
 ```sh
 # For the mandatory
 make
-# For the bonus
-make bonus
 ```
 
 Run the program:
