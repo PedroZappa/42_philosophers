@@ -16,28 +16,50 @@
 /// @return		Current time in milliseconds
 t_msec	ft_gettime(void)
 {
-	struct timeval	t;
+	t_time	t;
 
-	gettimeofday(&t, NULL);
+	if (gettimeofday(&t, NULL) == -1)
+		ft_perror(RED"Error: gettimeofday failed\n"NC);
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-/// @brief			Wait for a certain amount of time
-/// @param time		Time to wait in milliseconds
-/// @param data		Pointer to t_data struct
-/// @details		- Get current time in milliseconds
-/// 				- Wait until time is reached or data->done is set
-void	ft_philo_do(t_msec time, t_data *data)
+t_msec	ft_dtime(t_msec start)
 {
-	t_msec	t;
-
-	// pthread_mutex_lock(&data->mutex_time);
-	t = ft_gettime();
-	while (!data->done)
-	{
-		if ((ft_gettime() - t) >= time)
-			break ;
-		usleep(1000);
-	}
-	// pthread_mutex_unlock(&data->mutex_time);
+	return (ft_gettime() - start);
 }
+
+/// @brief		Lock and unlock mutex and print message to stdout
+/// @param p	Pointer to a t_philo struct
+/// @param str	Message to print
+void	ft_log(t_philo *p, char *str)
+{
+	pthread_mutex_lock(&p->data->mutex[MTX_PRINTF]);
+	if ((*str == 'd') || ((!ft_isdead(p)) && (!ft_isdone(p))))
+		printf("%3lld %3d %s\n", (ft_dtime(p->data->t_start)), p->id, str);
+	pthread_mutex_unlock(&p->data->mutex[MTX_PRINTF]);
+}
+
+void	ft_msleep(t_msec msec)
+{
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+	usleep (msec * 50);
+}
+

@@ -7,15 +7,31 @@ set print array on
 # main.c
 define main
 	display argc
-	display argv
+	display *argv@argc
 	display *philos
 	display philos@(*philos)->data->n_philos
 end
 
 
 define philosophize
-	display *philos
+	display *p
 	display i 
+	display th
+	display *th
+	display *p->data
+end
+
+define start_philo
+	display philo
+	display *philo
+	display *philo->data
+end
+
+define monitor
+	display philo
+	display *philo
+	display last_meal
+	display i
 end
 
 # ft_free.c
@@ -30,31 +46,31 @@ define init
 	display argc
 	display argv
 	display *data
-	display *new_philo
-	display *new_philo@philo->data->n_philos
-	display i
+	display **data
 end 
 
 define init_data
 	display argc
 	display argv
-	display new
-	display *new
 	display data
 	display *data
+	display **data
 end 
 
-define init_forks
+define init_mtx
 	display *data
-	display *data->mutex_fork
+	display **data
+	display *data->mutex
 	display i
 end
 
 define init_philo
+	display fork
 	display i
-	display *philo
 	display *data
-	display *forks
+	display *philo
+	display philo[i]
+	display *philo[i]
 end
 
 # ft_parse.c
@@ -66,18 +82,27 @@ define parse_arg
 	display num
 end
 
+# ft_time.c
+define log
+	display p
+	display *p
+	display *str
+	display ft_dtime(p->data->t_start)
+
+end
+
 # ...
 
 # GO GDB GO!
 # Start at main
-# break main
-# run 4 410 200 200
-# main
-# fs cmd
+break main
+run 3 800 200 200 3
+main
+fs cmd
 
 # Start at init
-break ft_init
-run 4 410 200 200
+# break ft_init
+# run 1 800 400 400 3
 # init
 # fs cmd
 
@@ -85,6 +110,18 @@ run 4 410 200 200
 # break ft_init_data
 # run "   2a33" 200 200 200
 # init_data
+# fs cmd
+
+# Start at ft_philosophixe
+# break ft_philosophize
+# run 3 800 200 200 3
+# philosophize
+# fs cmd
+
+# Start at ft_start_philo
+break ft_start_philo
+# run 2 800 200 200 3
+# start_philo
 # fs cmd
 
 # break ft_init_forks
@@ -109,3 +146,4 @@ break ft_free
 # fs cmd
 
 info break
+info threads

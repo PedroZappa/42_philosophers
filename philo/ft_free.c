@@ -12,23 +12,14 @@
 
 #include "philo.h"
 
-/// @brief			Free all simulation data
-/// @param philo	Pointer to array of philos
-void	ft_free(t_philo **philo)
+void	ft_kill_mtx(t_philo *philo)
 {
-	t_data	*data;
-	int		i;
+	int	i;
 
-	usleep(3500);
-	i = -1;
-	data = (*philo)->data;
-	while (++i < data->n_philos)
-		pthread_mutex_destroy(data->mutex_fork + i);
-	pthread_mutex_destroy(&data->mutex_printf);
-	pthread_mutex_destroy(&data->mutex_end);
-	pthread_mutex_destroy(&data->mutex_time);
-	pthread_mutex_destroy(&data->mutex_count);
-	free(*philo);
-	free(data->mutex_fork);
-	free(data);
+	i = 0;
+	while (i < philo->data->n_philos)
+		pthread_mutex_destroy(&philo->data->mutex[i++]);
+	i = 0;
+	while (i < MTX_NUM)
+		pthread_mutex_destroy(&philo->data->mutex[i++]);
 }
