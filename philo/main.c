@@ -6,20 +6,28 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:17:35 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:19:48 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:21:47 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	ft_philosophize(t_philo *philos, t_data *data);
+static int	ft_philosophize(t_philo *philos);
 static void	*ft_start_philo(void *args);
 static int	ft_monitor(t_philo *philo, t_data *data);
 static void	ft_free(t_philo *philo, t_data *data);
 
-/// @brief		Main function
-/// @param argc	Number of arguments
-/// @param argv	Argument vector
+/// @brief			Main function
+/// @param argc		Number of arguments
+/// @param argv		Argument vector
+/// @var philos		Pointer to array of philos
+/// @var data		Pointer to a t_data struct
+/// @return			0 on success, 1 on failure
+/// @note			Philosophy Time!!
+/// @details		- Check number of arguments
+/// 				- Initialize all simulation data
+/// 				- Launch simulation
+/// 				- Free data and philos
 int	main(int argc, char **argv)
 {
 	t_philo	*philos;
@@ -31,49 +39,54 @@ int	main(int argc, char **argv)
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	if (ft_init(&philos, &data, argc, argv) != SUCCESS)
 		return (ft_free(philos, data), EXIT_FAILURE);
-	if (ft_philosophize(philos, data) != SUCCESS)
+	if (ft_philosophize(philos) != SUCCESS)
 		return (ft_free(philos, data), EXIT_FAILURE);
 	return (ft_free(philos, data), EXIT_SUCCESS);
 }
 
 /// @brief			Launch all philos
 /// @param philos	Pointer to array of philos
-/// @details		- Sets the start time of the simulation
-/// 				- Create all philo threads
-/// 				- Detach all philo threads (so they run independently)
-/// 				- Create monitor thread
-/// 				- Join monitor thread
-/// 				- Destroy philos mutexes and printf mutex
-static int	ft_philosophize(t_philo *philo, t_data *data)
+/// @var th			Pointer to array of philo threads
+/// @var i			To iterate through philos/threads
+/// @return			0 on success, 1 on failure
+/// @details		- Allocate memory for the mutexes
+///					- Create all philo threads (w/ failure protection)
+/// 				- Run monitor
+/// 				- Join philo threads
+/// 				- Destroy all mutexes
+/// 				- Free allocated memory for threads
+/// @note			Used in main
+static int	ft_philosophize(t_philo *philo)
 {
 	int			i;
 	pthread_t	*th;
 
-	th = malloc (sizeof (pthread_t) * (size_t)data->n_philos);
+	th = malloc (sizeof(pthread_t) * philo->data->n_philos);
 	if (th == NULL)
 		return (FAILURE);
 	i = -1;
-	while (++i < data->n_philos)
+	while (++i < philo->data->n_philos)
 	{
-		if (pthread_create (&th[i], 0, ft_start_philo, (void *)&philo[i]))
+		if (pthread_create(&th[i], 0, ft_start_philo, &philo[i]))
 		{
 			while (i--)
-				pthread_join (th[i], NULL);
-			return ((void)free (th), FAILURE);
+				pthread_join(th[i], NULL);
+			return (free(th), FAILURE);
 		}
 	}
-	if (ft_monitor(philo, data) != SUCCESS)
-		return ((void)ft_kill_mtx(philo), (void)free (th),
+	if (ft_monitor(philo, philo->data) != SUCCESS)
+		return (ft_kill_mtx(philo), free(th),
 			FAILURE);
 	i = -1;
-	while (++i < data->n_philos)
+	while (++i < philo->data->n_philos)
 		if (pthread_join (th[i], NULL))
 			return (FAILURE);
-	return ((void)ft_kill_mtx(philo), (void)free (th), SUCCESS);
+	return (ft_kill_mtx(philo), free(th), SUCCESS);
 }
 
 /// @brief			Launch a philo thread
 /// @param args		Pointer to a t_philo struct
+/// @return			NULL
 /// @details		While the simulation is running a philo:
 /// 				- Thinks (print)
 /// 				- Attempts to grab forks by locking mutexes
@@ -82,8 +95,7 @@ static int	ft_philosophize(t_philo *philo, t_data *data)
 ///					- Releases forks
 ///					- Increments meal count if the simulation is not done
 ///					- Sleeps (print and waits)
-/// @note		Used in ft_philosophize
-/// @return			NULL
+/// @note			Used in ft_philosophize
 static void	*ft_start_philo(void *arg)
 {
 	t_philo	*self;
@@ -107,19 +119,20 @@ static void	*ft_start_philo(void *arg)
 }
 
 /// @brief			Monitors if any philo has died or if the simulation is done
-/// @param args		Pointer to a t_philo struct
+/// @param philo	Pointer to a t_philo struct
+/// @param data		Pointer to a t_data struct
+/// @var l_meal		Last meal time
+/// @var i			To ride the array of philos
+///	@return			0 on success, 1 on failure
 /// @details		While the simulation is running:
-///					- Loops through all philos:
-///						- Checks if a philo has died
-///							- Prints that the philo has died
-///							- Sets the done flag
-///						- Increments the number of times the philo has eaten
-///					- Check if n_meals has been reached
-///	@return			NULL
+///					- Get the last meal time of a philo
+///					- Check if the philos have eaten n_meals times
+///					- Check if a philo has died
+///	@note			Used in ft_philosophize
 static int	ft_monitor(t_philo *philo, t_data *data)
 {
-	int				i;
 	t_msec			l_meal;
+	int				i;
 
 	i = 0;
 	while (1)
@@ -129,21 +142,25 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
 		if (l_meal && ft_are_done(philo, data))
 		{
-			ft_done (data);
+			ft_done(data);
 			break ;
 		}
-		if (l_meal && ft_gettime() - l_meal > (t_msec)data->t_death)
+		if (l_meal && ((ft_gettime() - l_meal) > data->t_death))
 		{
 			ft_died(data);
 			ft_log(&philo[i], "died");
 			break ;
 		}
-		i = (i + 1) % data->n_philos;
-		usleep (200);
+		i = ((i + 1) % data->n_philos);
+		usleep(200);
 	}
 	return (SUCCESS);
 }
 
+/// @brief			Free all allocated memory
+/// @param philo	Pointer to a t_philo struct
+/// @param data		Pointer to a t_data struct
+/// @note			Used in main
 static void	ft_free(t_philo *philo, t_data *data)
 {
 	if (data && data->mutex)
