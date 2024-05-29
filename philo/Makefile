@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/29 19:23:11 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/29 20:05:05 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SHELL	:= bash
 
 # Default test values
 ARG			= 5 800 200 200
+ARG7		= 5 800 200 200 7
 TIMESTEP	= 100
 TIMEOUT		= 10
 ITER		= 10
@@ -251,7 +252,7 @@ test_chaos: all			## Run a chaos test
 		TEST_N=$$i; \
 		echo "Test $(CYA)$$TEST_N$(D) of $(GRN)$(ITER)$(D)"; \
 		echo "$(YEL)$(_SEP)$(D)"; \
-		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(ARG); \
+		valgrind --leak-check=full --show-leak-kinds=all --log-file=$(TEMP_PATH)/temp.txt -s ./$(NAME) $(ARG7); \
 		sed -n '10p' $(TEMP_PATH)/temp.txt | tee -a $(TEMP_PATH)/out.txt; \
 		COUNTER=$$((COUNTER + 1)); \
 		echo $$COUNTER > $(TEMP_PATH)/passed_count.txt; \

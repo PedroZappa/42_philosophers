@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 20:03:00 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:08:22 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 //								Librariy Headers                               /
 //=============================================================================/
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <pthread.h>
-# include <sys/time.h>
-# include <limits.h>
+# include <stdlib.h>	// free, malloc
+# include <stdio.h>		// printf
+# include <unistd.h>	// usleep
+# include <pthread.h>	// pthread_create, pthread_join, pthread_mutex_init, ...
+# include <sys/time.h>	// gettimeofday
+# include <limits.h>	// INT_MAX
 
 //=============================================================================/
 //							Variables & Definitions                            /
