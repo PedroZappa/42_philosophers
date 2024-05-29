@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 16:10:33 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/28 16:25:21 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:48:00 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,19 @@
 static int	ft_eating_start(t_philo *p);
 static int	ft_eating_done(t_philo *p);
 
-/// @brief			Eating logic
-/// @param p		Pointer to a t_philo struct
-/// @return			SUCCESS if eating, FAILURE if not
-/// @note			Used in ft_start_philo
+/// @brief		Eating logic
+/// @param p	Pointer to a t_philo struct
+/// @return		SUCCESS if eating, FAILURE if not
+/// @details	- Lock fork mutexes
+///				- Lock meal mutex
+///				- Get meal time, set last_meal
+///				- Count meal
+///				- Unlock meal mutex
+///				- Check if the simulation is done
+///					- Don't eat if done (unlock fork mutexes)
+///				- Eat
+///				- Unlock fork mutexes
+/// @note		Used in ft_start_philo
 int	ft_eating(t_philo *p)
 {
 	if (ft_eating_start(p) != SUCCESS)
@@ -39,7 +48,11 @@ int	ft_eating(t_philo *p)
 
 /// @brief			Grabbing forks and eating
 /// @param p		Pointer to a t_philo struct
-/// @return			SUCCESS if eating, FAILURE if not
+/// @return			SUCCESS (0) if eating, FAILURE (1) if not
+/// @details		- Lock fork mutexes
+/// 				- Check if bolding a fork with both hands
+///						- If not, unlock both
+/// 				- Log
 /// @note			Used in ft_eating
 static int	ft_eating_start(t_philo *p)
 {
@@ -59,6 +72,9 @@ static int	ft_eating_start(t_philo *p)
 /// @brief			Release forks
 /// @param p		Pointer to a t_philo struct
 /// @return			SUCCESS if eating, FAILURE if not
+/// @details		- Log
+/// 				- Unlock fork mutexes
+/// 				- Sleep
 /// @note			Used in ft_eating
 static int	ft_eating_done(t_philo *p)
 {
