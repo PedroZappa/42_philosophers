@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 18:49:51 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:03:00 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@
 //							Variables & Definitions                            /
 //=============================================================================/
 
-// ANSI Escape codes
-//Regular text
+/// @brief	ANSI Escape codes
 # define BLK "\e[0;30m"	// RGB(0, 0, 0)
 # define RED "\e[0;31m"	// RGB(255, 0, 0)
 # define GRN "\e[0;32m"	// RGB(0, 255, 0)
@@ -38,19 +37,10 @@
 # define MAG "\e[0;35m"	// RGB(255, 0, 255)
 # define CYN "\e[0;36m"	// RGB(0, 255, 255)
 # define WHT "\e[0;37m"	// RGB(255, 255, 255)
-//Reset
 # define NC "\e[0m"
 
-/// Macros
-# define YES 1
-# define NO 0
-# define FORK 1
-# define EATING 2
-# define SLEEPING 3
-# define THINKING 4
-# define DIED 5
-# define DONE 6
-
+/// Enums
+/// @enum	Mutexes
 typedef enum e_mutex
 {
 	MTX_PRINTF,
@@ -60,12 +50,14 @@ typedef enum e_mutex
 	MTX_NUM
 }	t_mutexes;
 
+/// @enum	Booleans
 typedef enum e_bool
 {
 	FALSE,
 	TRUE
 }	t_bool;
 
+/// @enum	Exit status
 typedef enum e_exit
 {
 	SUCCESS,
@@ -139,29 +131,22 @@ void	ft_died(t_data *data);
 int		ft_isdone(t_philo *philo);
 int		ft_are_done(t_philo *philo, t_data *data);
 void	ft_done(t_data *data);
-
 /// ft_eat.c
 int		ft_eating(t_philo *philo);
-
 /// ft_error.c
 int		ft_perror(char *err);
-
 /// ft_free.c
 void	ft_kill_mtx(t_philo *philo);
-
 /// ft_helper.c
 int		ft_isspace(char c);
 int		ft_isdigit(char c);
 int		ft_max(int a, int b);
 int		ft_min(int a, int b);
-
 /// ft_init.c
 int		ft_init(t_philo **philo, t_data **data, int argc, char **argv);
-
 /// ft_parse.c
 long	ft_parse_arg(char *str);
 int		ft_check_data(t_data **data);
-
 /// ft_time.c
 t_msec	ft_gettime(void);
 void	ft_philo_do(t_msec time, t_data *data);

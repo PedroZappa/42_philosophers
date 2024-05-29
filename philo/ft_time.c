@@ -6,13 +6,16 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:38:36 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/22 11:06:43 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:59:22 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /// @brief		Get current time and convert it to milliseconds
+/// @var t		To store current time
+/// @details	- Get current time into t
+/// 			- Convert t to milliseconds
 /// @return		Current time in milliseconds
 t_msec	ft_gettime(void)
 {
@@ -23,22 +26,35 @@ t_msec	ft_gettime(void)
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-t_msec	ft_dtime(t_msec start)
+/// @brief			Get the time difference between two times
+/// @param time	Starting time
+/// @details		- Subtract the current time from the give time
+/// @return			Time difference in milliseconds
+t_msec	ft_dtime(t_msec time)
 {
-	return (ft_gettime() - start);
+	return (ft_gettime() - time);
 }
 
 /// @brief		Lock and unlock mutex and print message to stdout
 /// @param p	Pointer to a t_philo struct
 /// @param str	Message to print
+/// @details	- Lock printf mutex
+/// 			- Print message if not dead or done
+/// 			- Unlock printf mutex
+/// @note		Used in ft_eating_start, ft_eating_done, 
+///					ft_monitor & ft_start_philo
 void	ft_log(t_philo *p, char *str)
 {
 	pthread_mutex_lock(&p->data->mutex[MTX_PRINTF]);
-	if ((*str == 'd') || ((!ft_isdead(p)) && (!ft_isdone(p))))
+	if (((!ft_isdead(p)) && (!ft_isdone(p))) || (*str == 'd'))
 		printf("%3lld %3d %s\n", (ft_dtime(p->data->t_start)), p->id, str);
 	pthread_mutex_unlock(&p->data->mutex[MTX_PRINTF]);
 }
 
+/// @brief		Convert milliseconds to microseconds
+/// @param msec	Number of milliseconds
+/// @details	- Multiply the number of milliseconds by 1000
+/// @return		Number of microseconds
 void	ft_msleep(t_msec msec)
 {
 	usleep(msec * 1000);

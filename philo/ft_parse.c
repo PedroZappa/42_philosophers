@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:15:10 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 18:55:01 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:53:02 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 /// @var num	To store the converted long
 /// @var sign	To store the sign of the argument
 /// @var i		To iterate through the string
+/// @details	- Skip whitespaces
+/// 			- Handle sign
+/// 			- Check if the argument is a number
+///					- Convert character to number
 /// @return		Parsed argument as long on success, -1 on failure
 /// @note		Used in ft_init_data
 long	ft_parse_arg(char *str)
