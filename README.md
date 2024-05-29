@@ -44,7 +44,7 @@ ___
 
 # About 📌
 
-This is a classic CS project conceived as an introduction to the basics of **threading** a process. It gives an introductory glance into the difficulties contingent to the non-deterministic nature of multi-threaded application programming.
+This is a classic CS exercise conceived as an introduction to the basics of **threading** a process. It gives an introductory glance into the difficulties contingent to the non-deterministic nature of multi-threaded applications.
 
 ## `philosophers` Problem 🜎
 
@@ -110,6 +110,7 @@ ___
 
 - Each forks must be pretended by a mutex.
 
+
 ___
 # `philosophers`  Bonus Implementation 📜
 
@@ -118,6 +119,9 @@ ___
 - They have no states in memory. The number of available forks is represented by a semaphore.
 
 - Each philosopher should be represented by a process, but the main process should not be a philosopher
+
+> [!Important]
+> The code for both implementations is documented with doxygen comments. Enjoy!
 
 ___
 
