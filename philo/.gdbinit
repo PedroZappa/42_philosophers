@@ -47,7 +47,6 @@ define init
 	display argv
 	display *data
 	display **data
-	display i
 end 
 
 define init_data
@@ -102,10 +101,10 @@ end
 # fs cmd
 
 # Start at init
-break ft_init
-run 1 800 400 400 3
-init
-fs cmd
+# break ft_init
+# run 1 800 400 400 3
+# init
+# fs cmd
 
 # # Start at init_data
 # break ft_init_data
@@ -120,10 +119,10 @@ fs cmd
 # fs cmd
 
 # Start at ft_start_philo
-# break ft_start_philo
-# run 2 800 200 200 3
-# start_philo
-# fs cmd
+break ft_start_philo
+run 2 800 200 200 3
+start_philo
+fs cmd
 
 # break ft_init_forks
 # break ft_init_philo

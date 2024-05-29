@@ -26,13 +26,13 @@ static int	ft_init_philo(t_philo **philo, t_data *data);
 /// @return			0 on success, 1 on failure
 int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 {
-	*data = (t_data *)malloc(sizeof(t_data));
+	*data = malloc(sizeof(t_data));
 	if (!(*data))
 		return (ft_perror(RED"Error: failure to alloc data\n"NC));
 	(*data)->mutex = NULL;
 	if (ft_init_data(data, argc, argv) != SUCCESS)
 		return (FAILURE);
-	*philo = (t_philo *)malloc(sizeof(t_philo) * (*data)->n_philos);
+	*philo = malloc(sizeof(t_philo) * (*data)->n_philos);
 	if (!(*philo))
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	(*philo)->fork = NULL;
@@ -127,7 +127,7 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 			philo[i]->r_fork = (i - 1);
 		philo[i]->fork = fork;
 		philo[i]->data = data;
-		++i;
+		i++;
 	}
 	return (SUCCESS);
 }

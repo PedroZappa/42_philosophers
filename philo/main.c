@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	if (ft_init(&philos, &data, argc, argv) != SUCCESS)
 		return (ft_free(philos, data), EXIT_FAILURE);
-	if (ft_philosophize(philos, philos->data) != SUCCESS)
+	if (ft_philosophize(philos, data) != SUCCESS)
 		return (ft_free(philos, data), EXIT_FAILURE);
 	return (ft_free(philos, data), EXIT_SUCCESS);
 }
