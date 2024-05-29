@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:33:44 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 18:49:11 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 19:32:54 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 static int	ft_init_data(t_data **data, int argc, char **argv);
 static int	ft_init_mutexes(t_data **data);
-static int	ft_init_philo(t_philo **philo, t_data *data);
+static int	ft_init_philos(t_philo **philo, t_data *data);
 
 /// @brief			Initialize all simulation data
 /// @details		- ...
 /// @param philo	Pointer to array of philos
+/// @param data		Pointer to a t_data struct
 /// @param argc		Number of arguments
 /// @param argv		Argument vector
 /// @return			0 on success, 1 on failure
+/// @details		- Allocate memory for the data
+/// 				- Init the data
+///					- Allocate memory for philos
+/// 				- Init array of philos
+/// @note			Used in main
 int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 {
 	*data = malloc(sizeof(t_data));
@@ -34,21 +40,19 @@ int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 	if (*philo == NULL)
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	(*philo)->fork = NULL;
-	if (ft_init_philo(philo, *data) != SUCCESS)
+	if (ft_init_philos(philo, *data) != SUCCESS)
 		return (ft_perror(RED"Error: failure to init philos\n"NC));
 	return (SUCCESS);
 }
 
-/// @brief			Parse input arguments and initialize data
-/// @details		- Init n_philos
-/// 				- Init time to die
-/// 				- Init time to eat
-/// 				- Init time to sleep
-/// 				- Init n_meals
+/// @brief			Initialize data
 /// @param data		Pointer to a t_data struct
 /// @param argc		Number of arguments
 /// @param argv		Argument vector
 /// @return			0 on success, -1 on failure
+/// @details		- Set input arguments
+///					- Init mutexes
+/// @note			Used in ft_init
 static int	ft_init_data(t_data **data, int argc, char **argv)
 {
 	(*data)->t_start = ft_gettime();
@@ -78,6 +82,9 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 /// @brief			Initialize data mutexes
 ///	@param data		Pointer to a t_data struct holding the simulation data
 ///	@return			0 on success, -1 on failure
+///	@details		- Allocate memory for mutexes
+///					- Init mutexes
+///	@note			Used in ft_init_data
 static int	ft_init_mutexes(t_data **data)
 {
 	t_mutex	*mutex;
@@ -95,10 +102,13 @@ static int	ft_init_mutexes(t_data **data)
 
 /// @brief			Initialize a philo
 /// @param philo	Pointer to a t_philo struct to init
-/// @param i		Index of the current philo
 /// @param data		Pointer to a t_data struct holding the simulation data
-/// @param forks	Pointer to an array of mutexes/forks (part of t_data)
-static int	ft_init_philo(t_philo **philo, t_data *data)
+/// @return			0 on success, -1 on failure
+/// @details		- Allocate memory for mutexes (forks)
+/// 				- Init forks
+/// 				- Init philos
+/// @note			Used in ft_init
+static int	ft_init_philos(t_philo **philo, t_data *data)
 {
 	t_mutex	*fork;
 	int		i;
