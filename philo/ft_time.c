@@ -28,14 +28,13 @@ t_msec	ft_dtime(t_msec start)
 	return (ft_gettime() - start);
 }
 
-/// @brief			Lock and unlock mutex and print message to stdout
-/// @param philo	Pointer to a t_philo struct
-/// @param str		Message to print
-void	ft_log(t_philo *philo, char *str)
+/// @brief		Lock and unlock mutex and print message to stdout
+/// @param p	Pointer to a t_philo struct
+/// @param str	Message to print
+void	ft_log(t_philo *p, char *str)
 {
-	pthread_mutex_lock(&philo->data->mutex[MTX_PRINTF]);
-	if (!philo->data->done)
-		printf("%3lld %3d %s\n", \
-				(ft_dtime(philo->data->t_start)), philo->id, str);
-	pthread_mutex_unlock(&philo->data->mutex[MTX_PRINTF]);
+	pthread_mutex_lock(&p->data->mutex[MTX_PRINTF]);
+	if ((*str == 'd') || ((!ft_isdead(p)) && (!ft_isdone(p))))
+		printf("%3lld %3d %s\n", (ft_dtime(p->data->t_start)), p->id, str);
+	pthread_mutex_unlock(&p->data->mutex[MTX_PRINTF]);
 }

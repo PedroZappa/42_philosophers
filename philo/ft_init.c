@@ -61,7 +61,7 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	(*data)->t_sleep = ft_parse_arg(argv[4]);
 	(*data)->t_think = 0;
 	if (((*data)->n_philos % 2) && ((*data)->t_meal > (*data)->t_sleep))
-		(*data)->t_think = (1 + ((*data)->t_meal - (*data)->t_sleep) / 2); 
+		(*data)->t_think = (1 + ((*data)->t_meal - (*data)->t_sleep)); 
 	if (((*data)->n_philos < 1) || ((*data)->n_philos > 200) || ((*data)->t_death == -1) \
 		|| ((*data)->t_meal == -1) || ((*data)->t_sleep == -1) || ((*data)->t_death < 60) \
 		|| ((*data)->t_meal < 60) || ((*data)->t_sleep < 60))
@@ -75,12 +75,12 @@ static int	ft_init_data(t_data **data, int argc, char **argv)
 	}
 	(*data)->done = FALSE;
 	(*data)->died = FALSE;
-	if (ft_init_mutexes(&(*data)))
+	if (ft_init_mutexes(data))
 		return (ft_perror(RED"Error: failure to init mutexes\n"NC));
 	return (SUCCESS);
 }
 
-/// @brief			Initialize forks
+/// @brief			Initialize data mutexes
 ///	@param data		Pointer to a t_data struct holding the simulation data
 ///	@return			0 on success, -1 on failure
 static int	ft_init_mutexes(t_data **data)
@@ -88,7 +88,7 @@ static int	ft_init_mutexes(t_data **data)
 	t_mutex	*mutex;
 	int		i;
 
-	mutex = malloc(sizeof(t_mutex) * (size_t)MTX_NUM);
+	mutex = malloc(sizeof(t_mutex) * MTX_NUM);
 	if (!mutex)
 		return (ft_perror(RED"Error: failure to alloc mutexes\n"NC));
 	i = 0;
@@ -117,7 +117,7 @@ static int	ft_init_philo(t_philo **philo, t_data *data)
 	i = 0;
 	while (i < data->n_philos)
 	{
-		philo[i]->id = i + 1;
+		philo[i]->id = (i + 1);
 		philo[i]->last_meal = data->t_start;
 		philo[i]->meal_count = 0;
 		philo[i]->l_fork = i;

@@ -55,8 +55,8 @@ typedef enum e_mutex
 {
 	MTX_PRINTF,
 	MTX_MEALS,
-	MTX_DIED,
 	MTX_DONE,
+	MTX_DIED,
 	MTX_NUM
 }	t_mutexes;
 
@@ -107,7 +107,7 @@ typedef struct s_data
 	int			done;
 	int			died;
 	t_mutex		*mutex;
-	pthread_t	*thread;
+	// pthread_t	*thread;
 }			t_data;
 
 /// @brief				Philo's data.
@@ -117,7 +117,7 @@ typedef struct s_data
 /// @var meals_count	Number of meals eaten
 /// @var l_fork			Philo's left fork
 /// @var r_fork			Philo's right fork
-/// @var fork			a mutex that symbolize one fork from philos dining problem.
+/// @var fork			Array of forks
 /// @var data			the access to s_data parameters.
 ///
 typedef struct s_philo

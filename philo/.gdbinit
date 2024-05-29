@@ -14,8 +14,17 @@ end
 
 
 define philosophize
-	display *philos
+	display *p
+	display p->data->thread@(*p)->data->n_philos
 	display i 
+	display th
+	display *th
+end
+
+define start_philo
+	display philo
+	display *philo
+	display *philo->isd
 end
 
 # ft_free.c
@@ -30,6 +39,7 @@ define init
 	display argc
 	display argv
 	display *data
+	display **data
 	display i
 end 
 
@@ -38,11 +48,13 @@ define init_data
 	display argv
 	display data
 	display *data
+	display **data
 end 
 
-define init_forks
+define init_mtx
 	display *data
-	display *data->mutex_fork
+	display **data
+	display *data->mutex
 	display i
 end
 
@@ -74,8 +86,8 @@ end
 # fs cmd
 
 # Start at init
-break ft_init
-run 3 800 400 400 3
+# break ft_init
+# run 3 800 400 400 3
 # init
 # fs cmd
 
@@ -84,6 +96,18 @@ run 3 800 400 400 3
 # run "   2a33" 200 200 200
 # init_data
 # fs cmd
+
+# Start at ft_philosophixe
+break ft_philosophize
+run 3 800 200 200 3
+philosophize
+fs cmd
+
+# Start at ft_start_philo
+break ft_start_philo
+run 3 800 200 200 3
+start_philo
+fs cmd
 
 # break ft_init_forks
 # break ft_init_philo
@@ -107,3 +131,4 @@ break ft_free
 # fs cmd
 
 info break
+info threads
