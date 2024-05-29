@@ -6,7 +6,7 @@
 /*   By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 11:18:08 by passunca          #+#    #+#             */
-/*   Updated: 2024/05/29 20:08:22 by passunca         ###   ########.fr       */
+/*   Updated: 2024/05/29 20:13:29 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ typedef struct timeval	t_time;
 //=============================================================================/
 
 /// @brief			Simulation data.
-///
 /// @var n_philos	number of philosophers
 /// @var t_death	philo's life time (in ms)
 /// @var t_meal		philo's meal length (in ms)
@@ -85,7 +84,6 @@ typedef struct timeval	t_time;
 /// @var done		True when all philos ate n_meals times
 /// @var died		True when a philo dies
 /// @var mutex		Array of mutexes
-///
 typedef struct s_data
 {
 	int			n_philos;
@@ -101,7 +99,6 @@ typedef struct s_data
 }			t_data;
 
 /// @brief				Philo's data.
-///
 /// @var id				philo's id				
 /// @var last_meal		Time of last meal
 /// @var meals_count	Number of meals eaten
@@ -109,7 +106,6 @@ typedef struct s_data
 /// @var r_fork			Philo's right fork
 /// @var fork			Array of forks
 /// @var data			the access to s_data parameters.
-///
 typedef struct s_philo
 {
 	int			id;

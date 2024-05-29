@@ -6,7 +6,7 @@
 #    By: passunca <passunca@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 11:07:27 by passunca          #+#    #+#              #
-#    Updated: 2024/05/29 20:05:05 by passunca         ###   ########.fr        #
+#    Updated: 2024/05/29 20:11:51 by passunca         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,8 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 # CFLAGS		+= -lpthread
 DFLAGS		= -g
-# DFLAGS		+= -O2 -fsanitize=thread
-# DFLAGS		+= -fPIE -pie
+DFLAGS		+= -O2 -fsanitize=thread
+DFLAGS		+= -fPIE -pie
 INC			= -I.
 
 #==============================================================================#
