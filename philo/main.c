@@ -35,21 +35,6 @@ int	main(int argc, char **argv)
 		return (ft_free(philos, data), EXIT_FAILURE);
 	return (ft_free(philos, data), EXIT_SUCCESS);
 }
-// int	main(int argc, char **argv)
-// {
-// 	t_data	*data;
-// 	t_philo	*philo;
-//
-// 	data = NULL;
-// 	philo = NULL;
-// 	if ((argc != 5) && (argc != 6))
-// 		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
-// 	if (ft_init (&philo, &data, argc, argv) != SUCCESS)
-// 		return ((void)ft_free(philo, data), EXIT_FAILURE);
-// 	if (ft_philosophize(philo, data) != SUCCESS)
-// 		return ((void)ft_free(philo, data), EXIT_FAILURE);
-// 	return ((void)ft_free(philo, data), EXIT_SUCCESS);
-// }
 
 /// @brief			Launch all philos
 /// @param philos	Pointer to array of philos
@@ -59,34 +44,6 @@ int	main(int argc, char **argv)
 /// 				- Create monitor thread
 /// 				- Join monitor thread
 /// 				- Destroy philos mutexes and printf mutex
-// static int	ft_philosophize(t_philo *p, t_data *data)
-// {
-// 	pthread_t	*th;
-// 	int	i;
-//
-// 	printf(GRN"Philosophizing...\n"NC);
-// 	th = malloc(sizeof(pthread_t) * data->n_philos);
-// 	if (!th)
-// 		return (ft_perror(RED"Error: failure to alloc threads\n"NC));
-// 	i = -1;
-// 	while (++i < data->n_philos)
-// 	{
-// 		if (pthread_create(&th[i], NULL, ft_start_philo, &p[i]))
-// 		{
-// 			while (i--)
-// 				pthread_join(th[i], NULL);
-// 			return (free(th), FAILURE);
-// 		}
-// 	}
-// 	if (ft_monitor(p, data) != SUCCESS)
-// 		return (ft_kill_mtx(p), free(th), FAILURE);
-// 	i = -1;
-// 	while (++i < data->n_philos)
-// 		if (pthread_join(th[i], NULL))
-// 			return (FAILURE);
-// 	printf(RED"Philosophizing is Over.\n"NC);
-// 	return (ft_kill_mtx(p), free(th), SUCCESS);
-// }
 static int	ft_philosophize(t_philo *philo, t_data *data)
 {
 	int			i;
@@ -127,27 +84,6 @@ static int	ft_philosophize(t_philo *philo, t_data *data)
 ///					- Sleeps (print and waits)
 /// @note		Used in ft_philosophize
 /// @return			NULL
-// static void	*ft_start_philo(void *args)
-// {
-// 	t_philo	*philo;
-//
-// 	philo = (t_philo *)args;
-// 	if ((philo->id % 2) == 0)
-// 	{
-// 		ft_log(philo, "is thinking");
-// 		ft_msleep(philo->data->t_meal);
-// 	}
-// 	while (1)
-// 	{
-// 		if (ft_isdead(philo))
-// 			break ;
-// 		if (ft_eating(philo) != SUCCESS)
-// 			break ;
-// 		ft_log(philo, "is thinking");
-// 		ft_msleep(philo->data->t_think);
-// 	}
-// 	return (NULL);
-// }
 static void	*ft_start_philo(void *arg)
 {
 	t_philo	*self;
@@ -180,33 +116,6 @@ static void	*ft_start_philo(void *arg)
 ///						- Increments the number of times the philo has eaten
 ///					- Check if n_meals has been reached
 ///	@return			NULL
-// static int	ft_monitor(t_philo *philo, t_data *data)
-// {
-// 	t_msec	last_meal;
-// 	int		i;
-//
-// 	i = 0;
-// 	while (1)
-// 	{
-// 		pthread_mutex_lock(&data->mutex[MTX_MEALS]);
-// 		last_meal = philo[i].last_meal;
-// 		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
-// 		if (last_meal && ft_are_done(philo, data))
-// 		{
-// 			ft_done(data);
-// 			break ;
-// 		}
-// 		if (last_meal && ((ft_gettime() - last_meal) > data->t_death))
-// 		{
-// 			ft_died(data);
-// 			ft_log(&philo[i], "died");
-// 			break ;
-// 		}
-// 		i = ((i + 1) % data->n_philos);
-// 		usleep(200);
-// 	}
-// 	return (SUCCESS);
-// }
 static int	ft_monitor(t_philo *philo, t_data *data)
 {
 	int				i;
