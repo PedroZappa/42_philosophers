@@ -45,17 +45,29 @@
 # define NC "\e[0m"
 
 /// Boolean
-# define NO 0
-# define YES 1
+/// enum
+typedef enum e_bool
+{
+	NO = 0,
+	YES = 1
+}	t_bool;
 
-/// States
-enum {
+/// @enum	States & fork
+typedef enum e_state
+{
 	FORK = 0,
 	EAT = 1,
 	SLEEP = 2,
 	THINK = 3,
 	DEAD = 4
-};
+}	t_state;
+
+/// @enum	Exit status
+typedef enum e_exit
+{
+	SUCCESS,
+	FAILURE
+}	t_exit;
 
 /// Typedefs
 typedef long long		t_msec;
@@ -89,7 +101,7 @@ typedef struct s_philo
 	pid_t			pid;
 	t_data			*d;
 	t_time			t_curr;
-	t_time			t_now;
+	t_time			t_0;
 	int				n_meals;
 	struct s_philo	*next;
 	struct s_philo	*prev;

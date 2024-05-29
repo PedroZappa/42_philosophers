@@ -33,19 +33,19 @@ int	main(int argc, char **argv)
 
 	data = ft_init(argc, argv);
 	if (!data)
-		exit(1);
+		exit(EXIT_FAILURE);
 	philos = ft_init_philos(data);
 	if (!philos)
-		exit(1);
-	if ((ft_init_semaphores(data) == 1) || (ft_children(philos) == 1))
+		exit(EXIT_FAILURE);
+	if (ft_init_semaphores(data) || ft_children(philos))
 	{
 		ft_free_philos(philos);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	ft_kill_philos(philos);
 	ft_sem_closer(data);
 	ft_free_philos(philos);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
 
 /// @brief			Handle child processes creation
@@ -54,12 +54,12 @@ int	main(int argc, char **argv)
 static int	ft_children(t_philo *philo)
 {
 	t_philo	*curr_philo;
-	int		i;
+	int		n;
 
 	curr_philo = philo;
-	i = philo->d->n_philos;
+	n = philo->d->n_philos;
 	ft_set_start_time(philo);
-	while (i--)
+	while (n--)
 	{
 		curr_philo->pid = fork();
 		if (curr_philo->pid == 0)
@@ -76,18 +76,13 @@ static int	ft_children(t_philo *philo)
 		else
 			curr_philo = curr_philo->next;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 /// @brief		Philosophers logic
 /// @param p	Pointer to a t_philo struct
 /// @details	- Get the current time
-/// 			- While simulation is not over:
-///					- Activate sem_start semaphore
-///					- If both forks are taken:
-///						- Deactivate sem_start semaphore
-///						- Eat or sleep or think
-///					- Else 
+/// 			- Get the philo loop
 static int	ft_philosophize(t_philo *p)
 {
 	ft_gettime_sem(p);
@@ -96,7 +91,7 @@ static int	ft_philosophize(t_philo *p)
 		if (p->d->n_philos < 2)
 			continue ;
 		sem_wait(p->d->sem_start);
-		if ((ft_take_fork(p) == 0) && (ft_take_fork(p) == 0))
+		if ((ft_take_fork(p) == SUCCESS) && (ft_take_fork(p) == SUCCESS))
 		{
 			sem_post(p->d->sem_start);
 			if (ft_meal(p) || ft_sleep(p) || ft_think(p))
@@ -105,7 +100,7 @@ static int	ft_philosophize(t_philo *p)
 		else
 			ft_end_sem(p);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 /// @brief		Monitor thread
@@ -137,9 +132,9 @@ static int	ft_check(t_philo *p)
 	{
 		if (ft_gettime_sem(p) == 0)
 		{
-			if ((ft_utime(p->t_now) - ft_utime(p->t_curr)) > p->d->t_death)
+			if ((ft_utime(p->t_0) - ft_utime(p->t_curr)) > p->d->t_death)
 			{
-				ft_log(p, DEAD, p->t_now);
+				ft_log(p, DEAD, p->t_0);
 				ft_end_sem(p);
 				return (0);
 			}
