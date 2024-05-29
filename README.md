@@ -4,7 +4,7 @@
 
 # philosophers
 
-> Who thought threading on parallelism & concurrency land could be so philosophically deadly 🕱
+> Who thought treading on parallelism & concurrency land could be so philosophically thready & deadly 🕱
 
 <p>
     <img src="https://img.shields.io/badge/score-%20%2F%20100-success?style=for-the-badge" />
@@ -44,7 +44,7 @@ ___
 
 # About 📌
 
-This is a classic CS project conceived as an introduction to the basics of threading a process. It gives an introductory glance into the difficulties contingent to the non-deterministic nature of multi-threaded application programming.
+This is a classic CS project conceived as an introduction to the basics of **threading** a process. It gives an introductory glance into the difficulties contingent to the non-deterministic nature of multi-threaded application programming.
 
 ## `philosophers` Problem 🜎
 
