@@ -69,7 +69,7 @@ static int	ft_philosophize(t_philo *p, t_data *data)
 	while (++i < data->n_philos)
 		if (pthread_join(th[i], NULL))
 			return (FAILURE);
-	// printf(RED"Philosophizing is Over.\n"NC);
+	printf(RED"Philosophizing is Over.\n"NC);
 	return ((void)ft_kill_mtx(p), free(th), SUCCESS);
 }
 
@@ -126,9 +126,9 @@ static int	ft_monitor(t_philo *philo, t_data *data)
 	i = 0;
 	while (1)
 	{
-		pthread_mutex_lock(&data->mutex[MTX_MEALS]);
+		pthread_mutex_lock(&philo->data->mutex[MTX_MEALS]);
 		last_meal = philo[i].last_meal;
-		pthread_mutex_unlock(&data->mutex[MTX_MEALS]);
+		pthread_mutex_unlock(&philo->data->mutex[MTX_MEALS]);
 		if (last_meal && ft_are_done(philo, data))
 		{
 			ft_done(data);

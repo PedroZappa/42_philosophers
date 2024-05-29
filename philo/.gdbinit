@@ -96,6 +96,7 @@ end
 # GO GDB GO!
 # Start at main
 break main
+break 66
 run 3 800 200 200 3
 main
 fs cmd
@@ -119,7 +120,7 @@ fs cmd
 # fs cmd
 
 # Start at ft_start_philo
-break ft_start_philo
+# break ft_start_philo
 # run 2 800 200 200 3
 # start_philo
 # fs cmd
