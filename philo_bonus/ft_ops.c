@@ -18,6 +18,7 @@
 /// @details		- Grab sem_death to get the current time
 /// 				- Log the event
 /// 				- Drop the forks
+/// @note			Used in ft_philosophize
 int	ft_meal(t_philo *philo)
 {
 	if (sem_wait(philo->d->sem_death) == SUCCESS)
@@ -39,6 +40,12 @@ int	ft_meal(t_philo *philo)
 	return (SUCCESS);
 }
 
+/// @brief			Sleeping
+/// @param philo	Reference to t_philo struct
+/// @return			0 on success, 1 on failure
+/// @details		- Log the event
+/// 				- Sleep
+/// @note			Used in ft_philosophize
 int	ft_sleep(t_philo *philo)
 {
 	if (ft_log(philo, SLEEP, ft_now(philo)) == 1)
@@ -47,6 +54,12 @@ int	ft_sleep(t_philo *philo)
 	return (SUCCESS);
 }
 
+/// @brief			Thinking
+/// @param philo	Reference to t_philo struct
+/// @return			0 on success, 1 on failure
+/// @details		- Log the event
+/// 				- Think
+/// @note			Used in ft_philosophize
 int	ft_think(t_philo *philo)
 {
 	if (ft_log(philo, THINK, ft_now(philo)) == 1)
@@ -55,6 +68,15 @@ int	ft_think(t_philo *philo)
 	return (SUCCESS);
 }
 
+/// @brief			Log an event
+/// @param p		Reference to t_philo struct
+/// @param select	Select the event to log
+/// @param t		Reference to t_time struct
+/// @return			0 on success, 1 on failure
+/// @details		- Attempt to acquire sem_printf
+/// 				- Log the event
+/// 				- Release sem_printf
+/// @note			Used all over the codebase
 int	ft_log(t_philo *p, int select, t_time t)
 {
 	if (sem_wait(p->d->sem_printf) == SUCCESS)
