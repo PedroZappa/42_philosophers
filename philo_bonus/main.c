@@ -141,9 +141,9 @@ static void	*ft_monitor(void *arg)
 ///	@note		Used in ft_monitor
 static int	ft_check(t_philo *p)
 {
-	if (sem_wait(p->d->sem_death) == 0)
+	if (sem_wait(p->d->sem_death) == SUCCESS)
 	{
-		if (ft_gettime_sem(p) == 0)
+		if (ft_gettime_sem(p) == SUCCESS)
 		{
 			if ((ft_utime(p->t_0) - ft_utime(p->t_curr)) > p->d->t_death)
 			{
@@ -152,7 +152,7 @@ static int	ft_check(t_philo *p)
 				return (SUCCESS);
 			}
 		}
-		if (sem_post(p->d->sem_death) != 0)
+		if (sem_post(p->d->sem_death) != SUCCESS)
 			return (ft_perror(RED"Error: sem_post failed\n"NC));
 	}
 	else

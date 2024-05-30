@@ -21,11 +21,11 @@
 /// @note			Used in ft_philosophize
 int	ft_gettime_sem(t_philo *philo)
 {
-	if (sem_wait(philo->d->sem_time) == 0)
+	if (sem_wait(philo->d->sem_time) == SUCCESS)
 	{
 		if (ft_gettime(&philo->t_0) == -1)
 			return (FAILURE);
-		if (sem_post(philo->d->sem_time) != 0)
+		if (sem_post(philo->d->sem_time) != SUCCESS)
 			return (ft_perror(RED"Error: sem_wait failed"NC));
 	}
 	return (SUCCESS);
@@ -42,6 +42,6 @@ void	ft_end_sem(t_philo *philo)
 
 	i = philo->d->n_philos;
 	while (i--)
-		if (sem_post(philo->d->sem_end) != 0)
+		if (sem_post(philo->d->sem_end) != SUCCESS)
 			exit(ft_perror(RED"Error: sem_post failed"NC));
 }
