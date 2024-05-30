@@ -29,7 +29,7 @@ int	ft_meal(t_philo *philo)
 	}
 	else
 		return (printf(RED"Error: sem_wait failed\n"NC));
-	if (ft_log(philo, EAT, ft_now(philo)) == 1)
+	if (ft_log(philo, EAT, ft_now(philo)) == FAILURE)
 		return (ft_perror("Error: ft_log failed (EAT)\n"));
 	usleep(ft_min(philo->d->t_meal, philo->d->t_death));
 	if (ft_drop_fork(philo) || ft_drop_fork(philo))
@@ -48,7 +48,7 @@ int	ft_meal(t_philo *philo)
 /// @note			Used in ft_philosophize
 int	ft_sleep(t_philo *philo)
 {
-	if (ft_log(philo, SLEEP, ft_now(philo)) == 1)
+	if (ft_log(philo, SLEEP, ft_now(philo)) == FAILURE)
 		return (ft_perror("Error: ft_log failed (SLEEP)\n"));
 	usleep(philo->d->t_sleep);
 	return (SUCCESS);
@@ -62,7 +62,7 @@ int	ft_sleep(t_philo *philo)
 /// @note			Used in ft_philosophize
 int	ft_think(t_philo *philo)
 {
-	if (ft_log(philo, THINK, ft_now(philo)) == 1)
+	if (ft_log(philo, THINK, ft_now(philo)) == FAILURE)
 		return (ft_perror("Error: ft_log failed (THINK)\n"));
 	usleep(philo->d->t_think);
 	return (SUCCESS);
