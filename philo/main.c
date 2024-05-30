@@ -23,11 +23,11 @@ static void	ft_free(t_philo *philo, t_data *data);
 /// @var philos		Pointer to array of philos
 /// @var data		Pointer to a t_data struct
 /// @return			0 on success, 1 on failure
-/// @note			Philosophy Time!!
 /// @details		- Check number of arguments
 /// 				- Initialize all simulation data
 /// 				- Launch simulation
 /// 				- Free data and philos
+/// @note			Philosophy Time!!
 int	main(int argc, char **argv)
 {
 	t_philo	*philos;

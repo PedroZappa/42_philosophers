@@ -81,7 +81,7 @@ typedef struct timeval	t_time;
 /// @var t_think	philo's think length (in ms)
 /// @var n_meals	max number of meals
 /// @var t_start	Start time of the simulation
-/// @var done		True when all philos ate n_meals times
+/// @var done		True when all philos ate n_meals
 /// @var died		True when a philo dies
 /// @var mutex		Array of mutexes
 typedef struct s_data

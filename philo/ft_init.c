@@ -132,7 +132,7 @@ static int	ft_init_philos(t_philo **philo, t_data *data)
 			(*philo)[i].r_fork = (i - 1);
 		(*philo)[i].fork = fork;
 		(*philo)[i].data = data;
-		i++;
+		++i;
 	}
 	return (SUCCESS);
 }
