@@ -53,6 +53,9 @@ latex/
 gdb.txt
 massif.*
 
+# backups 
+*.bak
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd
