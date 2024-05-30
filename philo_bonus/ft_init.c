@@ -24,6 +24,7 @@ static sem_t	*ft_init_semaphore(const char *name, int n);
 ///				- Initialize the data
 ///				- Convert milliseconds to microseconds
 ///				- Calculate t_think time if it's not divisible by 2
+///	@note		Used in main
 t_data	*ft_init(int argc, char **argv)
 {
 	t_data	*new;
@@ -47,6 +48,7 @@ t_data	*ft_init(int argc, char **argv)
 /// @details	- Allocate memory for a t_philo struct
 ///				- Initialize the data
 ///				- return pointer to a t_philo struct w/ the initialized data
+///	@note		Used in ft_init
 static t_data	*ft_init_data(int argc, char **argv)
 {
 	t_data	*new;
@@ -73,9 +75,10 @@ static t_data	*ft_init_data(int argc, char **argv)
 	return (new);
 }
 
-/// @brief			Initialize semaphores
-/// @param philo	Pointer to a t_philo struct
-/// @return			0 on success, -1 on failure
+/// @brief		Initialize semaphores
+/// @param d	Pointer to a t_data struct
+/// @return		0 on success
+///	@note		Used in main
 int	ft_init_semaphores(t_data *d)
 {
 	d->sem_forks = ft_init_semaphore("/sem_forks", d->n_philos);
@@ -84,13 +87,14 @@ int	ft_init_semaphores(t_data *d)
 	d->sem_start = ft_init_semaphore("/sem_start", (d->n_philos / 2));
 	d->sem_end = ft_init_semaphore("/sem_end", 0);
 	d->sem_time = ft_init_semaphore("/sem_time", 1);
-	return (0);
+	return (SUCCESS);
 }
 
 /// @brief		Open and initialize a semaphore
 /// @param name	Name of the semaphore
 /// @param n	Value of the semaphore
 /// @return		Reference to the initialized semaphore
+///	@note		Used in ft_init_semaphores
 static sem_t	*ft_init_semaphore(const char *name, int n)
 {
 	sem_t	*sem;

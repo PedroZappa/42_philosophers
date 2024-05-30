@@ -50,7 +50,14 @@ int	main(int argc, char **argv)
 
 /// @brief			Handle child processes creation
 /// @param philo	Pointer to a t_philo struct
+/// @var curr_philo	Pointer to a t_philo struct
+/// @van n			To store the number of philos to iterate
 /// @return			0 on success, 1 on failure
+/// @details		- Get the simulation start time
+/// 				- Create philo processes
+///						- Create monitor thread
+///						- Start philosophizing
+///	@note			Used in main
 static int	ft_children(t_philo *philo)
 {
 	t_philo	*curr_philo;
@@ -82,7 +89,10 @@ static int	ft_children(t_philo *philo)
 /// @brief		Philosophers logic
 /// @param p	Pointer to a t_philo struct
 /// @details	- Get the current time
-/// 			- Get the philo loop
+/// 			- Start the philo loop
+///					- Grab forks
+///					- Eat / Sleep / Think
+///	@note		Used in ft_children
 static int	ft_philosophize(t_philo *p)
 {
 	ft_gettime_sem(p);
@@ -105,18 +115,20 @@ static int	ft_philosophize(t_philo *p)
 
 /// @brief		Monitor thread
 /// @param arg	Pointer to a t_philo struct passed by reference
+/// @var philo	Pointer to a t_philo struct
 /// @return		0 for success, 1 if dead
-/// @details	- Typecast arg (void *) to a t_philo *
-/// 			- While simulation is not over:
+/// @details	- While simulation is not over:
+/// 					- Check if the philo has died
+///	@note		Used in ft_children
 static void	*ft_monitor(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
 	while (1)
-		if (ft_check(philo) != 0)
+		if (ft_check(philo) != SUCCESS)
 			return (NULL);
-	return (0);
+	return (NULL);
 }
 
 /// @brief		Check if a philo has died
@@ -126,6 +138,7 @@ static void	*ft_monitor(void *arg)
 ///					- Get the current time
 ///						- Check if the philo has died
 ///					- Deactivate sem_death semaphore
+///	@note		Used in ft_monitor
 static int	ft_check(t_philo *p)
 {
 	if (sem_wait(p->d->sem_death) == 0)
@@ -136,7 +149,7 @@ static int	ft_check(t_philo *p)
 			{
 				ft_log(p, DEAD, p->t_0);
 				ft_end_sem(p);
-				return (0);
+				return (SUCCESS);
 			}
 		}
 		if (sem_post(p->d->sem_death) != 0)
@@ -144,5 +157,5 @@ static int	ft_check(t_philo *p)
 	}
 	else
 		return (ft_perror(RED"Error: sem_wait failed\n"NC));
-	return (0);
+	return (SUCCESS);
 }

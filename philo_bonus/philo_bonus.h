@@ -44,8 +44,8 @@
 # define WHT "\e[0;37m"	// RGB(255, 255, 255)
 # define NC "\e[0m"
 
-/// Boolean
-/// enum
+/// Typedefs
+/// @enum	Bool
 typedef enum e_bool
 {
 	NO = 0,
@@ -69,14 +69,31 @@ typedef enum e_exit
 	FAILURE
 }	t_exit;
 
-/// Typedefs
+/// @typedef	Milliseconds
 typedef long long		t_msec;
+///
+/// @typedef	Time
 typedef struct timeval	t_time;
 
 //=============================================================================/
 //                               Structures                                    /
 //=============================================================================/
 
+/// @brief				Simulation data
+/// @var n_philos		Number of philos
+/// @var t_death		philo's life time (in ms)
+/// @var t_meal			philo's meal length (in ms)
+/// @var t_sleep		philo's sleep length (in ms)
+/// @var t_think		philo's think length (in ms)
+/// @var t_start		Start time of the simulation
+/// @var meal_max		Max number of meals
+/// @var sem_start		semaphore for start
+/// @var sem_forks		semaphore for forks
+/// @var sem_printf		semaphore for printf
+/// @var sem_time		semaphore for time
+/// @var sem_death		semaphore for death
+/// @var sem_end		semaphore for end
+/// @var monitor		Monitor thread
 typedef struct s_data
 {
 	int			n_philos;
@@ -95,6 +112,15 @@ typedef struct s_data
 	pthread_t	monitor;
 }				t_data;
 
+/// @brief			Philo data node for doubly linked list
+/// @var idx		Index of the philo
+/// @var pid		Pid of the philo
+/// @var d			Pointer to the simulation Data\
+/// @var t_curr		Current time
+/// @var t_0		Initial time
+/// @var n_meals	max number of meals
+/// @var next		Pointer to the next philo
+/// @var prev		Pointer to the previous philo
 typedef struct s_philo
 {
 	int				idx;

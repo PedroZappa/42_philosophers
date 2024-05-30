@@ -17,6 +17,7 @@ static int	ft_strlen(char *str);
 
 /// @brief		Print error message
 /// @param err	Error message to print
+/// @return		1 = failure
 int	ft_perror(char *err)
 {
 	return (ft_putstr_fd(err, 2), FAILURE);
@@ -34,6 +35,11 @@ static int	ft_putstr_fd(char *str, int fd)
 
 /// @brief		Count the number of chars in a string
 /// @param str	String to count
+/// @return		String length
+/// @var len	To store the number of chars
+/// @details	- Ride the string with i:
+///					- Count the number of chars
+///	@note		Used in ft_putstr_fd
 static int	ft_strlen(char *str)
 {
 	int	len;
