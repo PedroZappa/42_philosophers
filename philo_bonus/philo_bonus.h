@@ -115,7 +115,7 @@ typedef struct s_data
 /// @brief			Philo data node for doubly linked list
 /// @var idx		Index of the philo
 /// @var pid		Pid of the philo
-/// @var d			Pointer to the simulation Data\
+/// @var d			Pointer to the simulation Data
 /// @var t_curr		Current time
 /// @var t_0		Initial time
 /// @var n_meals	max number of meals
