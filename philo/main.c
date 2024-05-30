@@ -46,7 +46,6 @@ int	main(int argc, char **argv)
 
 /// @brief			Launch all philos
 /// @param philos	Pointer to array of philos
-/// @var th			Pointer to array of philo threads
 /// @var i			To iterate through philos/threads
 /// @return			0 on success, 1 on failure
 /// @details		- Allocate memory for the mutexes
@@ -59,29 +58,28 @@ int	main(int argc, char **argv)
 static int	ft_philosophize(t_philo *philo)
 {
 	int			i;
-	pthread_t	*th;
 
-	th = malloc (sizeof(pthread_t) * philo->data->n_philos);
-	if (th == NULL)
+	philo->data->th = malloc (sizeof(pthread_t) * philo->data->n_philos);
+	if (philo->data->th == NULL)
 		return (FAILURE);
 	i = -1;
 	while (++i < philo->data->n_philos)
 	{
-		if (pthread_create(&th[i], 0, ft_start_philo, &philo[i]))
+		if (pthread_create(&philo->data->th[i], 0, ft_start_philo, &philo[i]))
 		{
 			while (i--)
-				pthread_join(th[i], NULL);
-			return (free(th), FAILURE);
+				pthread_join(philo->data->th[i], NULL);
+			return (free(philo->data->th), FAILURE);
 		}
 	}
 	if (ft_monitor(philo, philo->data) != SUCCESS)
-		return (ft_kill_mtx(philo), free(th),
+		return (ft_kill_mtx(philo), free(philo->data->th),
 			FAILURE);
 	i = -1;
 	while (++i < philo->data->n_philos)
-		if (pthread_join (th[i], NULL))
+		if (pthread_join (philo->data->th[i], NULL))
 			return (FAILURE);
-	return (ft_kill_mtx(philo), free(th), SUCCESS);
+	return (ft_kill_mtx(philo), free(philo->data->th), SUCCESS);
 }
 
 /// @brief			Launch a philo thread
@@ -104,7 +102,7 @@ static void	*ft_start_philo(void *arg)
 	if (self->id % 2 == 0)
 	{
 		ft_log(self, "is thinking");
-		ft_msleep (self->data->t_meal);
+		ft_msleep(self->data->t_meal);
 	}
 	while (1)
 	{
@@ -113,7 +111,7 @@ static void	*ft_start_philo(void *arg)
 		if (ft_eating(self) != SUCCESS)
 			break ;
 		ft_log(self, "is thinking");
-		ft_msleep (self->data->t_think);
+		ft_msleep(self->data->t_think);
 	}
 	return (NULL);
 }

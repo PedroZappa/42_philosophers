@@ -84,6 +84,7 @@ typedef struct timeval	t_time;
 /// @var done		True when all philos ate n_meals
 /// @var died		True when a philo dies
 /// @var mutex		Array of mutexes
+/// @var th			Array of threads
 typedef struct s_data
 {
 	int			n_philos;
@@ -96,6 +97,7 @@ typedef struct s_data
 	int			done;
 	int			died;
 	t_mutex		*mutex;
+	pthread_t	*th;
 }			t_data;
 
 /// @brief				Philo's data.
