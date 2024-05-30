@@ -52,7 +52,7 @@ void	ft_ms2us(void *t)
 
 /// @brief			Get t_0
 /// @param philo	Reference to t_philo struct
-/// @var now		To hold current time
+/// @var t_0		To hold current time
 /// @return			Current time
 /// @details		- Set the memory in mow to 0
 /// 				- Attempt to acquire sem_time
@@ -60,14 +60,14 @@ void	ft_ms2us(void *t)
 /// @note			Used in ft_meal
 t_time	ft_now(t_philo *philo)
 {
-	t_time	now;
+	t_time	t_0;
 
-	memset(&now, '\0', sizeof(t_time));
+	memset(&t_0, '\0', sizeof(t_time));
 	if (sem_wait(philo->d->sem_time) == SUCCESS)
 	{
-		now = philo->t_0;
+		t_0 = philo->t_0;
 		if (sem_post(philo->d->sem_time) != SUCCESS)
 			ft_perror(RED"Error: sem_post failed"NC);
 	}
-	return (now);
+	return (t_0);
 }
