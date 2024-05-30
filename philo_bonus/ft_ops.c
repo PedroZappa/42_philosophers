@@ -82,16 +82,16 @@ int	ft_log(t_philo *p, int select, t_time t)
 	if (sem_wait(p->d->sem_printf) == SUCCESS)
 	{
 		if (select == FORK)
-			printf("%lld %d has taken a fork\n", \
+			printf("%3lld %3d has taken a fork\n", \
 					ft_dtime(p->d->t_start, t), p->idx);
 		else if (select == EAT)
-			printf("%lld %d is eating\n", ft_dtime(p->d->t_start, t), p->idx);
+			printf("%3lld %3d is eating\n", ft_dtime(p->d->t_start, t), p->idx);
 		else if (select == SLEEP)
-			printf("%lld %d is sleeping\n", ft_dtime(p->d->t_start, t), p->idx);
+			printf("%3lld %3d is sleeping\n", ft_dtime(p->d->t_start, t), p->idx);
 		else if (select == THINK)
-			printf("%lld %d is thinking\n", ft_dtime(p->d->t_start, t), p->idx);
+			printf("%3lld %3d is thinking\n", ft_dtime(p->d->t_start, t), p->idx);
 		else if (select == DEAD)
-			printf("%lld %d died\n", ft_dtime(p->d->t_start, t), p->idx);
+			printf("%3lld %3d died\n", ft_dtime(p->d->t_start, t), p->idx);
 		if (sem_post(p->d->sem_printf) != SUCCESS)
 			return (ft_perror(RED"Error: sem_post failed"NC));
 	}
