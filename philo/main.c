@@ -96,22 +96,22 @@ static int	ft_philosophize(t_philo *philo)
 /// @note			Used in ft_philosophize
 static void	*ft_start_philo(void *arg)
 {
-	t_philo	*self;
+	t_philo	*philo;
 
-	self = (t_philo *) arg;
-	if (self->id % 2 == 0)
+	philo = (t_philo *)arg;
+	if (philo->id % 2 == 0)
 	{
-		ft_log(self, "is thinking");
-		ft_msleep(self->data->t_meal);
+		ft_log(philo, "is thinking");
+		ft_msleep(philo->data->t_meal);
 	}
 	while (1)
 	{
-		if (ft_isdead(self))
+		if (ft_isdead(philo))
 			break ;
-		if (ft_eating(self) != SUCCESS)
+		if (ft_eating(philo) != SUCCESS)
 			break ;
-		ft_log(self, "is thinking");
-		ft_msleep(self->data->t_think);
+		ft_log(philo, "is thinking");
+		ft_msleep(philo->data->t_think);
 	}
 	return (NULL);
 }
