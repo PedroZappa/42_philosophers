@@ -21,11 +21,11 @@ static int	ft_check(t_philo *philo);
 /// @param argc	Number of arguments
 /// @param argv	Argument vector
 /// @details	- Parse input arguments and initialize the data
-///				- Get the current time (simulation start)
-///				- Fork n_philos processes
-///					- Handle failure to fork on main process
-///					- Handle child processes logic
+///				- Initialize philos
+///				- Initialize semaphores
+///				- Create children processes
 ///				- Free allocated memory
+/// @note		Philosophy Time!!
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -88,7 +88,7 @@ static int	ft_children(t_philo *philo)
 
 /// @brief		Philosophers logic
 /// @param p	Pointer to a t_philo struct
-/// @details	- Get the current time
+/// @details	- Get the start time of the simulation (t_0)
 /// 			- Start the philo loop
 ///					- Grab forks
 ///					- Eat / Sleep / Think

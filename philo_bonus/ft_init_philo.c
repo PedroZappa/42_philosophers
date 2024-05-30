@@ -40,7 +40,7 @@ t_philo	*ft_init_philos(t_data *data)
 		new = ft_make_philo(data, i);
 		if (!new)
 		{
-			ft_free_philos(philo);
+			ft_free_philos(new);
 			ft_free_data(data);
 			return (NULL);
 		}

@@ -24,7 +24,7 @@ int	ft_take_fork(t_philo *philo)
 	if (sem_wait(philo->d->sem_forks) == SUCCESS)
 	{
 		if (ft_log(philo, FORK, ft_now(philo)) == FAILURE)
-			exit(ft_perror("Error: ft_log failed (FORK)\n"));
+			exit(ft_perror(RED"Error: ft_log failed (FORK)\n"NC));
 	}
 	else
 		exit(ft_perror(RED"Error: sem_wait failed"NC));
