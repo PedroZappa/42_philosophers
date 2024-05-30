@@ -45,13 +45,6 @@
 # define NC "\e[0m"
 
 /// Typedefs
-/// @enum	Bool
-typedef enum e_bool
-{
-	NO = 0,
-	YES = 1
-}	t_bool;
-
 /// @enum	States & fork
 typedef enum e_state
 {
@@ -61,6 +54,13 @@ typedef enum e_state
 	THINK = 3,
 	DEAD = 4
 }	t_state;
+
+/// @enum	Bool
+typedef enum e_bool
+{
+	NO = 0,
+	YES = 1
+}	t_bool;
 
 /// @enum	Exit status
 typedef enum e_exit
