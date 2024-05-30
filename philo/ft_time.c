@@ -55,7 +55,7 @@ void	ft_log(t_philo *p, char *str)
 /// @param msec	Number of milliseconds
 /// @details	- Multiply the number of milliseconds by 1000
 /// @return		Number of microseconds
-void	ft_msleep(t_msec msec)
+void	ft_usleep(t_msec msec)
 {
 	usleep(msec * 1000);
 }

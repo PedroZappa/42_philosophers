@@ -38,7 +38,7 @@ int	ft_eating(t_philo *p)
 	pthread_mutex_unlock(&p->data->mutex[MTX_MEALS]);
 	if (ft_isdone(p))
 		return (ft_dropforks(p), FAILURE);
-	ft_msleep(p->data->t_meal);
+	ft_usleep(p->data->t_meal);
 	ft_dropforks(p);
 	return (SUCCESS);
 }
@@ -56,7 +56,10 @@ static int	ft_getforks(t_philo *p)
 	pthread_mutex_lock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
 	ft_log(p, "has taken a fork");
 	if (p->l_fork == p->r_fork)
-		return (pthread_mutex_unlock(&p->fork[ft_min(p->l_fork, p->r_fork)]), FAILURE);
+	{
+		pthread_mutex_unlock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
+		return (FAILURE);
+	}
 	pthread_mutex_lock(&p->fork[ft_max(p->l_fork, p->r_fork)]);
 	ft_log(p, "has taken a fork");
 	ft_log(p, "is eating");
@@ -75,6 +78,6 @@ static int	ft_dropforks(t_philo *p)
 	ft_log(p, "is sleeping");
 	pthread_mutex_unlock(&p->fork[ft_max(p->l_fork, p->r_fork)]);
 	pthread_mutex_unlock(&p->fork[ft_min(p->l_fork, p->r_fork)]);
-	ft_msleep(p->data->t_sleep);
+	ft_usleep(p->data->t_sleep);
 	return (SUCCESS);
 }

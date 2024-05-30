@@ -149,6 +149,6 @@ int		ft_check_data(t_data **data);
 t_msec	ft_gettime(void);
 t_msec	ft_dtime(t_msec start);
 void	ft_log(t_philo *philo, char *str);
-void	ft_msleep(t_msec msec);
+void	ft_usleep(t_msec msec);
 
 #endif

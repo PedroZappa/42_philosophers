@@ -102,7 +102,7 @@ static void	*ft_start_philo(void *arg)
 	if (philo->id % 2 == 0)
 	{
 		ft_log(philo, "is thinking");
-		ft_msleep(philo->data->t_meal);
+		ft_usleep(philo->data->t_meal);
 	}
 	while (1)
 	{
@@ -111,7 +111,7 @@ static void	*ft_start_philo(void *arg)
 		if (ft_eating(philo) != SUCCESS)
 			break ;
 		ft_log(philo, "is thinking");
-		ft_msleep(philo->data->t_think);
+		ft_usleep(philo->data->t_think);
 	}
 	return (NULL);
 }
