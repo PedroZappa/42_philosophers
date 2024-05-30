@@ -71,7 +71,7 @@ typedef enum e_exit
 
 /// @typedef	Milliseconds
 typedef long long		t_msec;
-///
+
 /// @typedef	Time
 typedef struct timeval	t_time;
 
