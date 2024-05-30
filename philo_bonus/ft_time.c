@@ -63,10 +63,10 @@ t_time	ft_now(t_philo *philo)
 	t_time	now;
 
 	memset(&now, '\0', sizeof(t_time));
-	if (sem_wait(philo->d->sem_time) == 0)
+	if (sem_wait(philo->d->sem_time) == SUCCESS)
 	{
 		now = philo->t_0;
-		if (sem_post(philo->d->sem_time) != 0)
+		if (sem_post(philo->d->sem_time) != SUCCESS)
 			ft_perror(RED"Error: sem_post failed"NC);
 	}
 	return (now);
