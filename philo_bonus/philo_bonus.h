@@ -116,8 +116,8 @@ typedef struct s_data
 /// @var idx		Index of the philo
 /// @var pid		Pid of the philo
 /// @var d			Pointer to the simulation Data
-/// @var t_curr		Current time
 /// @var t_0		Initial time
+/// @var t_curr		Current time
 /// @var n_meals	max number of meals
 /// @var next		Pointer to the next philo
 /// @var prev		Pointer to the previous philo
@@ -126,8 +126,8 @@ typedef struct s_philo
 	int				idx;
 	pid_t			pid;
 	t_data			*d;
-	t_time			t_curr;
 	t_time			t_0;
+	t_time			t_curr;
 	int				n_meals;
 	struct s_philo	*next;
 	struct s_philo	*prev;
