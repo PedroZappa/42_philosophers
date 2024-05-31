@@ -77,7 +77,7 @@ static int	ft_philosophize(t_philo *philo)
 			FAILURE);
 	i = -1;
 	while (++i < philo->data->n_philos)
-		if (pthread_join (philo->data->th[i], NULL))
+		if (pthread_join(philo->data->th[i], NULL))
 			return (FAILURE);
 	return (ft_kill_mtx(philo), free(philo->data->th), SUCCESS);
 }
