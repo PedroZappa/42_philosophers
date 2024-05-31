@@ -105,10 +105,10 @@ static int	ft_philosophize(t_philo *p)
 		{
 			sem_post(p->d->sem_start);
 			if (ft_meal(p) || ft_sleep(p) || ft_think(p))
-				ft_end_sem(p);
+				return (ft_end_sem(p), SUCCESS);
 		}
 		else
-			ft_end_sem(p);
+			return (ft_end_sem(p), SUCCESS);
 	}
 	return (SUCCESS);
 }

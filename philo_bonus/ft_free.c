@@ -97,6 +97,7 @@ int	ft_kill_philos(t_philo *philo)
 
 	target = philo;
 	i = philo->d->n_philos;
+	usleep(5000);
 	while (i--)
 		sem_wait(philo->d->sem_end);
 	while ((target->next != NULL) && (target->next != philo))

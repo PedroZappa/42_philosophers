@@ -36,7 +36,7 @@ int	ft_meal(t_philo *philo)
 		return (ft_perror("Error: ft_drop_fork failed\n"));
 	if ((philo->d->meal_max != NULL) \
 		&& (++philo->n_meals == *philo->d->meal_max))
-		sem_post(philo->d->sem_end);
+		return (sem_post(philo->d->sem_end), FAILURE);
 	return (SUCCESS);
 }
 
