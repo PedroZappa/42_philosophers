@@ -119,6 +119,5 @@ int	ft_free_data(t_data *data)
 {
 	if (data->meal_max != NULL)
 		free(data->meal_max);
-	free(data);
-	return (SUCCESS);
+	return (free(data), SUCCESS);
 }
