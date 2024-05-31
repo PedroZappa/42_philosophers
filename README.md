@@ -4,7 +4,7 @@
 
 # philosophers
 
-> Who thought treading on parallelism & concurrency land could be so philosophically thready & deadly 🕱
+> Who thought treading on parallelism & concurrency land could be so philosophically deadly 🕱
 
 <p>
     <img src="https://img.shields.io/badge/score-%20%2F%20100-success?style=for-the-badge" />
