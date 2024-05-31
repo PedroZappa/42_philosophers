@@ -98,7 +98,8 @@ int	ft_kill_philos(t_philo *philo)
 	target = philo;
 	i = philo->d->n_philos;
 	while (i--)
-		sem_wait(philo->d->sem_end);
+		if (sem_wait(philo->d->sem_end) != SUCCESS)
+			return (ft_perror(RED"Error: sem_wait failed"NC));
 	while ((target->next != NULL) && (target->next != philo))
 	{
 		kill(target->pid, SIGKILL);
