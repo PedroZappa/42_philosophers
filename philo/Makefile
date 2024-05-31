@@ -353,7 +353,7 @@ valgrind: all $(NAME) $(TEMP_PATH)			## Debug w/ valgrind (memcheck)
 
 helgrind: all $(NAME) $(TEMP_PATH)			## Debug threads w/ helgrind
 	tmux set-option remain-on-exit on
-	tmux split-window -h "valgrind --log-file=gdb.txt --tool=helgrind -s ./$(NAME) $(ARG)"
+	tmux split-window -h "valgrind --log-file=gdb.txt --tool=helgrind -s ./$(NAME) $(ARG7)"
 	tmux resize-pane -R 55
 	make get_log
 
