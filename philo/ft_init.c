@@ -46,35 +46,36 @@ int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 }
 
 /// @brief			Initialize data
-/// @param data		Pointer to a t_data struct
+/// @param d		Pointer to a t_data struct
 /// @param argc		Number of arguments
 /// @param argv		Argument vector
 /// @return			0 on success, -1 on failure
 /// @details		- Set input arguments
 ///					- Init mutexes
 /// @note			Used in ft_init
-static int	ft_init_data(t_data **data, int argc, char **argv)
+static int	ft_init_data(t_data **d, int argc, char **argv)
 {
-	(*data)->t_start = ft_gettime();
-	(*data)->n_philos = ft_parse_arg(argv[1]);
-	(*data)->t_death = ft_parse_arg(argv[2]);
-	(*data)->t_meal = ft_parse_arg(argv[3]);
-	(*data)->t_sleep = ft_parse_arg(argv[4]);
-	(*data)->t_think = 0;
-	if (((*data)->n_philos % 2) && ((*data)->t_meal > (*data)->t_sleep))
-		(*data)->t_think = (1 + ((*data)->t_meal - (*data)->t_sleep));
-	if (ft_check_data(data) == FAILURE)
+	(*d)->t_start = ft_gettime();
+	(*d)->n_philos = ft_parse_arg(argv[1]);
+	(*d)->t_death = ft_parse_arg(argv[2]);
+	(*d)->t_meal = ft_parse_arg(argv[3]);
+	(*d)->t_sleep = ft_parse_arg(argv[4]);
+	(*d)->t_think = 0;
+	if (((*d)->n_philos % 2) \
+		&& (((*d)->t_death - (*d)->t_meal - (*d)->t_sleep) / 2 > 0))
+		(*d)->t_think = (((*d)->t_death - (*d)->t_meal - (*d)->t_sleep) / 2);
+	if (ft_check_data(d) == FAILURE)
 		return (ft_perror(RED"Error: invalid arguments\n"NC));
-	(*data)->n_meals = -1;
+	(*d)->n_meals = -1;
 	if (argc == 6)
 	{
-		(*data)->n_meals = ft_parse_arg(argv[5]);
-		if ((*data)->n_meals == -1)
+		(*d)->n_meals = ft_parse_arg(argv[5]);
+		if ((*d)->n_meals == -1)
 			return (ft_perror(RED"Error: invalid number of meals\n"NC));
 	}
-	(*data)->done = FALSE;
-	(*data)->died = FALSE;
-	if (ft_init_mutexes(data))
+	(*d)->done = FALSE;
+	(*d)->died = FALSE;
+	if (ft_init_mutexes(d))
 		return (ft_perror(RED"Error: failure to init mutexes\n"NC));
 	return (SUCCESS);
 }
