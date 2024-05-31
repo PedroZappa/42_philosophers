@@ -233,6 +233,7 @@ test_seven_meals: all			## Run a seven meals test
 	tmux resize-pane -R 54
 
 test_all: all			## Run all tests
+	make test_input
 	make test_kill_one
 	make test_kill_four
 	make test_life_4

@@ -237,6 +237,7 @@ test_life_5: all			## Run a infinite meal test
 	tmux resize-pane -R 54
 
 test_all: all			## Run all tests
+	make test_input
 	make test_kill_one
 	make test_kill_four
 	make test_life_4
