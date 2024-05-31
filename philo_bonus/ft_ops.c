@@ -13,30 +13,29 @@
 #include "philo_bonus.h"
 
 /// @brief			Eating
-/// @param philo	Reference to t_philo struct
+/// @param p		Reference to t_philo struct
 /// @return			0 on success, 1 on failure
 /// @details		- Grab sem_death to get the current time
 /// 				- Log the event
 /// 				- Drop the forks
 /// @note			Used in ft_philosophize
-int	ft_meal(t_philo *philo)
+int	ft_meal(t_philo *p)
 {
-	if (sem_wait(philo->d->sem_death) == SUCCESS)
+	if (sem_wait(p->d->sem_death) == SUCCESS)
 	{
-		philo->t_curr = ft_now(philo);
-		if (sem_post(philo->d->sem_death) != SUCCESS)
+		p->t_curr = ft_now(p);
+		if (sem_post(p->d->sem_death) != SUCCESS)
 			return (ft_perror(RED"Error: sem_post failed\n"NC));
 	}
 	else
 		return (printf(RED"Error: sem_wait failed\n"NC));
-	if (ft_log(philo, EAT, ft_now(philo)) == FAILURE)
+	if (ft_log(p, EAT, ft_now(p)) == FAILURE)
 		return (ft_perror("Error: ft_log failed (EAT)\n"));
-	usleep(ft_min(philo->d->t_meal, philo->d->t_death));
-	if (ft_drop_fork(philo) || ft_drop_fork(philo))
+	usleep(ft_min(p->d->t_meal, p->d->t_death));
+	if (ft_drop_fork(p) || ft_drop_fork(p))
 		return (ft_perror("Error: ft_drop_fork failed\n"));
-	if ((philo->d->meal_max != NULL) \
-		&& (++philo->n_meals == *philo->d->meal_max))
-		return (sem_post(philo->d->sem_end), FAILURE);
+	if ((p->d->meal_max != NULL) && (++p->n_meals == *p->d->meal_max))
+		return (sem_post(p->d->sem_end), FAILURE);
 	return (SUCCESS);
 }
 
