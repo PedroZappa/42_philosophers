@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 /// @param philos	Pointer to array of philos
 /// @var i			To iterate through philos/threads
 /// @return			0 on success, 1 on failure
-/// @details		- Allocate memory for the mutexes
+/// @details		- Allocate memory for the threads
 ///					- Create all philo threads (w/ failure protection)
 /// 				- Run monitor
 /// 				- Join philo threads
@@ -59,7 +59,7 @@ static int	ft_philosophize(t_philo *philo)
 {
 	int			i;
 
-	philo->data->th = malloc (sizeof(pthread_t) * philo->data->n_philos);
+	philo->data->th = malloc(sizeof(pthread_t) * philo->data->n_philos);
 	if (philo->data->th == NULL)
 		return (FAILURE);
 	i = -1;
@@ -73,8 +73,7 @@ static int	ft_philosophize(t_philo *philo)
 		}
 	}
 	if (ft_monitor(philo, philo->data) != SUCCESS)
-		return (ft_kill_mtx(philo), free(philo->data->th),
-			FAILURE);
+		return (ft_kill_mtx(philo), free(philo->data->th), FAILURE);
 	i = -1;
 	while (++i < philo->data->n_philos)
 		if (pthread_join(philo->data->th[i], NULL))
@@ -83,7 +82,8 @@ static int	ft_philosophize(t_philo *philo)
 }
 
 /// @brief			Launch a philo thread
-/// @param args		Pointer to a t_philo struct
+/// @param ref		Pointer to a t_philo struct
+/// @var philo		Pointer to a t_philo struct
 /// @return			NULL
 /// @details		While the simulation is running a philo:
 /// 				- Thinks (print)
@@ -94,11 +94,11 @@ static int	ft_philosophize(t_philo *philo)
 ///					- Increments meal count if the simulation is not done
 ///					- Sleeps (print and waits)
 /// @note			Used in ft_philosophize
-static void	*ft_start_philo(void *arg)
+static void	*ft_start_philo(void *ref)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)arg;
+	philo = (t_philo *)ref;
 	if (philo->id % 2 == 0)
 	{
 		ft_log(philo, "is thinking");

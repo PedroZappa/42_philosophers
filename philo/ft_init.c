@@ -30,13 +30,14 @@ static int	ft_init_philos(t_philo **philo, t_data *data);
 /// @note			Used in main
 int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 {
-	*data = malloc(sizeof(t_data));
+	(*data) = malloc(sizeof(t_data));
 	if (*data == NULL)
 		return (ft_perror(RED"Error: failure to alloc data\n"NC));
 	(*data)->mutex = NULL;
+	(*data)->th = NULL;
 	if (ft_init_data(data, argc, argv) != SUCCESS)
 		return (FAILURE);
-	*philo = malloc(sizeof(t_philo) * (*data)->n_philos);
+	(*philo) = malloc(sizeof(t_philo) * (*data)->n_philos);
 	if (*philo == NULL)
 		return (ft_perror(RED"Error: failure to alloc philos\n"NC));
 	(*philo)->fork = NULL;
@@ -82,6 +83,8 @@ static int	ft_init_data(t_data **d, int argc, char **argv)
 
 /// @brief			Initialize data mutexes
 ///	@param data		Pointer to a t_data struct holding the simulation data
+///	@var mutex		Pointer to an array of mutexes
+///	@var i			To ride the array of mutexes
 ///	@return			0 on success, -1 on failure
 ///	@details		- Allocate memory for mutexes
 ///					- Init mutexes
@@ -104,6 +107,8 @@ static int	ft_init_mutexes(t_data **data)
 /// @brief			Initialize a philo
 /// @param philo	Pointer to a t_philo struct to init
 /// @param data		Pointer to a t_data struct holding the simulation data
+/// @var fork		Pointer to an array of mutexes
+/// @var i			To ride the array of philos
 /// @return			0 on success, -1 on failure
 /// @details		- Allocate memory for mutexes (forks)
 /// 				- Init forks
