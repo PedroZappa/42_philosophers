@@ -241,6 +241,7 @@ test_all: all			## Run all tests
 	make test_life_5
 	tmux resize-pane -L 64
 	make test_life_min
+	make check_ext_func
 
 test_count_panes:
 	PANES_COUNT=$(shell tmux display-message -p '#{pane_count}'); \

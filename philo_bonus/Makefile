@@ -245,6 +245,7 @@ test_all: all			## Run all tests
 	make test_life_5
 	tmux resize-pane -L 64
 	make test_life_min
+	make check_ext_func
 
 test_chaos: all			## Run a chaos test
 	tmux set-option remain-on-exit on
