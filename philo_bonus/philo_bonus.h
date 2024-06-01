@@ -139,42 +139,33 @@ typedef struct s_philo
 
 /// ft_error.c
 int		ft_perror(char *err);
-
 /// ft_fork.c
 int		ft_take_fork(t_philo *philo);
 int		ft_drop_fork(t_philo *philo);
-
 /// ft_free.c
 void	ft_free(t_philo *philos, t_data *data);
 int		ft_sem_closer(t_data *to_del);
 int		ft_kill_philos(t_philo *philo);
 int		ft_free_data(t_data *data);
-
 /// ft_init.c
 t_data	*ft_init(int argc, char **argv);
 int		ft_init_semaphores(t_data *data);
-
 /// ft_init_philo.c
 t_philo	*ft_init_philos(t_data *data);
 void	ft_free_philos(t_philo *philo);
-
 /// ft_helper.c
 int		ft_min(int a, int b);
 int		ft_set_start_time(t_philo *philo);
-
 /// ft_ops.c
 int		ft_meal(t_philo *philo);
 int		ft_sleep(t_philo *philo);
 int		ft_think(t_philo *philo);
 int		ft_log(t_philo *philo, int state, t_time t);
-
 /// ft_parse.c
 int		ft_parse_arg(char *str);
-
 /// ft_sem.c
 int		ft_gettime_sem(t_philo *philo);
 void	ft_end_sem(t_philo *philo);
-
 /// ft_time.c
 int		ft_gettime(t_time *t);
 t_msec	ft_utime(t_time t);
