@@ -23,7 +23,7 @@ int	ft_gettime_sem(t_philo *philo)
 {
 	if (sem_wait(philo->d->sem_time) == SUCCESS)
 	{
-		if (ft_gettime(&philo->t_0) == -1)
+		if (ft_gettime(&philo->t_0) == FAILURE)
 			return (FAILURE);
 		if (sem_post(philo->d->sem_time) != SUCCESS)
 			return (ft_perror(RED"Error: sem_wait failed"NC));
