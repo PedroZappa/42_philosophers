@@ -83,7 +83,7 @@ int	ft_init_semaphores(t_data *d)
 {
 	d->sem_forks = ft_init_semaphore("/sem_forks", d->n_philos);
 	d->sem_printf = ft_init_semaphore("/sem_printf", 1);
-	d->sem_death = ft_init_semaphore("/sem_death", 1);
+	d->sem_now = ft_init_semaphore("/sem_now", 1);
 	d->sem_start = ft_init_semaphore("/sem_start", (d->n_philos / 2));
 	d->sem_end = ft_init_semaphore("/sem_end", 0);
 	d->sem_time = ft_init_semaphore("/sem_time", 1);

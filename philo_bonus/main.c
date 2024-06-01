@@ -134,14 +134,14 @@ static void	*ft_monitor(void *arg)
 /// @brief		Check if a philo has died
 /// @param p	Pointer to a t_philo struct passed by reference
 /// @return		0 for success alive, 1 on failure
-/// @details	- Activate sem_death semaphore
+/// @details	- Activate sem_now semaphore
 ///					- Get the current time
 ///						- Check if the philo has died
-///					- Deactivate sem_death semaphore
+///					- Deactivate sem_now semaphore
 ///	@note		Used in ft_monitor
 static int	ft_check(t_philo *p)
 {
-	if (sem_wait(p->d->sem_death) == SUCCESS)
+	if (sem_wait(p->d->sem_now) == SUCCESS)
 	{
 		if (ft_gettime_sem(p) == SUCCESS)
 		{
@@ -152,7 +152,7 @@ static int	ft_check(t_philo *p)
 				return (SUCCESS);
 			}
 		}
-		if (sem_post(p->d->sem_death) != SUCCESS)
+		if (sem_post(p->d->sem_now) != SUCCESS)
 			return (ft_perror(RED"Error: sem_post failed\n"NC));
 	}
 	else
