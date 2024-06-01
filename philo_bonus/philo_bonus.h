@@ -91,7 +91,7 @@ typedef struct timeval	t_time;
 /// @var sem_forks		semaphore for forks
 /// @var sem_printf		semaphore for printf
 /// @var sem_time		semaphore for time
-/// @var sem_death		semaphore for death
+/// @var sem_now		semaphore for current time
 /// @var sem_end		semaphore for end
 /// @var monitor		Monitor thread
 typedef struct s_data
@@ -107,7 +107,7 @@ typedef struct s_data
 	sem_t		*sem_forks;
 	sem_t		*sem_printf;
 	sem_t		*sem_time;
-	sem_t		*sem_death;
+	sem_t		*sem_now;
 	sem_t		*sem_end;
 	pthread_t	monitor;
 }				t_data;

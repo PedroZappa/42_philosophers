@@ -15,16 +15,16 @@
 /// @brief			Eating
 /// @param p		Reference to t_philo struct
 /// @return			0 on success, 1 on failure
-/// @details		- Grab sem_death to get the current time
+/// @details		- Grab sem_now to get the current time
 /// 				- Log the event
 /// 				- Drop the forks
 /// @note			Used in ft_philosophize
 int	ft_meal(t_philo *p)
 {
-	if (sem_wait(p->d->sem_death) == SUCCESS)
+	if (sem_wait(p->d->sem_now) == SUCCESS)
 	{
 		p->t_curr = ft_now(p);
-		if (sem_post(p->d->sem_death) != SUCCESS)
+		if (sem_post(p->d->sem_now) != SUCCESS)
 			return (ft_perror(RED"Error: sem_post failed\n"NC));
 	}
 	else
