@@ -29,7 +29,7 @@ int	ft_meal(t_philo *p)
 	}
 	else
 		return (printf(RED"Error: sem_wait failed\n"NC));
-	if (ft_log(p, EAT, ft_now(p)) == FAILURE)
+	if (ft_log(p, EAT, ft_now(p)) != SUCCESS)
 		return (ft_perror("Error: ft_log failed (EAT)\n"));
 	usleep(ft_min(p->d->t_meal, p->d->t_death));
 	if (ft_drop_fork(p) || ft_drop_fork(p))
