@@ -30,6 +30,8 @@ static int	ft_init_philos(t_philo **philo, t_data *data);
 /// @note			Used in main
 int	ft_init(t_philo **philo, t_data **data, int argc, char **argv)
 {
+	if ((argc != 5) && (argc != 6))
+		return (ft_perror(RED"Error: Wrong number of arguments\n"NC));
 	(*data) = malloc(sizeof(t_data));
 	if (*data == NULL)
 		return (ft_perror(RED"Error: failure to alloc data\n"NC));
