@@ -63,7 +63,7 @@ OBJS	= $(SRC:$(SRC_PATH)/%.c=$(BUILD_PATH)/%.o)
 CC			= cc
 
 CFLAGS		= -Wall -Wextra -Werror
-# CFLAGS		+= -lpthread
+CFLAGS		+= -pthread
 DFLAGS		= -g
 # DFLAGS		+= -O2 -fsanitize=thread
 # DFLAGS		+= -fPIE -pie
