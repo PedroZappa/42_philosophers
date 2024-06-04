@@ -15,6 +15,7 @@
 * @brief		Simulation end functions
 * @version		1.0
 * @date			2024-05-28
+* @author		passunca
 * @copyright	© 2024 passunca
 ***/
 

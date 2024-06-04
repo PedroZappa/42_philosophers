@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			philo.h
+* @brief		Philosophers Header file
+* @version		1.0
+* @date			2024-05-16
+* @author		passunca
+* @copyright	© 2024 passunca
+***/
+
 #ifndef PHILO_H
 # define PHILO_H
 

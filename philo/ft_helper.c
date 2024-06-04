@@ -15,6 +15,7 @@
 * @brief		Helper functions
 * @version		1.0
 * @date			2024-05-29
+* @author		passunca
 * @copyright	© 2024 passunca
 ***/
 

@@ -15,6 +15,7 @@
 * @brief		Kill mutexes	
 * @version		1.0
 * @date			2024-05-21
+* @author		passunca
 * @copyright	© 2024 passunca
 ***/
 

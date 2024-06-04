@@ -12,6 +12,7 @@
 
 /***
 * @file			ft_eat.c
+* @author		passunca
 * @brief		Eating functions
 * @version		1.0
 * @date			2024-05-28

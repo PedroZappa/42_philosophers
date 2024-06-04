@@ -15,6 +15,7 @@
 * @brief		Initialization functions
 * @version		1.0
 * @date			2024-05-17
+* @author		passunca
 * @copyright	© 2024 passunca
 ***/
 
