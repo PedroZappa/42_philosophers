@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_error.c
+* @brief		Error handling functions
+* @version		1.0
+* @date			2024-05-16
+* @copyright	© 2024 passunca
+***/
+
 #include "philo.h"
 
 static int	ft_putstr_fd(char *str, int fd);

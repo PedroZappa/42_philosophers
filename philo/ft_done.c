@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_done.c
+* @brief		Simulation end functions
+* @version		1.0
+* @date			2024-05-28
+* @copyright	© 2024 passunca
+***/
+
 #include "philo.h"
 
 /// @brief			Check if a philo dead

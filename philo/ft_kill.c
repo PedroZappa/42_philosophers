@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_kill.c
+* @brief		Kill mutexes	
+* @version		1.0
+* @date			2024-05-21
+* @copyright	© 2024 passunca
+***/
+
 #include "philo.h"
 
 /// @brief			Destroy all mutexes

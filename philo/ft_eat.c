@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_eat.c
+* @brief		Eating functions
+* @version		1.0
+* @date			2024-05-28
+* @copyright	© 2024 passunca
+***/
+
 #include "philo.h"
 
 static int	ft_getforks(t_philo *p);

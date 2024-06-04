@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_helper.c
+* @brief		Helper functions
+* @version		1.0
+* @date			2024-05-29
+* @copyright	© 2024 passunca
+***/
+
 /// @brief		Check if a character is a space
 /// @param c	Character to check
 /// @return		1 if true, 0 if false

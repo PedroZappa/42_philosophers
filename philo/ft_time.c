@@ -10,6 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_time.c
+* @brief		Time functions
+* @version		1.0
+* @date			2024-05-16
+* @copyright	© 2024 passunca
+***/
 #include "philo.h"
 
 /// @brief		Get current time and convert it to milliseconds

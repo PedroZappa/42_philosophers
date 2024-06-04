@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_init.c
+* @brief		Initialization functions
+* @version		1.0
+* @date			2024-05-17
+* @copyright	© 2024 passunca
+***/
+
 #include "philo.h"
 
 static int	ft_init_data(t_data **data, int argc, char **argv);

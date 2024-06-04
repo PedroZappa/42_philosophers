@@ -10,6 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/***
+* @file			ft_parse.c
+* @brief		Parse input arguments functionality
+* @version		1.0
+* @date			2024-05-16
+* @copyright	© 2024 passunca
+***/
+
 #include "philo.h"
 
 /// @brief		Parse input argument and return it as long

@@ -9,12 +9,13 @@
 /*   Updated: 2024/05/29 19:21:47 by passunca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 /***
 * @file			main.c
 * @brief		Philosophers main function
 * @version		1.0
 * @date			2024-05-16
-* @copyright	(c) 2024 passunca
+* @copyright	© 2024 passunca
 ***/
 
 #include "philo.h"
