@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/***
+/**
 * @file			ft_parse.c
 * @brief		Parse input arguments functionality
 * @version		1.0
